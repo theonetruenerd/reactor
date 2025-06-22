@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
-      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
             <items>
@@ -42,21 +42,21 @@
       </MenuBar>
    </top>
    <left>
-      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
    <center>
-      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="257.0" prefWidth="501.0" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="257.0" prefWidth="501.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <TabPane fx:id="bottomTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="bottomTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="terminalTab" text="Terminal">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
                         <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" />
                      </children></AnchorPane>
@@ -64,7 +64,7 @@
           </Tab>
           <Tab fx:id="outputTab" text="Output">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
                         <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" />
                      </children></AnchorPane>
@@ -72,7 +72,7 @@
           </Tab>
             <Tab fx:id="logsTab" text="Logs">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
                         <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0" />
                      </children></AnchorPane>

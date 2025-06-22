@@ -1,0 +1,13 @@
+.root{
+    &[color-mode="shinx"] {
+        --primary: black
+    }
+    &[color-mode="gardevoir"] {
+        --primary: green
+    }
+}
+
+.tab-pane {
+    -fx-background-color: var(--primary);
+}
+
