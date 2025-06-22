@@ -18,6 +18,10 @@ public class MainView {
     // Defining the FXML classes
     // Line breaks in class definitions are where the sections split in the fxml
     @FXML
+    private MenuBar menuBar;
+    @FXML
+    private Menu fileMenu;
+    @FXML
     private MenuItem newProjectMenuItem;
     @FXML
     private MenuItem openProjectMenuItem;
@@ -27,10 +31,14 @@ public class MainView {
     private MenuItem closeMenuItem;
 
     @FXML
+    private Menu editMenu;
+    @FXML
     private MenuItem saveMenuItem;
     @FXML
     private MenuItem deleteMenuItem;
 
+    @FXML
+    private Menu gitMenu;
     @FXML
     private MenuItem pullMenuItem;
     @FXML
@@ -46,6 +54,8 @@ public class MainView {
     @FXML
     private MenuItem rebaseMenuItem;
 
+    @FXML
+    private Menu helpMenu;
     @FXML
     private MenuItem aboutMenuItem;
 
@@ -63,6 +73,12 @@ public class MainView {
     private Tab outputTab;
     @FXML
     private Tab logsTab;
+    @FXML
+    private TextArea terminalTextArea;
+    @FXML
+    private TextArea outputTextArea;
+    @FXML
+    private TextArea logsTextArea;
 
     /**
      * Initializes the window, setting up initial tabs

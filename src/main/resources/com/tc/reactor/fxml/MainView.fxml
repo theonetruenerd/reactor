@@ -42,17 +42,17 @@
       </MenuBar>
    </top>
    <left>
-      <VBox maxWidth="Infinity" maxHeight="Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <TreeView maxWidth="Infinity" maxHeight="Infinity" fx:id="projectTree" />
+            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" />
          </children>
       </VBox>
    </left>
    <center>
-      <TabPane maxWidth="Infinity" maxHeight="Infinity" fx:id="mainTabPane" prefHeight="257.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="257.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <TabPane maxWidth="Infinity" maxHeight="Infinity" fx:id="bottomTabPane" prefHeight="111.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="bottomTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="terminalTab" text="Terminal">
             <content>
