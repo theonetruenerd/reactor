@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
+   <top>
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+            <items>
+                <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" text="New Project" />
+                <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" text="Open Project" />
+                <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" text="Close Project" />
+                <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" text="Close" />
+            </items>
+          </Menu>
+          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
+            <items>
+                <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="Save" />
+              <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+            <Menu fx:id="gitMenu" mnemonicParsing="false" text="Git">
+                <items>
+                    <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" text="Pull" />
+                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" text="Commit" />
+                    <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" text="Push" />
+                    <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" text="Fetch" />
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" text="Checkout" />
+                    <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" text="Merge" />
+                    <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" text="Rebase" />
+                </items>
+            </Menu>
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <VBox maxWidth="Infinity" maxHeight="Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TreeView maxWidth="Infinity" maxHeight="Infinity" fx:id="projectTree" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <TabPane maxWidth="Infinity" maxHeight="Infinity" fx:id="mainTabPane" prefHeight="257.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <TabPane maxWidth="Infinity" maxHeight="Infinity" fx:id="bottomTabPane" prefHeight="111.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="terminalTab" text="Terminal">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="outputTab" text="Output">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="logsTab" text="Logs">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </bottom>
+</BorderPane>
