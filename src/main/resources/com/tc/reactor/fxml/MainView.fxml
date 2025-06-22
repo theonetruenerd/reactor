@@ -44,7 +44,7 @@
    <left>
       <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" />
+            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>

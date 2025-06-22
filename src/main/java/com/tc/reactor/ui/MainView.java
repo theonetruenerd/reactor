@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MainView {
 
-    // Defining the FXML classes
+    // Defining the FXML classes:
     // Line breaks in class definitions are where the sections split in the fxml
     @FXML
     private MenuBar menuBar;
@@ -137,7 +137,7 @@ public class MainView {
             result.getChildren().add(wrapTreeWithFileNames(child));
         }
         // Attach File as user data (optional but useful)
-        result.setValue(fileTree.getValue().getAbsolutePath()); // Use full path in value
+        result.setValue(fileTree.getValue().getAbsolutePath()); // Use a full path in value
         return result;
     }
 
@@ -148,21 +148,21 @@ public class MainView {
      * @param parentItem the parent tree item to add the files to
      */
     private void addFilesToTreeItem(File directory, TreeItem<File> parentItem) {
-        // Makes list of files from directory
+        // Makes a list of files from the directory
         File[] files = directory.listFiles();
         // If there are no files, returns
         if (files == null) return;
-        // Loops through list of files
+        // Loops through a list of files
         for (File file : files) {
-            // Gets as child item
+            // Gets as a child item
             TreeItem<File> childItem = new TreeItem<>(file);
-            // Checks if file is a directory
+            // Checks if a file is a directory
             if (file.isDirectory()) {
                 // Expands directory and recurs
                 childItem.setExpanded(true);
                 addFilesToTreeItem(file, childItem);
             }
-            // Adds file to tree if not directory
+            // Adds a file to the tree if not a directory
             parentItem.getChildren().add(childItem);
         }
     }
@@ -175,7 +175,7 @@ public class MainView {
     private void handleTreeClick(MouseEvent event) {
         // Gets the selected item
         TreeItem<String> selectedItem = projectTree.getSelectionModel().getSelectedItem();
-        // Checks if the selected item exists and whether or not its a file
+        // Checks if the selected item exists and whether it is a file
         if (selectedItem != null && selectedItem.isLeaf()) {
             // Gets the full file path
             String fullPath = selectedItem.getValue();
@@ -202,7 +202,7 @@ public class MainView {
         // If no tab exists for the file, create a new one
         File file = new File(filePath);
         Tab tab = new Tab(file.getName());
-        tab.setUserData(filePath); // Store file path for future reference
+        tab.setUserData(filePath); // Store a file path for future reference
         TextArea editor = new TextArea();
         tab.setContent(editor);
 
