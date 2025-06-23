@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
@@ -36,7 +37,7 @@
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
-                  <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" text="Settings" onAction="#onSettingsMenuItemClick" />
+                  <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#onSettingsMenuItemClick" text="Settings" />
             </items>
           </Menu>
         </menus>
@@ -59,7 +60,10 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" />
+                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                           <font>
+                              <Font name="JetBrains Mono Regular" size="12.0" />
+                           </font></TextArea>
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -67,7 +71,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" />
+                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -75,7 +79,10 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0" />
+                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0">
+                           <font>
+                              <Font name="JetBrains Mono Regular" size="12.0" />
+                           </font></TextArea>
                      </children></AnchorPane>
               </content>
             </Tab>
