@@ -1,24 +1,24 @@
 .root {
     -fx-font-family: "JetBrains Mono";
     -fx-font-size: 14px;
-    -fx-background-color: #131318;
-    -fx-text-fill: #E5E1E9;
-    -fx-text-base-color: #E5E1E9;
-    -fx-border-color: #928F9A;
+    /*-fx-background-color: #131318;*/
+    /*-fx-text-fill: #E5E1E9;*/
+    /*-fx-text-base-color: #E5E1E9;*/
+    /*-fx-border-color: #928F9A;*/
 }
 
 .menu-item {
     -fx-font-family: "JetBrains Mono";
     -fx-font-size: 14px;
-    -fx-text-fill: #E5E1E9;
-    -fx-text-base-color: #E5E1E9;
-    -fx-background-color: #1C1B21;
-    -fx-border-color: #1C1B21;
+    /*-fx-text-fill: #E5E1E9;*/
+    /*-fx-text-base-color: #E5E1E9;*/
+    /*-fx-background-color: #1C1B21;*/
+    /*-fx-border-color: #1C1B21;*/
 }
 
 .tab-pane .tab-header-area .tab-header-background .tab {
-    -fx-bar-background: #131318;
-    -fx-background-color: #131318;
+    /*-fx-bar-background: #131318;*/
+    /*-fx-background-color: #131318;*/
     -fx-border-radius: 0 0 18 18;
     -fx-background-radius: 0 0 18 18;
 }
