@@ -1,58 +1,26 @@
-.root{
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
-        -fx-font-size: 14px;
-        -fx-border-color: #928F9A ;
+.root {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-background-color: #131318;
+    -fx-text-fill: #E5E1E9;
+    -fx-text-base-color: #E5E1E9;
+    -fx-border-color: #928F9A;
 }
 
-.tab-pane .tab-header-area .tab-header-background {
-        -fx-font-family: "JetBrainsMono";
-        -fx-font: 14 "JetBrainsMono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
+.menu-item {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-text-fill: #E5E1E9;
+    -fx-text-base-color: #E5E1E9;
+    -fx-background-color: #1C1B21;
+    -fx-border-color: #1C1B21;
 }
 
-.tab .tab-label {
-        -fx-font-family: "JetBrains Mono";
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
-}
-
-.border-pane {
-        -fx-font-family: "JetBrains Mono";
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
-}
-
-.menu-bar {
-        -fx-font-family: "JetBrains Mono";
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
-}
-
-.menu-buttom {
-        -fx-font-family: "JetBrains Mono";
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
-}
-
-.text-area {
-        -fx-font-family: "JetBrains Mono";
-        -fx-font: 14 "JetBrains Mono";
-        -fx-background-color: #131318;
-        -fx-text-fill: #E5E1E9;
-        -fx-text-base-color: #E5E1E9;
+.tab-pane .tab-header-area .tab-header-background .tab {
+    -fx-bar-background: #131318;
+    -fx-background-color: #131318;
+    -fx-border-radius: 0 0 18 18;
+    -fx-background-radius: 0 0 18 18;
 }
 
 /*--on-background: #E5E1E9;*/

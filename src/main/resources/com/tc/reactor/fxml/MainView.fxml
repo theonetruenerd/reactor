@@ -1,92 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
+<BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
-      <MenuBar fx:id="menuBar" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
         <menus>
-          <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+          <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="root" text="File">
             <items>
-                <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" text="New Project" />
-                <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" text="Open Project" />
-                <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" text="Close Project" />
-                <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" text="Close" />
+                <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" styleClass="root" text="New Project" />
+                <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" styleClass="root" text="Open Project" />
+                <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" styleClass="root" text="Close Project" />
+                <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" text="Close" />
             </items>
           </Menu>
-          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
+          <Menu fx:id="editMenu" mnemonicParsing="false" styleClass="root" text="Edit">
             <items>
-                <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="Save" />
-              <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" text="Delete" />
+                <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" styleClass="root" text="Save" />
+              <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" styleClass="root" text="Delete" />
             </items>
           </Menu>
-            <Menu fx:id="gitMenu" mnemonicParsing="false" text="Git">
+            <Menu fx:id="gitMenu" mnemonicParsing="false" styleClass="root" text="Git">
                 <items>
-                    <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" text="Pull" />
-                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" text="Commit" />
-                    <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" text="Push" />
-                    <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" text="Fetch" />
+                    <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" styleClass="root" text="Pull" />
+                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" styleClass="root" text="Commit" />
+                    <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" styleClass="root" text="Push" />
+                    <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" styleClass="root" text="Fetch" />
                     <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" text="Checkout" />
-                    <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" text="Merge" />
-                    <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" text="Rebase" />
+                    <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" styleClass="root" text="Checkout" />
+                    <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" styleClass="root" text="Merge" />
+                    <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" styleClass="root" text="Rebase" />
                 </items>
             </Menu>
-          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" styleClass="root" text="Help">
             <items>
-              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
-                  <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#onSettingsMenuItemClick" text="Settings" />
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="root" text="About" />
+                  <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#onSettingsMenuItemClick" styleClass="root" text="Settings" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
    </top>
    <left>
-      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox blendMode="ADD" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" blendMode="DARKEN" maxHeight="Infinity" maxWidth="Infinity" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
    <center>
-      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="257.0" prefWidth="501.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="257.0" prefWidth="501.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <TabPane fx:id="bottomTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="terminalTab" text="Terminal">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                        <TextArea fx:id="terminalTextArea" blendMode="MULTIPLY" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/styles.css">
                            <font>
                               <Font name="JetBrains Mono Regular" size="12.0" />
-                           </font></TextArea>
-                     </children></AnchorPane>
+                           </font>
+                        </TextArea>
+                     </children>
+              </AnchorPane>
             </content>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tab" />
+               </styleClass>
           </Tab>
-          <Tab fx:id="outputTab" text="Output">
+          <Tab fx:id="outputTab" styleClass="root" text="Output">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+              <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css" />
-                     </children></AnchorPane>
+                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="root" />
+                              <String fx:value="tab" />
+                           </styleClass></TextArea>
+                     </children>
+              </AnchorPane>
             </content>
           </Tab>
             <Tab fx:id="logsTab" text="Logs">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+                <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0">
-                           <font>
-                              <Font name="JetBrains Mono Regular" size="12.0" />
-                           </font></TextArea>
-                     </children></AnchorPane>
+                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="root" />
+                              <String fx:value="tab" />
+                           </styleClass>
+                        </TextArea>
+                     </children>
+                </AnchorPane>
               </content>
+               <styleClass>
+                  <String fx:value="root" />
+                  <String fx:value="tab" />
+               </styleClass>
             </Tab>
         </tabs>
+         <styleClass>
+            <String fx:value="tab" />
+            <String fx:value="tab-header-area" />
+            <String fx:value="tab-header-background" />
+            <String fx:value="root" />
+         </styleClass>
       </TabPane>
    </bottom>
 </BorderPane>
