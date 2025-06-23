@@ -45,9 +45,9 @@
       </MenuBar>
    </top>
    <left>
-      <VBox blendMode="ADD" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox blendMode="DIFFERENCE" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" blendMode="DARKEN" maxHeight="Infinity" maxWidth="Infinity" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" blendMode="OVERLAY" maxHeight="Infinity" maxWidth="Infinity" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
