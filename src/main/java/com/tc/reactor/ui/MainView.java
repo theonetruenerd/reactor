@@ -2,8 +2,10 @@ package com.tc.reactor.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
@@ -58,6 +60,8 @@ public class MainView {
     private Menu helpMenu;
     @FXML
     private MenuItem aboutMenuItem;
+    @FXML
+    private MenuItem settingsMenuItem;
 
     @FXML
     private TreeView<String> projectTree;
@@ -241,6 +245,24 @@ public class MainView {
      */
     @FXML
     protected void onSaveMenuItemClick() {
+    }
+
+    /**
+     * Handles opening IDE settings - LOCATION NOT SET ERROR
+     */
+    @FXML
+    protected void onSettingsMenuItemClick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/Settings.fxml"));
+            Parent settingsRoot = fxmlLoader.load();
+
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle("Settings");
+            settingsStage.setScene(new Scene(settingsRoot));
+            settingsStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
