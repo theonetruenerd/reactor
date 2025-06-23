@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
+<BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
       <MenuBar fx:id="menuBar" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
         <menus>
@@ -45,9 +45,9 @@
       </MenuBar>
    </top>
    <left>
-      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="Infinity" maxWidth="Infinity" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
@@ -61,7 +61,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="terminalTextArea" blendMode="MULTIPLY" layoutX="1.0" prefHeight="80.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/styles.css">
+                        <TextArea fx:id="terminalTextArea" blendMode="MULTIPLY" layoutX="1.0" prefHeight="80.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css">
                            <font>
                               <Font name="JetBrains Mono Regular" size="12.0" />
                            </font>
