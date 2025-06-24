@@ -128,10 +128,12 @@ public class MainView {
     private void populateProjectTree(File rootDirectory) {
         // Gets the root file as the root directory
         TreeItem<File> rootItem = new TreeItem<>(rootDirectory);
+
+        Map<String, String> fileMap = new HashMap<>();
         // Sets it to be expanded in 1 tier by default
         rootItem.setExpanded(true);
         // Adds the files to the tree tab
-        addFilesToTreeItem(rootDirectory, rootItem);
+        addFilesToTreeItem(rootDirectory, rootItem, fileMap);
 
         TreeView<String> view = new TreeView<>();
         projectTree.setRoot(new TreeItem<>(rootDirectory.getName())); // Set placeholder
@@ -161,24 +163,20 @@ public class MainView {
      * @param directory the directory to start populating the tree
      * @param parentItem the parent tree item to add the files to
      */
-    private void addFilesToTreeItem(File directory, TreeItem<File> parentItem) {
+    private void addFilesToTreeItem(File directory, TreeItem<File> parentItem, Map<String, String> fileMap) {
         // Makes a list of files from the directory
         File[] files = directory.listFiles();
         // If there are no files, returns
-        if (files == null) return;
-        // Loops through a list of files
-        for (File file : files) {
-            // Gets as a child item
-            TreeItem<File> childItem = new TreeItem<>(file);
-            // Checks if a file is a directory
-            if (file.isDirectory()) {
-                // Expands directory and recurs
-                childItem.setExpanded(true);
-                addFilesToTreeItem(file, childItem);
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    String fileName = file.getName(); // Extract the file name
+                    parentItem.getChildren().add(new TreeItem<>(file));
+                    fileMap.put(fileName, file.getAbsolutePath()); // Map file name to full path
+                }
             }
-            // Adds a file to the tree if not a directory
-            parentItem.getChildren().add(childItem);
         }
+
     }
 
     public void onCloseProjectClick() {
