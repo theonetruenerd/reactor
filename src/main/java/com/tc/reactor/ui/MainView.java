@@ -1,5 +1,6 @@
 package com.tc.reactor.ui;
 
+import com.tc.reactor.support.SyntaxManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
+import com.tc.reactor.support.SyntaxManager.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -217,67 +219,7 @@ public class MainView {
         }
     }
 
-    /**
-     * Sets up syntax highlighting for the given programming language.
-     */
-    private void setupSyntaxHighlighting(String language, CodeArea codeArea) {
-        // Fetch the keywords for the chosen language
-        List<String> keywords = LANGUAGE_KEYWORDS.getOrDefault(language, Collections.emptyList());
-        List<String> scopes = SCOPE_KEYWORDS.getOrDefault(language, Collections.emptyList());
-        List<String> types = TYPES_KEYWORDS.getOrDefault(language, Collections.emptyList());
-        List<String> blocks = BLOCKS_KEYWORDS.getOrDefault(language, Collections.emptyList());
 
-        // Build the regex pattern dynamically
-        String keywordPattern = "\\b(" + String.join("|", keywords) + ")\\b";
-        String scopePattern = "\\b(" + String.join("|", scopes) + ")\\b";
-        String typePattern = "\\b(" + String.join("|", types) + ")\\b";
-        String blocksPattern = "\\b(" + String.join("|", blocks) + ")\\b";
-        String fullPattern = String.join("|", COMMENT_PATTERN, STRING_PATTERN, NUMBER_PATTERN, keywordPattern,
-                scopePattern, typePattern, blocksPattern);
-        Pattern pattern = Pattern.compile(fullPattern);
-
-        // Listen for text changes and apply syntax highlighting
-        codeArea.textProperty().addListener((obs, oldText, newText) -> {
-            codeArea.setStyleSpans(0, computeHighlighting(newText, pattern));
-        });
-    }
-
-    /**
-     * Computes StyleSpans for syntax highlighting.
-     */
-    private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern) {
-        Matcher matcher = pattern.matcher(text);
-        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        int lastEnd = 0;
-
-        while (matcher.find()) {
-            // Add unstyled spans
-            spansBuilder.add(Collections.emptyList(), matcher.start() - lastEnd);
-
-            // Apply styles based on matching groups
-            if (matcher.group().matches(COMMENT_PATTERN)) {
-                spansBuilder.add(Collections.singleton("comment"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(STRING_PATTERN)) {
-                spansBuilder.add(Collections.singleton("string"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(NUMBER_PATTERN)) {
-                spansBuilder.add(Collections.singleton("number"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(KEYWORD_PATTERN)){
-                spansBuilder.add(Collections.singleton("keyword"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(SCOPE_PATTERN)){
-                spansBuilder.add(Collections.singleton("scope"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(TYPES_PATTERN)){
-                spansBuilder.add(Collections.singleton("types"), matcher.end() - matcher.start());
-            } else if (matcher.group().matches(BLOCKS_PATTERN)){
-                spansBuilder.add(Collections.singleton("blocks"), matcher.end() - matcher.start());
-            }
-
-            lastEnd = matcher.end();
-        }
-
-        // Handle remaining, unstyled text
-        spansBuilder.add(Collections.emptyList(), text.length() - lastEnd);
-        return spansBuilder.create();
-    }
 
     /**
      * Opens a file in the current tab. If a tab for the same file already exists, it is selected instead.
@@ -303,7 +245,8 @@ public class MainView {
 
         String extension = getFileExtension(file.getName());
 
-        setupSyntaxHighlighting(extension, editor);
+        SyntaxManager syntaxManager = new SyntaxManager();
+        syntaxManager.setupSyntaxHighlighting(extension, editor);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -333,75 +276,6 @@ public class MainView {
         }
         return ""; // No extension
     }
-    private static final Map<String, List<String>> LANGUAGE_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> SCOPE_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> TYPES_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> BLOCKS_KEYWORDS = new HashMap<>();
-
-    static {
-        // Define keywords for Java
-        LANGUAGE_KEYWORDS.put("java", Arrays.asList(
-                "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char",
-                "class", "const", "continue", "default", "do", "double", "else", "enum",
-                "extends", "final", "finally", "float", "for", "goto", "if", "implements",
-                "import", "instanceof", "int", "interface", "long", "native", "new", "package",
-                "private", "protected", "public", "return", "short", "static", "strictfp",
-                "super", "switch", "synchronized", "this", "throw", "throws", "transient",
-                "try", "void", "volatile", "while"
-        ));
-
-        // Define keywords for CSS
-        LANGUAGE_KEYWORDS.put("css", Arrays.asList("color", "background", "border", "display", "font-size", "margin", "padding"));
-
-        // Define keywords for XML
-        LANGUAGE_KEYWORDS.put("xml", Arrays.asList("<?xml", "</", "<", ">"));
-
-        // Define keywords for HSL
-        LANGUAGE_KEYWORDS.put("hsl", Arrays.asList("break","return","abort","pause","goto","resume","next","lock","unlock",
-                "synchronized","if","else","for","while","loop"));
-
-        // Define keywords for SUB
-        LANGUAGE_KEYWORDS.put("sub", Arrays.asList("break","return","abort","pause","goto","resume","next","lock","unlock",
-                "synchronized","if","else","for","while","loop"));
-    }
-
-    static {
-        SCOPE_KEYWORDS.put("hsl", Arrays.asList("global","once","static","const","private"));
-    }
-
-    static {
-        TYPES_KEYWORDS.put("hsl", Arrays.asList("variable","sequence","string","device","resource","timer","dialog",
-                "object","event","file","struct","short","long","char","float","void"));
-    }
-
-    static {
-        BLOCKS_KEYWORDS.put("hsl", Arrays.asList("function","namespace"));
-    }
-
-    private static final String COMMENT_PATTERN = "//[^\n]*|/\\*(.|\\R)*?\\*/";
-    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
-    private static final String NUMBER_PATTERN = "\\b(\\d+(\\.\\d+)?)\\b";
-
-
-    private static final String KEYWORD_PATTERN = LANGUAGE_KEYWORDS.values().stream()
-            .flatMap(Collection::stream)
-            .map(keyword -> "\\b" + Pattern.quote(keyword) + "\\b")
-            .collect(Collectors.joining("|"));
-
-    private static final String SCOPE_PATTERN = SCOPE_KEYWORDS.values().stream()
-            .flatMap(Collection::stream)
-            .map(scope -> "\\b" + Pattern.quote(scope) + "\\b")
-            .collect(Collectors.joining("|"));
-
-    private static final String TYPES_PATTERN = TYPES_KEYWORDS.values().stream()
-            .flatMap(Collection::stream)
-            .map(type -> "\\b" + Pattern.quote(type) + "\\b")
-            .collect(Collectors.joining("|"));
-
-    private static final String BLOCKS_PATTERN = BLOCKS_KEYWORDS.values().stream()
-            .flatMap(Collection::stream)
-            .map(block -> "\\b" + Pattern.quote(block) + "\\b")
-            .collect(Collectors.joining("|"));
 
     /**
      * Initializes the window by setting up initial tabs.
