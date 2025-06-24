@@ -47,7 +47,7 @@
    <left>
       <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="459.0" prefWidth="243.0" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>

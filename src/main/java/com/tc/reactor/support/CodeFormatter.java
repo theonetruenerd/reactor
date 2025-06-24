@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 public class CodeFormatter {
 
+    // TODO Fix the selected-text-flanking replacement
+
     /**
      * Sets up automatic formatting for the given language.
      */
@@ -55,6 +57,7 @@ public class CodeFormatter {
         });
     }
 
+    // TODO Grab variables etc dynamically
     private void autoAddDocustrings(CodeArea codeArea) {
         int caretPosition = codeArea.getCaretPosition();
         String indentation = getLineIndentation(codeArea.getParagraph(codeArea.getCurrentParagraph()).getText());

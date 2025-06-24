@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.tc.reactor.support.languages.HSL.*;
+import static com.tc.reactor.support.languages.hsl.keywords.*;
 
 public class SyntaxManager {
     /**

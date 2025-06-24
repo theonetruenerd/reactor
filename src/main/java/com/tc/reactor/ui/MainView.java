@@ -2,6 +2,7 @@ package com.tc.reactor.ui;
 
 import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
+import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -242,6 +243,7 @@ public class MainView {
         CodeArea editor = new CodeArea();
         tab.setContent(editor);
 
+
         String extension = getFileExtension(file.getName());
 
         SyntaxManager syntaxManager = new SyntaxManager();
@@ -249,8 +251,8 @@ public class MainView {
         CodeFormatter codeFormatter = new CodeFormatter();
         codeFormatter.setupAutoFormatting(editor, extension);
 
+        StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line).append("\n");
@@ -258,6 +260,11 @@ public class MainView {
             editor.appendText(stringBuilder.toString());
         } catch (IOException e) {
             editor.appendText("Error reading file: " + e.getMessage());
+        }
+
+        if(extension.equals("hsl")) {
+            RealTimeSyntaxChecker realTimeSyntaxChecker = new RealTimeSyntaxChecker();
+            realTimeSyntaxChecker.checkSyntax(stringBuilder.toString());
         }
 
         mainTabPane.getTabs().add(tab);
@@ -298,6 +305,7 @@ public class MainView {
      */
     @FXML
     protected void onSaveMenuItemClick() {
+        // TODO Add ability to save files
     }
 
     /**

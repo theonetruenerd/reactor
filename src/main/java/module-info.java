@@ -10,6 +10,7 @@ module com.tc.reactor {
     requires eu.hansolo.tilesfx;
     requires java.desktop;
     requires org.fxmisc.richtext;
+    requires antlr4.runtime;
 
     opens com.tc.reactor to javafx.fxml;
     exports com.tc.reactor;

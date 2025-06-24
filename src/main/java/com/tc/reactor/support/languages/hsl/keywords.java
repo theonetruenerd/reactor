@@ -1,11 +1,11 @@
-package com.tc.reactor.support.languages;
+package com.tc.reactor.support.languages.hsl;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HSL {
+public class keywords {
 
     public static final Map<String, List<String>> LANGUAGE_KEYWORDS = new HashMap<>();
     public static final Map<String, List<String>> SCOPE_KEYWORDS = new HashMap<>();
