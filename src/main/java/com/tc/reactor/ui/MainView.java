@@ -178,6 +178,28 @@ public class MainView {
         }
     }
 
+    public void onCloseProjectClick() {
+        clearTree();
+        closeAllTabs();
+    }
+
+    /**
+     * Clears the content of the project tree by resetting its root node.
+     * This effectively removes all displayed items from the tree view.
+     */
+    private void clearTree() {
+    	projectTree.setRoot(new TreeItem<>(""));
+    }
+
+    /**
+     * Closes all open tabs in the main tab pane.
+     * This method removes all tabs currently displayed in the main tab pane
+     * by clearing its tab list.
+     */
+    private void closeAllTabs() {
+        mainTabPane.getTabs().clear();
+    }
+
     /**
      * Handles the click event on a tree item.
      *
@@ -211,7 +233,7 @@ public class MainView {
         String typePattern = "\\b(" + String.join("|", types) + ")\\b";
         String blocksPattern = "\\b(" + String.join("|", blocks) + ")\\b";
         String fullPattern = String.join("|", COMMENT_PATTERN, STRING_PATTERN, NUMBER_PATTERN, keywordPattern,
-                scopePattern, typePattern);
+                scopePattern, typePattern, blocksPattern);
         Pattern pattern = Pattern.compile(fullPattern);
 
         // Listen for text changes and apply syntax highlighting
