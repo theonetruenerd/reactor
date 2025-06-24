@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.tc.reactor.support.languages.HSL.*;
+
 public class SyntaxManager {
     /**
      * Sets up syntax highlighting for the given programming language.
@@ -72,55 +74,9 @@ public class SyntaxManager {
         return spansBuilder.create();
     }
 
-    private static final Map<String, List<String>> LANGUAGE_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> SCOPE_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> TYPES_KEYWORDS = new HashMap<>();
-    private static final Map<String, List<String>> BLOCKS_KEYWORDS = new HashMap<>();
-
-    static {
-        // Define keywords for Java
-        LANGUAGE_KEYWORDS.put("java", Arrays.asList(
-                "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char",
-                "class", "const", "continue", "default", "do", "double", "else", "enum",
-                "extends", "final", "finally", "float", "for", "goto", "if", "implements",
-                "import", "instanceof", "int", "interface", "long", "native", "new", "package",
-                "private", "protected", "public", "return", "short", "static", "strictfp",
-                "super", "switch", "synchronized", "this", "throw", "throws", "transient",
-                "try", "void", "volatile", "while"
-        ));
-
-        // Define keywords for CSS
-        LANGUAGE_KEYWORDS.put("css", Arrays.asList("color", "background", "border", "display", "font-size", "margin", "padding"));
-
-        // Define keywords for XML
-        LANGUAGE_KEYWORDS.put("xml", Arrays.asList("<?xml", "</", "<", ">"));
-
-        // Define keywords for HSL
-        LANGUAGE_KEYWORDS.put("hsl", Arrays.asList("break","return","abort","pause","goto","resume","next","lock","unlock",
-                "synchronized","if","else","for","while","loop"));
-
-        // Define keywords for SUB
-        LANGUAGE_KEYWORDS.put("sub", Arrays.asList("break","return","abort","pause","goto","resume","next","lock","unlock",
-                "synchronized","if","else","for","while","loop"));
-    }
-
-    static {
-        SCOPE_KEYWORDS.put("hsl", Arrays.asList("global","once","static","const","private"));
-    }
-
-    static {
-        TYPES_KEYWORDS.put("hsl", Arrays.asList("variable","sequence","string","device","resource","timer","dialog",
-                "object","event","file","struct","short","long","char","float","void"));
-    }
-
-    static {
-        BLOCKS_KEYWORDS.put("hsl", Arrays.asList("function","namespace"));
-    }
-
     private static final String COMMENT_PATTERN = "//[^\n]*|/\\*(.|\\R)*?\\*/";
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
     private static final String NUMBER_PATTERN = "\\b(\\d+(\\.\\d+)?)\\b";
-
 
     private static final String KEYWORD_PATTERN = LANGUAGE_KEYWORDS.values().stream()
             .flatMap(Collection::stream)
@@ -141,5 +97,4 @@ public class SyntaxManager {
             .flatMap(Collection::stream)
             .map(block -> "\\b" + Pattern.quote(block) + "\\b")
             .collect(Collectors.joining("|"));
-
 }

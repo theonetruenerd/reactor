@@ -1,5 +1,6 @@
 package com.tc.reactor.ui;
 
+import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -247,6 +248,8 @@ public class MainView {
 
         SyntaxManager syntaxManager = new SyntaxManager();
         syntaxManager.setupSyntaxHighlighting(extension, editor);
+        CodeFormatter codeFormatter = new CodeFormatter();
+        codeFormatter.setupAutoFormatting(editor, extension);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder stringBuilder = new StringBuilder();
