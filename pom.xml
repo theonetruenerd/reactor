@@ -84,6 +84,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <version>0.11.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -106,8 +111,9 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tc.reactor/com.tc.reactor.HelloApplication</mainClass>
+                            <mainClass>com.tc.reactor/com.tc.reactor.Main</mainClass>
                             <launcher>app</launcher>
+                            <jvmArgs>--enable-native-access=javafx.graphics</jvmArgs>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>

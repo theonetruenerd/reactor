@@ -9,6 +9,7 @@ module com.tc.reactor {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.desktop;
+    requires org.fxmisc.richtext;
 
     opens com.tc.reactor to javafx.fxml;
     exports com.tc.reactor;

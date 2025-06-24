@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
+import org.fxmisc.richtext.CodeArea;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -207,7 +208,7 @@ public class MainView {
         File file = new File(filePath);
         Tab tab = new Tab(file.getName());
         tab.setUserData(filePath); // Store a file path for future reference
-        TextArea editor = new TextArea();
+        CodeArea editor = new CodeArea();
         tab.setContent(editor);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -216,9 +217,9 @@ public class MainView {
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line).append("\n");
             }
-            editor.setText(stringBuilder.toString());
+            editor.appendText(stringBuilder.toString());
         } catch (IOException e) {
-            editor.setText("Error reading file: " + e.getMessage());
+            editor.appendText("Error reading file: " + e.getMessage());
         }
 
         mainTabPane.getTabs().add(tab);
