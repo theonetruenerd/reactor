@@ -28,7 +28,7 @@ public class SyntaxManager {
         String typePattern = "\\b(" + String.join("|", types) + ")\\b";
         String blocksPattern = "\\b(" + String.join("|", blocks) + ")\\b";
         String fullPattern = String.join("|", COMMENT_PATTERN, STRING_PATTERN, NUMBER_PATTERN, keywordPattern,
-                scopePattern, typePattern, blocksPattern);
+                scopePattern, typePattern, blocksPattern, HEX_PATTERN);
         Pattern pattern = Pattern.compile(fullPattern);
 
         // Listen for text changes and apply syntax highlighting
@@ -64,6 +64,8 @@ public class SyntaxManager {
                 spansBuilder.add(Collections.singleton("types"), matcher.end() - matcher.start());
             } else if (matcher.group().matches(BLOCKS_PATTERN)){
                 spansBuilder.add(Collections.singleton("blocks"), matcher.end() - matcher.start());
+            } else if (matcher.group().matches(HEX_PATTERN)){
+                spansBuilder.add(Collections.singleton("hex"), matcher.end() - matcher.start());
             }
 
             lastEnd = matcher.end();
@@ -97,4 +99,6 @@ public class SyntaxManager {
             .flatMap(Collection::stream)
             .map(block -> "\\b" + Pattern.quote(block) + "\\b")
             .collect(Collectors.joining("|"));
+
+    private static final String HEX_PATTERN = "\\b0x[0-9a-fA-F]+\\b";
 }

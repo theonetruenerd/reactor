@@ -39,6 +39,14 @@
     -fx-font-weight: bold;
 }
 
+.string {
+    -fx-fill: #008000;
+}
+
+.hex {
+    -fx-fill: #800000;
+}
+
 /*--background: #131318;*/
 /*--on-background: #E5E1E9;*/
 /*--primary: #C3C0FF;*/
