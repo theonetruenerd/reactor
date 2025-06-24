@@ -36,6 +36,11 @@ public class CodeFormatter {
                     case "'":
                         autoAddSingleQuotes(codeArea);
                         break;
+                    case "\\":
+                        int caretPosition = codeArea.getCaretPosition();
+                        if (codeArea.getText(caretPosition - 1, caretPosition).equals("\\")) {
+                            autoAddDocustrings(codeArea);
+                        }
                 }
             }
         });
@@ -48,6 +53,12 @@ public class CodeFormatter {
                     break;
             };
         });
+    }
+
+    private void autoAddDocustrings(CodeArea codeArea) {
+        int caretPosition = codeArea.getCaretPosition();
+        codeArea.insertText(caretPosition, "\n\\\\ Function: \n\\\\ Scope: \n\\\\ Description: \n\\\\ Parameters: \n\\\\ Returns:");
+        codeArea.moveTo(caretPosition);
     }
 
     /**
