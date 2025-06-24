@@ -14,6 +14,31 @@
     -fx-background-radius: 0 0 18 18;
 }
 
+.keyword {
+    -fx-fill: #0033B3;
+    -fx-font-weight: bold;
+}
+
+.scope {
+    -fx-fill: #00627A;
+    -fx-font-weight: bold;
+}
+
+.comment {
+    -fx-fill: #8C8C8C;
+    -fx-font-style: italic;
+}
+
+.types {
+    -fx-fill: #CF8E6D;
+    -fx-font-weight: bold;
+}
+
+.block {
+    -fx-fill: #2B2A60;
+    -fx-font-weight: bold;
+}
+
 /*--background: #131318;*/
 /*--on-background: #E5E1E9;*/
 /*--primary: #C3C0FF;*/
