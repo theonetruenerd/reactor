@@ -20,7 +20,7 @@
 }
 
 .scope {
-    -fx-fill: #00627A;
+    -fx-fill: #00AAAA;
     -fx-font-weight: bold;
 }
 
@@ -35,16 +35,16 @@
 }
 
 .blocks {
-    -fx-fill: #2B2A60;
+    -fx-fill: #AA0000;
     -fx-font-weight: bold;
 }
 
 .string {
-    -fx-fill: #008000;
+    -fx-fill: #00AA00;
 }
 
 .hex {
-    -fx-fill: #800000;
+    -fx-fill: #1750EB;
 }
 
 /*--background: #131318;*/
