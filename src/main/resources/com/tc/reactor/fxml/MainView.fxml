@@ -57,11 +57,11 @@
    <bottom>
       <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="111.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="terminalTab" text="Terminal">
+          <Tab fx:id="terminalTab" closable="false" styleClass="root" text="Terminal">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
+              <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="terminalTextArea" blendMode="MULTIPLY" layoutX="1.0" prefHeight="80.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css">
+                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font name="JetBrains Mono Regular" size="12.0" />
                            </font>
@@ -74,11 +74,11 @@
                   <String fx:value="tab" />
                </styleClass>
           </Tab>
-          <Tab fx:id="outputTab" styleClass="root" text="Output">
+          <Tab fx:id="outputTab" closable="false" styleClass="root" text="Output">
             <content>
               <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="outputTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                        <TextArea fx:id="outputTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="1000.0" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <styleClass>
                               <String fx:value="root" />
                               <String fx:value="tab" />
@@ -87,11 +87,11 @@
               </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="logsTab" text="Logs">
+            <Tab fx:id="logsTab" closable="false" text="Logs">
               <content>
                 <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="logsTextArea" prefHeight="80.0" prefWidth="600.0" stylesheets="@../css/styles.css">
+                        <TextArea fx:id="logsTextArea" layoutX="1.0" prefHeight="80.0" prefWidth="1000.0" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <styleClass>
                               <String fx:value="root" />
                               <String fx:value="tab" />
