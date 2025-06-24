@@ -36,9 +36,9 @@ public class CodeFormatter {
                     case "'":
                         autoAddSingleQuotes(codeArea);
                         break;
-                    case "\\":
+                    case "/":
                         int caretPosition = codeArea.getCaretPosition();
-                        if (codeArea.getText(caretPosition - 1, caretPosition).equals("\\")) {
+                        if (codeArea.getText(caretPosition - 2, caretPosition - 1).equals("/")) {
                             autoAddDocustrings(codeArea);
                         }
                 }
@@ -57,8 +57,9 @@ public class CodeFormatter {
 
     private void autoAddDocustrings(CodeArea codeArea) {
         int caretPosition = codeArea.getCaretPosition();
-        codeArea.insertText(caretPosition, "\n\\\\ Function: \n\\\\ Scope: \n\\\\ Description: \n\\\\ Parameters: \n\\\\ Returns:");
-        codeArea.moveTo(caretPosition);
+        String indentation = getLineIndentation(codeArea.getParagraph(codeArea.getCurrentParagraph()).getText());
+        codeArea.insertText(caretPosition, " Function: \n"+indentation+"// Scope: \n"+indentation+"// Description: \n"+indentation+"// Parameters: \n"+indentation+"// Returns:");
+        codeArea.moveTo(caretPosition + 11);
     }
 
     /**
