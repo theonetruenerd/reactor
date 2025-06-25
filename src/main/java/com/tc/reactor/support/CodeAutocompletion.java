@@ -27,157 +27,152 @@ public class CodeAutocompletion {
     private final String language;
     private final Set<String> identifiers = new HashSet<>();
 
-    /**
-     * Creates a new CodeAutocompletion instance for the given CodeArea and language.
-     * 
-     * @param codeArea The CodeArea to add autocompletion to
-     * @param language The programming language to provide autocompletion for
-     */
     public CodeAutocompletion(CodeArea codeArea, String language) {
         this.codeArea = codeArea;
         this.language = language;
 
-        // Create the suggestion popup and list
         this.suggestionPopup = new Popup();
         this.suggestionList = new ListView<>();
         this.suggestionList.setPrefWidth(200);
         this.suggestionList.setPrefHeight(200);
         this.suggestionPopup.getContent().add(suggestionList);
 
-        // Set up event handlers
         setupEventHandlers();
 
-        // Perform initial scan of the text
         updateIdentifiers(codeArea.getText());
 
-        // Log initialization for debugging
-        System.out.println("CodeAutocompletion initialized for " + language + " with " + identifiers.size() + " identifiers");
+        System.out.println("CodeAutocompletion initialized for " + language + " with " + identifiers.size() + " identifiers.");
     }
 
-    /**
-     * Sets up the event handlers for triggering and handling autocompletion.
-     */
     private void setupEventHandlers() {
-        // Listen for key events that trigger autocompletion
-        codeArea.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+        codeArea.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            suggestionPopup.requestFocus();
             if (event.isControlDown() && event.getCode() == KeyCode.SPACE) {
-                // Ctrl+Space triggers autocompletion
                 showAutocompletionSuggestions();
                 event.consume();
             } else if (suggestionPopup.isShowing()) {
-                // Handle navigation in the suggestion list
                 switch (event.getCode()) {
-                    case ESCAPE:
+                    case ESCAPE -> {
                         suggestionPopup.hide();
                         event.consume();
-                        break;
-                    case ENTER:
-                        if (!suggestionList.getSelectionModel().isEmpty()) {
+                    }
+                    case TAB -> {
+                        String selectedItem = suggestionList.getSelectionModel().getSelectedItem();
+                        if (selectedItem != null && !selectedItem.isEmpty()) {
+                            System.out.println("Selected Item: " + selectedItem); // Debug log
                             insertSelectedSuggestion();
                             event.consume();
+                        } else {
+                            System.out.println("No item selected."); // Debug log
                         }
-                        break;
-                    case UP:
+                    }
+                    case UP -> {
                         navigateSuggestionList(-1);
                         event.consume();
-                        break;
-                    case DOWN:
+                    }
+                    case DOWN -> {
                         navigateSuggestionList(1);
                         event.consume();
-                        break;
+                    }
                 }
             }
         });
 
-        // Listen for text changes to update the identifier list
         codeArea.textProperty().addListener((obs, oldText, newText) -> {
             updateIdentifiers(newText);
+            generateSuggestions(getCurrentWord());
+            showAutocompletionSuggestions();
         });
 
-        // Handle mouse clicks on the suggestion list
         suggestionList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 insertSelectedSuggestion();
             }
         });
+
+        // Scene attachment validation
+        codeArea.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene == null) {
+                System.err.println("CodeArea detached from Scene. Popup suggestions may not appear.");
+            } else {
+                System.out.println("CodeArea attached to Scene successfully.");
+            }
+        });
     }
 
-    /**
-     * Shows the autocompletion suggestions popup at the current caret position.
-     */
     private void showAutocompletionSuggestions() {
-        // Get the current word being typed
-        String currentWord = getCurrentWord();
-
-        // Generate suggestions based on the current word
-        List<String> suggestions = generateSuggestions(currentWord);
-
-        if (!suggestions.isEmpty()) {
-            // Update the suggestion list
-            suggestionList.getItems().clear();
-            suggestionList.getItems().addAll(suggestions);
-            suggestionList.getSelectionModel().selectFirst();
-
-            // Position the popup at the caret
-            positionPopupAtCaret();
-
-            // Show the popup
-            suggestionPopup.show(codeArea.getScene().getWindow());
-
-            System.out.println("Showing suggestions for '" + currentWord + "' (" + suggestions.size() + "): " + suggestions.stream().collect(Collectors.joining(", ")));
-        }
-    }
-
-    /**
-     * Positions the suggestion popup at the current caret position.
-     */
-    private void positionPopupAtCaret() {
-        Bounds caretBounds = codeArea.getCaretBounds().orElse(null);
-        if (caretBounds == null) {
-            System.err.println("Caret bounds not found! Popup cannot be positioned.");
+        if (codeArea.getScene() == null) {
+            System.err.println("CodeArea is not yet attached to a Scene.");
             return;
         }
 
-        double x = caretBounds.getMinX();
-        double y = caretBounds.getMaxY();
+        String currentWord = getCurrentWord();
+        List<String> suggestions = generateSuggestions(currentWord);
 
-        // Log for debugging
-        System.out.printf("Popup positioning at X: %.2f, Y: %.2f%n", x, y);
-
-        javafx.geometry.Point2D screenCoords = codeArea.localToScreen(x, y);
-
-        if (screenCoords != null) {
-            suggestionPopup.setX(screenCoords.getX());
-            suggestionPopup.setY(screenCoords.getY());
+        if (!suggestions.isEmpty()) {
+            suggestionList.getItems().clear();
+            suggestionList.getItems().addAll(suggestions);
+            suggestionList.getSelectionModel().selectFirst();
+            positionPopupAtCaret();
+            suggestionPopup.show(codeArea.getScene().getWindow());
         } else {
-            System.err.println("Screen coordinates could not be calculated.");
+            suggestionPopup.hide();
         }
     }
 
-    /**
-     * Inserts the currently selected suggestion into the code area.
-     */
+    private void positionPopupAtCaret() {
+        Bounds caretBounds = codeArea.getCaretBounds().orElse(null);
+        if (caretBounds == null) {
+            System.err.println("Caret bounds are null.");
+            suggestionPopup.setX(100);
+            suggestionPopup.setY(100);
+            return;
+        }
+
+        javafx.geometry.Point2D screenCoords = codeArea.localToScreen(caretBounds.getMinX(), caretBounds.getMaxY());
+        if (screenCoords == null) {
+            System.err.println("Screen coordinates are null.");
+            suggestionPopup.setX(100);
+            suggestionPopup.setY(100);
+            return;
+        }
+
+        System.out.println("Placing popup at: " + screenCoords);
+
+        Platform.runLater(() -> {
+            suggestionPopup.setX(screenCoords.getX());
+            suggestionPopup.setY(screenCoords.getY() + 5); // Optional offset for better visibility
+        });
+    }
+
     private void insertSelectedSuggestion() {
         String suggestion = suggestionList.getSelectionModel().getSelectedItem();
         if (suggestion != null) {
+            System.out.println("Inserting suggestion: " + suggestion); // Debug log
+            
             // Get the current word and its position
             String currentWord = getCurrentWord();
             int caretPosition = codeArea.getCaretPosition();
             int wordStart = caretPosition - currentWord.length();
 
-            // Replace the current word with the suggestion
-            codeArea.replaceText(wordStart, caretPosition, suggestion);
+            // Debugging current word bounds
+//            System.out.println("Current Word: " + currentWord + ", Start Position: " + wordStart + ", Caret Position: " + caretPosition);
 
-            // Hide the popup
+            // Replace the current word with the suggestion in the CodeArea
+            try {
+                codeArea.replaceText(wordStart, caretPosition, suggestion);
+            } catch (Exception e) {
+                System.err.println("Error while replacing text: " + e.getMessage());
+            }
+
+            // Hide the popup after inserting the suggestion
             suggestionPopup.hide();
+        } else {
+            System.out.println("No suggestion selected to insert."); // Debug log
         }
+        codeArea.requestFocus();
     }
 
-    /**
-     * Navigates the suggestion list up or down.
-     * 
-     * @param direction 1 for down, -1 for up
-     */
     private void navigateSuggestionList(int direction) {
         int currentIndex = suggestionList.getSelectionModel().getSelectedIndex();
         int newIndex = currentIndex + direction;
@@ -188,125 +183,73 @@ public class CodeAutocompletion {
         }
     }
 
-    /**
-     * Gets the current word being typed at the caret position.
-     * 
-     * @return The current word
-     */
     private String getCurrentWord() {
         int caretPosition = codeArea.getCaretPosition();
         String text = codeArea.getText();
 
-        // Log the text near the caret for debugging
-        System.out.printf("Text around caret: '%s'%n", text.substring(Math.max(0, caretPosition - 10), Math.min(text.length(), caretPosition + 10)));
-
-        // Find the word start
         int wordStart = caretPosition;
         while (wordStart > 0 && isWordChar(text.charAt(wordStart - 1))) {
             wordStart--;
         }
 
-        String currentWord = text.substring(wordStart, caretPosition);
-        System.out.printf("Current Word: '%s', Position: %d%n", currentWord, caretPosition);
-        return currentWord;
+        return text.substring(wordStart, caretPosition);
     }
 
-    /**
-     * Checks if a character is part of a word.
-     * 
-     * @param c The character to check
-     * @return True if the character is part of a word
-     */
     private boolean isWordChar(char c) {
         return Character.isLetterOrDigit(c) || c == '_';
     }
 
-    /**
-     * Generates autocompletion suggestions based on the current word.
-     * 
-     * @param currentWord The current word being typed
-     * @return A list of suggestions
-     */
     private List<String> generateSuggestions(String currentWord) {
         List<String> suggestions = new ArrayList<>();
 
-        // Add language keywords
         if ("hsl".equals(language)) {
-            // Add keywords from all categories
             addMatchingKeywords(suggestions, keywords.LANGUAGE_KEYWORDS.get("hsl"), currentWord);
             addMatchingKeywords(suggestions, keywords.SCOPE_KEYWORDS.get("hsl"), currentWord);
             addMatchingKeywords(suggestions, keywords.TYPES_KEYWORDS.get("hsl"), currentWord);
             addMatchingKeywords(suggestions, keywords.BLOCKS_KEYWORDS.get("hsl"), currentWord);
 
-            // Add identifiers from the current file
             addMatchingIdentifiers(suggestions, currentWord);
         }
 
-        // Sort suggestions alphabetically
         Collections.sort(suggestions);
 
         return suggestions;
     }
 
-    /**
-     * Adds matching keywords to the suggestions list.
-     * 
-     * @param suggestions The list to add suggestions to
-     * @param keywords The list of keywords to check
-     * @param prefix The prefix to match
-     */
     private void addMatchingKeywords(List<String> suggestions, List<String> keywords, String prefix) {
         if (keywords != null) {
-            System.out.printf("Keywords Found: %d%n", keywords.size());
-            System.out.printf("Prefix: ", prefix);
             for (String keyword : keywords) {
-                if (keyword.startsWith(prefix) && !suggestions.contains(keyword)) {
-                    System.out.printf("Keyword Found: '%s'%n", keyword);
+                if (keyword.startsWith(prefix) && !suggestions.contains(keyword) && (!prefix.isEmpty())) {
                     suggestions.add(keyword);
                 }
             }
         }
     }
 
-    /**
-     * Adds matching identifiers to the suggestions list.
-     * 
-     * @param suggestions The list to add suggestions to
-     * @param prefix The prefix to match
-     */
     private void addMatchingIdentifiers(List<String> suggestions, String prefix) {
         for (String identifier : identifiers) {
-            if (identifier.startsWith(prefix) && !suggestions.contains(identifier)) {
+            if (identifier.startsWith(prefix) && !suggestions.contains(identifier) && (!prefix.isEmpty()) && (!identifier.equals(prefix))) {
                 suggestions.add(identifier);
             }
         }
     }
 
-    /**
-     * Updates the list of identifiers in the current file.
-     * 
-     * @param text The current text in the code area
-     */
     private void updateIdentifiers(String text) {
         identifiers.clear();
-        System.out.println("Updating identifiers...");
-
         if ("hsl".equals(language)) {
             try {
                 CharStream input = CharStreams.fromString(text);
                 HslLexerLexer lexer = new HslLexerLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-                tokens.fill(); // Collect tokens
+                tokens.fill();
 
                 for (Token token : tokens.getTokens()) {
                     if (token.getType() == HslLexerLexer.ID_LEX) {
-                        System.out.printf("Identifier Found: '%s'%n", token.getText());
                         identifiers.add(token.getText());
                     }
                 }
 
-                // Ensure identifiers from function/variable regex patterns are also captured
                 extractFunctionNames(text);
                 extractVariableDeclarations(text);
             } catch (Exception e) {
@@ -315,13 +258,7 @@ public class CodeAutocompletion {
         }
     }
 
-    /**
-     * Extracts function names from the text using regex.
-     * 
-     * @param text The text to extract function names from
-     */
     private void extractFunctionNames(String text) {
-        // Pattern to match function declarations: function name(...) { or function name(...)
         Pattern pattern = Pattern.compile("function\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\(");
         Matcher matcher = pattern.matcher(text);
 
@@ -330,13 +267,7 @@ public class CodeAutocompletion {
         }
     }
 
-    /**
-     * Extracts variable declarations from the text using regex.
-     * 
-     * @param text The text to extract variable declarations from
-     */
     private void extractVariableDeclarations(String text) {
-        // Pattern to match variable declarations: variable name = or variable name;
         Pattern pattern = Pattern.compile("variable\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*[=;]");
         Matcher matcher = pattern.matcher(text);
 
@@ -344,7 +275,6 @@ public class CodeAutocompletion {
             identifiers.add(matcher.group(1));
         }
 
-        // Also match other variable types
         String[] types = {"sequence", "string", "device", "resource", "timer", "dialog", "object", "event", "file"};
         for (String type : types) {
             pattern = Pattern.compile(type + "\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*[=;]");
