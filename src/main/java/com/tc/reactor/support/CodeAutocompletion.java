@@ -123,6 +123,8 @@ public class CodeAutocompletion {
 
             // Show the popup
             suggestionPopup.show(codeArea.getScene().getWindow());
+
+            System.out.println("Showing suggestions for '" + currentWord + "' (" + suggestions.size() + "): " + suggestions.stream().collect(Collectors.joining(", ")));
         }
     }
 
@@ -255,6 +257,8 @@ public class CodeAutocompletion {
      */
     private void addMatchingKeywords(List<String> suggestions, List<String> keywords, String prefix) {
         if (keywords != null) {
+            System.out.printf("Keywords Found: %d%n", keywords.size());
+            System.out.printf("Prefix: ", prefix);
             for (String keyword : keywords) {
                 if (keyword.startsWith(prefix) && !suggestions.contains(keyword)) {
                     System.out.printf("Keyword Found: '%s'%n", keyword);
