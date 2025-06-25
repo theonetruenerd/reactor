@@ -65,6 +65,18 @@ public interface HslLexerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitControlStatement(HslLexerParser.ControlStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link HslLexerParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HslLexerParser#formalList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFormalList(HslLexerParser.FormalListContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link HslLexerParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -76,12 +88,6 @@ public interface HslLexerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeclSpecifiers(HslLexerParser.DeclSpecifiersContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link HslLexerParser#functionDefinition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HslLexerParser#namespaceDefinition}.
 	 * @param ctx the parse tree
@@ -124,12 +130,6 @@ public interface HslLexerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStorage(HslLexerParser.StorageContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link HslLexerParser#formalList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFormalList(HslLexerParser.FormalListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HslLexerParser#returnType}.
 	 * @param ctx the parse tree
@@ -209,11 +209,23 @@ public interface HslLexerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFileExpression(HslLexerParser.FileExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link HslLexerParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCall(HslLexerParser.FunctionCallContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link HslLexerParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExpression(HslLexerParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HslLexerParser#argumentList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentList(HslLexerParser.ArgumentListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HslLexerParser#leftExpr}.
 	 * @param ctx the parse tree
@@ -388,4 +400,10 @@ public interface HslLexerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitType(HslLexerParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HslLexerParser#parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameter(HslLexerParser.ParameterContext ctx);
 }

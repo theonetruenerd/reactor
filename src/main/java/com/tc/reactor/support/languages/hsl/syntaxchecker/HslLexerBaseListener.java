@@ -125,6 +125,30 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFormalList(HslLexerParser.FormalListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFormalList(HslLexerParser.FormalListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDeclaration(HslLexerParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -144,18 +168,6 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclSpecifiers(HslLexerParser.DeclSpecifiersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -240,18 +252,6 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStorage(HslLexerParser.StorageContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFormalList(HslLexerParser.FormalListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFormalList(HslLexerParser.FormalListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -413,6 +413,18 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionCall(HslLexerParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCall(HslLexerParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpression(HslLexerParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -420,6 +432,18 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpression(HslLexerParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentList(HslLexerParser.ArgumentListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentList(HslLexerParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -768,6 +792,18 @@ public class HslLexerBaseListener implements HslLexerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitType(HslLexerParser.TypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameter(HslLexerParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameter(HslLexerParser.ParameterContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

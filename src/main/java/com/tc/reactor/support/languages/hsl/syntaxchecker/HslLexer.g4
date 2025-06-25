@@ -18,7 +18,8 @@ LSQUARE             : '[';
 RSQUARE             : ']';
 COMMA               : ',';
 AMPERSAND           : '&';
-NUMBER_LEX          : [0-9]+ ('.' [0-9]+)?;
+NUMBER_LEX          : '0x' [0-9a-fA-F]+ | [0-9]+ ('.' [0-9]+)?;
+HEX_LEX             : '('?'0x'[0-9]+')'?;
 STRING_LEX          : '"' (~["\\])* '"';
 CSTRING_LEX         : '"' (~["\\] | '\\' .)* '"';
 CRLF                : '\r\n';
@@ -70,7 +71,8 @@ WHILE               : 'while';
 FOR                 : 'for';
 LOOP                : 'loop';
 NAMESPACE           : 'namespace';
-ID_LEX              : [a-zA-Z_][a-zA-Z0-9_-]*;
+ID_LEX              : [a-zA-Z_][a-zA-Z0-9_]*;
+
 
 // Parser Rules
 
@@ -148,21 +150,23 @@ controlStatement
     | '<<'  stringId
     ;
 
+functionDefinition
+    : (STATIC | CONST | GLOBAL | PRIVATE)* FUNCTION id formalList? returnType? block
+    ;
+
+formalList
+    : LPAREN (parameter (COMMA parameter)*)? RPAREN
+    ;
+
 declaration
     : declSpecifiers? structure
     | declSpecifiers? array
     | declSpecifiers? functionDefinition
-    | type id
+    | declSpecifiers? type AMPERSAND? id COMMA? LPAREN? NUMBER_LEX? RPAREN? declaration? returnType?
     ;
 
 declSpecifiers
     : (declSpecifier)*
-    ;
-
-functionDefinition
-    : declSpecifiers?  FUNCTION  id  formalList? returnType?  block
-    | declSpecifiers?  FUNCTION  protoId  formalList? returnType?  block
-    | declSpecifiers?  METHOD  id  formalList? returnType?  block
     ;
 
 namespaceDefinition
@@ -199,13 +203,8 @@ storage
     | FLOAT
     ;
 
-formalList
-    : LPAREN (type AMPERSAND  typeId COMMA |  type  typeId COMMA)* ( type AMPERSAND  typeId |  type  typeId) RPAREN
-    ;
-
 returnType
     : type
-    | type LSQUARE RSQUARE
     | VOID
     ;
 
@@ -214,7 +213,7 @@ errorHandler
     ;
 
 assignmentExpression
-    : id  '='  STRING_LEX
+    : id  '='  STRING_LEX '+'? STRING_LEX?
     | id  '='  NUMBER_LEX
     | id  '='  simpleStatement
     ;
@@ -267,10 +266,19 @@ fileExpression
     : fileId
     ;
 
+functionCall
+    : id LPAREN argumentList? RPAREN
+    ;
+
 expression
     : leftExpr BINARY_OPERATOR rightExpr
     | UNARY_OPERATOR expression
+    | functionCall
     | atom
+    ;
+
+argumentList
+    : expression (COMMA expression)*
     ;
 
 leftExpr
@@ -286,6 +294,7 @@ atom
     | constant
     | cString
     | LPAREN expression RPAREN
+    | functionCall
     ;
 
 ifStatement
@@ -398,4 +407,8 @@ type
     | STRING
     | OBJECT
     | TIMER
+    ;
+
+parameter
+    : type id
     ;

@@ -98,6 +98,26 @@ public interface HslLexerListener extends ParseTreeListener {
 	 */
 	void exitControlStatement(HslLexerParser.ControlStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HslLexerParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HslLexerParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HslLexerParser#formalList}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormalList(HslLexerParser.FormalListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HslLexerParser#formalList}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormalList(HslLexerParser.FormalListContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HslLexerParser#declaration}.
 	 * @param ctx the parse tree
 	 */
@@ -117,16 +137,6 @@ public interface HslLexerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclSpecifiers(HslLexerParser.DeclSpecifiersContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HslLexerParser#functionDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HslLexerParser#functionDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionDefinition(HslLexerParser.FunctionDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HslLexerParser#namespaceDefinition}.
 	 * @param ctx the parse tree
@@ -197,16 +207,6 @@ public interface HslLexerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStorage(HslLexerParser.StorageContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HslLexerParser#formalList}.
-	 * @param ctx the parse tree
-	 */
-	void enterFormalList(HslLexerParser.FormalListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HslLexerParser#formalList}.
-	 * @param ctx the parse tree
-	 */
-	void exitFormalList(HslLexerParser.FormalListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HslLexerParser#returnType}.
 	 * @param ctx the parse tree
@@ -338,6 +338,16 @@ public interface HslLexerListener extends ParseTreeListener {
 	 */
 	void exitFileExpression(HslLexerParser.FileExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HslLexerParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(HslLexerParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HslLexerParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(HslLexerParser.FunctionCallContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HslLexerParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -347,6 +357,16 @@ public interface HslLexerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpression(HslLexerParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HslLexerParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentList(HslLexerParser.ArgumentListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HslLexerParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentList(HslLexerParser.ArgumentListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HslLexerParser#leftExpr}.
 	 * @param ctx the parse tree
@@ -637,4 +657,14 @@ public interface HslLexerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType(HslLexerParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HslLexerParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameter(HslLexerParser.ParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HslLexerParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameter(HslLexerParser.ParameterContext ctx);
 }
