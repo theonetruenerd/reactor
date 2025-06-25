@@ -83,8 +83,8 @@ statementList
     ;
 
 controlLine
-    : DEBUG EQUALS NUMBER_LEX SEMICOLON
-    | ECHO EQUALS NUMBER_LEX SEMICOLON
+    : DEBUG '=' NUMBER_LEX SEMICOLON
+    | ECHO '=' NUMBER_LEX SEMICOLON
     | INCLUDE cString SEMICOLON
     | DEFINE id constant SEMICOLON
     | IFDEF id SEMICOLON
@@ -214,24 +214,24 @@ errorHandler
     ;
 
 assignmentExpression
-    : id EQUALS STRING_LEX
-    | id EQUALS NUMBER_LEX
-    | id EQUALS simpleStatement
+    : id '=' STRING_LEX
+    | id '=' NUMBER_LEX
+    | id '=' simpleStatement
     ;
 
 sequenceExpression
-    : sequenceId EQUALS sequenceExpression
+    : sequenceId '=' sequenceExpression
     | sequenceId '++'
     | sequenceId '--'
     ;
 
 stringExpression
-    : stringId EQUALS stringExpression
-    | stringId EQUALS functionReference
+    : stringId '=' stringExpression
+    | stringId '=' functionReference
     ;
 
 deviceExpression
-    : deviceId EQUALS deviceExpression
+    : deviceId '=' deviceExpression
     | deviceId
     ;
 
@@ -244,22 +244,22 @@ dialogExpression
     ;
 
 objectExpression
-    : objectId EQUALS objectExpression
-    | objectId PERIOD id EQUALS expression
+    : objectId '=' objectExpression
+    | objectId PERIOD id '=' expression
     ;
 
 arrayExpression
     : arrayId LSQUARE expression RSQUARE
-    | arrayId EQUALS arrayId
+    | arrayId '=' arrayId
     ;
 
 timerExpression
-    : timerId EQUALS timerExpression
+    : timerId '=' timerExpression
     | timerId
     ;
 
 eventExpression
-    : eventId EQUALS eventExpression
+    : eventId '=' eventExpression
     | eventId
     ;
 
