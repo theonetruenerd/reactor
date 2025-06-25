@@ -2,9 +2,9 @@ grammar HslLexer;
 
 // Lexer rules (Tokens)
 
-NEWLINE             : [\n]+;
-WHITE_SPACE         : [ \t\r\n]+ -> skip;
-COMMENT             : '//'.* -> skip;
+NEWLINE             : [\n]+ -> skip;
+WHITE_SPACE         : [ \t\r]+ -> skip;
+COMMENT             : '//' ~[\r\n]* -> skip;
 COLON               : ':';
 BINARY_OPERATOR     : '+' | '-' | '*' | '/' | '&&' | '||' | '=' | '<>' | '<=' | '>=';
 UNARY_OPERATOR      : '-' | '!';
@@ -83,14 +83,14 @@ statementList
     ;
 
 controlLine
-    : DEBUG '=' NUMBER_LEX SEMICOLON
-    | ECHO '=' NUMBER_LEX SEMICOLON
-    | INCLUDE cString SEMICOLON
-    | DEFINE id constant SEMICOLON
-    | IFDEF id SEMICOLON
-    | IFNDEF id SEMICOLON
+    : DEBUG '='  NUMBER_LEX SEMICOLON
+    | ECHO  '='  NUMBER_LEX SEMICOLON
+    | INCLUDE  cString SEMICOLON
+    | DEFINE  id  constant SEMICOLON
+    | IFDEF  id SEMICOLON
+    | IFNDEF  id SEMICOLON
     | ENDIF SEMICOLON
-    | PRAGMA (ONCE | GLOBAL) SEMICOLON
+    | PRAGMA  (ONCE | GLOBAL) SEMICOLON
     ;
 
 statement
@@ -144,8 +144,8 @@ flowControlStatement
     ;
 
 controlStatement
-    : '<<' cString
-    | '<<' stringId
+    : '<<'  cString
+    | '<<'  stringId
     ;
 
 declaration
@@ -160,9 +160,9 @@ declSpecifiers
     ;
 
 functionDefinition
-    : declSpecifiers? FUNCTION id formalList? returnType? block
-    | declSpecifiers? FUNCTION protoId formalList? returnType? block
-    | declSpecifiers? METHOD id formalList? returnType? block
+    : declSpecifiers?  FUNCTION  id  formalList? returnType?  block
+    | declSpecifiers?  FUNCTION  protoId  formalList? returnType?  block
+    | declSpecifiers?  METHOD  id  formalList? returnType?  block
     ;
 
 namespaceDefinition
@@ -170,13 +170,13 @@ namespaceDefinition
     ;
 
 structure
-    : STRUCT id LBRACE tagDeclarationList SEMICOLON RBRACE
-    | STRUCT LBRACE tagDeclarationList SEMICOLON RBRACE id
-    | STRUCT id LBRACE tagDeclarationList SEMICOLON RBRACE id
+    : STRUCT  id  LBRACE tagDeclarationList SEMICOLON RBRACE
+    | STRUCT  LBRACE tagDeclarationList SEMICOLON RBRACE  id
+    | STRUCT  id LBRACE tagDeclarationList SEMICOLON RBRACE  id
     ;
 
 array
-    : varDec LSQUARE expression RSQUARE
+    : varDec  LSQUARE expression RSQUARE
     ;
 
 tagDeclarationList
@@ -185,11 +185,11 @@ tagDeclarationList
 
 tagDeclaration
     : varDec
-    | varDec LSQUARE NUMBER_LEX RSQUARE
+    | varDec  LSQUARE NUMBER_LEX RSQUARE
     ;
 
 varDec
-    : storage id
+    : storage  id
     ;
 
 storage
@@ -200,7 +200,7 @@ storage
     ;
 
 formalList
-    : LPAREN (type AMPERSAND typeId COMMA | type typeId COMMA)* (type AMPERSAND typeId | type typeId) RPAREN
+    : LPAREN (type AMPERSAND  typeId COMMA |  type  typeId COMMA)* ( type AMPERSAND  typeId |  type  typeId) RPAREN
     ;
 
 returnType
@@ -214,9 +214,9 @@ errorHandler
     ;
 
 assignmentExpression
-    : id '=' STRING_LEX
-    | id '=' NUMBER_LEX
-    | id '=' simpleStatement
+    : id  '='  STRING_LEX
+    | id  '='  NUMBER_LEX
+    | id  '='  simpleStatement
     ;
 
 sequenceExpression

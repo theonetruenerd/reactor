@@ -3,8 +3,6 @@ package com.tc.reactor.ui;
 import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
-import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
-import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
-import org.antlr.v4.runtime.*;
 import org.fxmisc.richtext.CodeArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -265,7 +262,7 @@ public class MainView {
 
         if(extension.equals("hsl")) {
             RealTimeSyntaxChecker realTimeSyntaxChecker = new RealTimeSyntaxChecker();
-            realTimeSyntaxChecker.checkSyntax(stringBuilder.toString());
+            realTimeSyntaxChecker.checkSyntax(editor.getText() );
         }
 
         mainTabPane.getTabs().add(tab);
