@@ -6,7 +6,7 @@
 
     <groupId>com.tc</groupId>
     <artifactId>reactor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>reactor</name>
 
     <properties>
@@ -102,13 +102,6 @@
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-runtime</artifactId>
                 <version>4.13.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,7 +121,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tc.reactor/com.tc.reactor.Main</mainClass>
+                            <mainClass>com.tc.reactor.Main</mainClass>
                             <launcher>app</launcher>
                             <jvmArgs>--enable-native-access=javafx.graphics</jvmArgs>
                             <jlinkZipName>app</jlinkZipName>

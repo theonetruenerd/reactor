@@ -3,6 +3,8 @@ package com.tc.reactor.ui;
 import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
+import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
+import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,19 +14,13 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
+import org.antlr.v4.runtime.*;
 import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
-import com.tc.reactor.support.SyntaxManager.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class MainView {
 
@@ -163,6 +159,7 @@ public class MainView {
      *
      * @param directory the directory to start populating the tree
      * @param parentItem the parent tree item to add the files to
+     * @param fileMap the hashmap being used to associate file names with file paths
      */
     private void addFilesToTreeItem(File directory, TreeItem<File> parentItem, Map<String, String> fileMap) {
         // Makes a list of files from the directory
@@ -180,6 +177,12 @@ public class MainView {
 
     }
 
+    /**
+     * Handles the click event to close a project.
+     * This method performs two actions:
+     * - Clears the project tree to remove all listed files and directories.
+     * - Closes all open tabs in the main tab pane, effectively resetting the workspace.
+     */
     public void onCloseProjectClick() {
         clearTree();
         closeAllTabs();
@@ -218,8 +221,6 @@ public class MainView {
             openFileInTab(fullPath);
         }
     }
-
-
 
     /**
      * Opens a file in the current tab. If a tab for the same file already exists, it is selected instead.
