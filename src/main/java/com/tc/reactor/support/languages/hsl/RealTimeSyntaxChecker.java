@@ -17,11 +17,6 @@ public class RealTimeSyntaxChecker {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         HslLexerParser parser = new HslLexerParser(tokens);
 
-        for (Token token : lexer.getAllTokens()) {
-            System.out.printf("Token: '%s', Type: %d%n", token.getText(), token.getType());
-        }
-        lexer.reset(); // Reset the lexer so the parser can use it
-
         // Add custom error listener BEFORE parsing
         parser.addErrorListener(new BaseErrorListener() {
             @Override
@@ -29,14 +24,18 @@ public class RealTimeSyntaxChecker {
                                     int charPositionInLine, String msg, RecognitionException e) {
                 String errorMessage = String.format("Syntax Error at line %d:%d - %s%n", line, charPositionInLine, msg);
 
-                System.out.println(errorMessage); // Debugging output
                 // Update the output TextArea in a thread-safe way
-                Platform.runLater(() -> outputTextArea.appendText(errorMessage));
+                Platform.runLater(() -> {
+                    if (outputTextArea != null) {
+                        outputTextArea.appendText(errorMessage);
+                    } else {
+                        System.err.println("OutputTextArea is not initialized.");
+                    }
+                });
             }
         });
 
         // Parse the code (execute the entry rule)
         parser.hslFile();
     }
-
 }

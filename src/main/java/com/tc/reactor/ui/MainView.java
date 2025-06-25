@@ -1,8 +1,11 @@
 package com.tc.reactor.ui;
 
+import com.tc.reactor.support.CodeAutocompletion;
 import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
+import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
+import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
+import org.antlr.v4.runtime.*;
 import org.fxmisc.richtext.CodeArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -249,6 +253,11 @@ public class MainView {
         CodeFormatter codeFormatter = new CodeFormatter();
         codeFormatter.setupAutoFormatting(editor, extension);
 
+        // Setup code autocompletion for supported languages
+        if ("hsl".equals(extension)) {
+            new CodeAutocompletion(editor, extension);
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -260,10 +269,12 @@ public class MainView {
             editor.appendText("Error reading file: " + e.getMessage());
         }
 
-        if(extension.equals("hsl")) {
-            RealTimeSyntaxChecker realTimeSyntaxChecker = new RealTimeSyntaxChecker();
-            realTimeSyntaxChecker.checkSyntax(editor.getText() );
-        }
+//        if(extension.equals("hsl")) {
+//            editor.textProperty().addListener((obs, oldText, newText) -> {
+//                checkSyntax(newText);
+//            });
+
+//        }
 
         mainTabPane.getTabs().add(tab);
         mainTabPane.getSelectionModel().select(tab);
@@ -322,6 +333,34 @@ public class MainView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void checkSyntax(String sourceCode) {
+        CharStream input = CharStreams.fromString(sourceCode);
+        HslLexerLexer lexer = new HslLexerLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        HslLexerParser parser = new HslLexerParser(tokens);
+
+        // Add custom error listener BEFORE parsing
+        parser.addErrorListener(new BaseErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+                                    int charPositionInLine, String msg, RecognitionException e) {
+                String errorMessage = String.format("Syntax Error at line %d:%d - %s%n", line, charPositionInLine, msg);
+
+                // Update the output TextArea in a thread-safe way
+                Platform.runLater(() -> {
+                    if (outputTextArea != null) {
+                        outputTextArea.appendText(errorMessage);
+                    } else {
+                        System.err.println("OutputTextArea is not initialized.");
+                    }
+                });
+            }
+        });
+
+        // Parse the code (execute the entry rule)
+        parser.hslFile();
     }
 
 }
