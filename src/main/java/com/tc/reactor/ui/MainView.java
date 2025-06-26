@@ -96,11 +96,11 @@ public class MainView {
     private TextArea logsTextArea;
 
     private GitUtils gitUtils = new GitUtils();
-    private Task<Void> gitStatusTask;
-    private boolean isListenerRunning = false;
 
     @FXML
     private TreeView<String> gitCommitTreeView;
+    @FXML
+    private Button refreshCommitButton;
     @FXML
     private Button commitButton;
     @FXML
@@ -127,48 +127,50 @@ public class MainView {
         });
     }
 
-    public void startGitStatusListener() {
-        if (gitUtils.getRepository() == null) {
-            throw new IllegalStateException("Git repository is not initialized.");
-        }
-
-        isListenerRunning = true;
-
-        gitStatusTask = new Task<>() {
-            @Override
-            protected Void call() {
-                while (isListenerRunning) {
-                    try {
-                        // Retrieve uncommitted changes
-                        TreeItem<String> changes = gitUtils.getUncommittedChanges();
-
-                        // Update the UI on the JavaFX Application Thread
-                        Platform.runLater(() -> gitCommitTreeView.setRoot(changes));
-
-                        // Poll every 2 seconds (adjust as required)
-                        Thread.sleep(2000);
-                    } catch (GitAPIException | InterruptedException e) {
-                        e.printStackTrace();
-                        stopGitStatusListener();  // Stop listener on error
-                        Platform.runLater(() -> gitCommitTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
-                    }
-                }
-
-                return null;
-            }
-        };
-
-        Thread statusThread = new Thread(gitStatusTask);
-        statusThread.setDaemon(true);
-        statusThread.start();
-    }
-
-    public void stopGitStatusListener() {
-        isListenerRunning = false;
-        if (gitStatusTask != null) {
-            gitStatusTask.cancel();
-        }
-    }
+//    public void startGitStatusListener() {
+//        if (gitUtils.getRepository() == null) {
+//            throw new IllegalStateException("Git repository is not initialized.");
+//        }
+//
+//        isListenerRunning = true;
+//
+//        gitStatusTask = new Task<>() {
+//            @Override
+//            protected Void call() {
+//                while (isListenerRunning) {
+//                    try {
+//                        // Retrieve uncommitted changes
+//                        TreeItem<String> changes = gitUtils.getUncommittedChanges();
+//
+//                        // Update the UI on the JavaFX Application Thread
+//                        Platform.runLater(() -> {
+//                            gitCommitTreeView.setRoot(changes);
+//                        });
+//
+//                        // Poll every 2 seconds (adjust as required)
+//                        Thread.sleep(2000);
+//                    } catch (GitAPIException | InterruptedException e) {
+//                        e.printStackTrace();
+//                        stopGitStatusListener();  // Stop listener on error
+//                        Platform.runLater(() -> gitCommitTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
+//                    }
+//                }
+//
+//                return null;
+//            }
+//        };
+//
+//        Thread statusThread = new Thread(gitStatusTask);
+//        statusThread.setDaemon(true);
+//        statusThread.start();
+//    }
+//
+//    public void stopGitStatusListener() {
+//        isListenerRunning = false;
+//        if (gitStatusTask != null) {
+//            gitStatusTask.cancel();
+//        }
+//    }
 
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
@@ -229,7 +231,7 @@ public class MainView {
             System.out.println("No directory selected");
         }
 
-        startGitStatusListener();
+//        startGitStatusListener();
         System.out.println(gitUtils.getRepository());
     }
 
@@ -302,7 +304,7 @@ public class MainView {
     public void onCloseProjectClick() {
         clearTree();
         closeAllTabs();
-        stopGitStatusListener();
+//        stopGitStatusListener();
     }
 
     /**
@@ -367,6 +369,14 @@ public class MainView {
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void onRefreshCommitButtonClick() throws GitAPIException {
+        TreeItem<String> changes = gitUtils.getUncommittedChanges();
+        Platform.runLater(() -> {
+            gitCommitTreeView.setRoot(changes);
+        });
     }
 
     /**
