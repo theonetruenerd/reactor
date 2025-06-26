@@ -25,6 +25,7 @@ public class Main extends Application {
 //        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
         stage.setTitle("Reactor");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
