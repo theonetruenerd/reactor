@@ -4,7 +4,6 @@ import com.tc.reactor.support.CodeAutocompletion;
 import com.tc.reactor.support.CodeFormatter;
 import com.tc.reactor.support.SyntaxManager;
 import com.tc.reactor.support.git.GitUtils;
-import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
 import javafx.application.Platform;
@@ -17,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import org.antlr.v4.runtime.*;
@@ -102,7 +100,13 @@ public class MainView {
     private boolean isListenerRunning = false;
 
     @FXML
-    private TreeView<String> gitChangesTreeView;
+    private TreeView<String> gitCommitTreeView;
+    @FXML
+    private Button commitButton;
+    @FXML
+    private TextArea commitMessageTextArea;
+    @FXML
+    private Button pushButton;
 
     /**
      * Initializes the window, setting up initial tabs
@@ -139,14 +143,14 @@ public class MainView {
                         TreeItem<String> changes = gitUtils.getUncommittedChanges();
 
                         // Update the UI on the JavaFX Application Thread
-                        Platform.runLater(() -> gitChangesTreeView.setRoot(changes));
+                        Platform.runLater(() -> gitCommitTreeView.setRoot(changes));
 
                         // Poll every 2 seconds (adjust as required)
                         Thread.sleep(2000);
                     } catch (GitAPIException | InterruptedException e) {
                         e.printStackTrace();
                         stopGitStatusListener();  // Stop listener on error
-                        Platform.runLater(() -> gitChangesTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
+                        Platform.runLater(() -> gitCommitTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
                     }
                 }
 
@@ -353,8 +357,16 @@ public class MainView {
             e.printStackTrace();
 
         }
+    }
 
-
+    @FXML
+    public void onCommitButtonClick() {
+        try {
+            gitUtils.commit(commitMessageTextArea.getText());
+            System.out.println("Commit successful.");
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

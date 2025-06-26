@@ -27,7 +27,7 @@
                 <items>
                     <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" styleClass="root" text="Pull" />
                     <MenuItem fx:id="addMenuItem" mnemonicParsing="false" styleClass="root" text="Add" />
-                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" styleClass="root" text="Commit" />
+                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" onAction="#onCommitButtonClick" styleClass="root" text="Commit" />
                     <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" styleClass="root" text="Push" />
                     <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" styleClass="root" text="Fetch" />
                     <SeparatorMenuItem mnemonicParsing="false" />
@@ -133,11 +133,11 @@
                      </font></Button>
               </items>
             </ToolBar>
-            <TreeView fx:id="gitCommitTreeView" prefHeight="295.0" prefWidth="243.0" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <TextArea fx:id="gitCommitTextArea" prefHeight="169.0" prefWidth="200.0" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <ToolBar fx:id="gitCommitAndPushToolBar" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+            <TreeView fx:id="gitCommitTreeView" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="commitMessageTextArea" promptText="Enter commit message here..." stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <ToolBar fx:id="gitCommitAndPushToolBar" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="gitCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0" stylesheets="@../css/styles.css" text="Commit" />
+                  <Button fx:id="gitCommitButton" mnemonicParsing="false" onAction="#onCommitButtonClick" prefHeight="30.0" prefWidth="72.0" stylesheets="@../css/styles.css" text="Commit" />
                 <Button fx:id="gitCommitAndPushButton" mnemonicParsing="false" stylesheets="@../css/styles.css" text="Commit and Push" />
               </items>
             </ToolBar>

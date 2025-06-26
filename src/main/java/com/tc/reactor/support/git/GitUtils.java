@@ -74,6 +74,16 @@ public class GitUtils {
         }
     }
 
+    public void commit(String message) throws GitAPIException {
+        if (repository == null) {
+            throw new IllegalStateException("Git repository is not initialized.");
+        }
+        Git git = new Git(repository);
+        git.commit().setMessage(message).call();
+        System.out.println("Committed changes");
+    }
+
+
 
     /**
      * Returns the current loaded repository.
