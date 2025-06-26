@@ -8,11 +8,14 @@ import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,10 +24,8 @@ import org.antlr.v4.runtime.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.fxmisc.richtext.CodeArea;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.*;
 
 public class MainView {
@@ -96,7 +97,12 @@ public class MainView {
     @FXML
     private TextArea logsTextArea;
 
-    GitUtils gitUtils = new GitUtils();
+    private GitUtils gitUtils = new GitUtils();
+    private Task<Void> gitStatusTask;
+    private boolean isListenerRunning = false;
+
+    @FXML
+    private TreeView<String> gitChangesTreeView;
 
     /**
      * Initializes the window, setting up initial tabs
@@ -104,6 +110,60 @@ public class MainView {
     @FXML
     private void initialize() {
         setupInitialTabs();
+        Platform.runLater(this::setupKeyboardShortcuts);
+    }
+
+    private void setupKeyboardShortcuts() {
+        menuBar.getScene().addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+            if (new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN).match(event))
+            {
+                saveCurrentFile();
+                event.consume();
+            }
+        });
+    }
+
+    public void startGitStatusListener() {
+        if (gitUtils.getRepository() == null) {
+            throw new IllegalStateException("Git repository is not initialized.");
+        }
+
+        isListenerRunning = true;
+
+        gitStatusTask = new Task<>() {
+            @Override
+            protected Void call() {
+                while (isListenerRunning) {
+                    try {
+                        // Retrieve uncommitted changes
+                        TreeItem<String> changes = gitUtils.getUncommittedChanges();
+
+                        // Update the UI on the JavaFX Application Thread
+                        Platform.runLater(() -> gitChangesTreeView.setRoot(changes));
+
+                        // Poll every 2 seconds (adjust as required)
+                        Thread.sleep(2000);
+                    } catch (GitAPIException | InterruptedException e) {
+                        e.printStackTrace();
+                        stopGitStatusListener();  // Stop listener on error
+                        Platform.runLater(() -> gitChangesTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
+                    }
+                }
+
+                return null;
+            }
+        };
+
+        Thread statusThread = new Thread(gitStatusTask);
+        statusThread.setDaemon(true);
+        statusThread.start();
+    }
+
+    public void stopGitStatusListener() {
+        isListenerRunning = false;
+        if (gitStatusTask != null) {
+            gitStatusTask.cancel();
+        }
     }
 
     /**
@@ -122,28 +182,51 @@ public class MainView {
             // Populates the project tree tab from the directory
             populateProjectTree(selectedDirectory);
             try {
-                gitUtils.setRepository(String.valueOf(selectedDirectory));
+                // Attempt to load the Git repository from the selected directory
+                gitUtils.setRepository(selectedDirectory.getAbsolutePath());
+                System.out.println("Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
             } catch (RepositoryNotFoundException ex) {
+                // If no Git repository is found, show a confirmation dialog to the user
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Git Repository Not Found");
-                alert.setHeaderText("Git Repository Not Found");
-                alert.setContentText("Would you like to create a new Git Repository?");
+                alert.setHeaderText("This folder is not a Git repository.");
+                alert.setContentText("Would you like to create a new Git repository in the selected folder?");
+
                 Optional<ButtonType> result = alert.showAndWait();
+
                 if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // User chooses to create a Git repository
                     try {
-                        gitUtils.createRepository(String.valueOf(selectedDirectory));
+                        gitUtils.createRepository(selectedDirectory.getAbsolutePath());
+                        System.out.println("New Git repository created at: " + selectedDirectory.getAbsolutePath());
                     } catch (Exception e) {
-                        System.out.println("Git Repository Creation Failed: " + e.getMessage());
+                        // Handle errors during repository creation
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Repository Creation Failed");
+                        errorAlert.setHeaderText("An error occurred while creating the repository.");
+                        errorAlert.setContentText(e.getMessage());
+                        errorAlert.showAndWait();
+                        System.err.println("Git Repository Creation Failed: " + e.getMessage());
                     }
                 } else {
-                    System.out.println("Git Repository Creation Cancelled");
+                    // User cancels repository creation
+                    System.out.println("Git repository setup canceled by the user.");
                 }
             } catch (IOException e) {
-                System.out.println("Error while checking repository: " + e.getMessage());
+                // Handle general I/O exceptions when accessing the repository
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Error while checking the Git repository.");
+                errorAlert.setContentText(e.getMessage());
+                errorAlert.showAndWait();
+                System.err.println("Error while checking repository: " + e.getMessage());
             }
         } else {
             System.out.println("No directory selected");
         }
+
+        startGitStatusListener();
+        System.out.println(gitUtils.getRepository());
     }
 
     /**
@@ -215,6 +298,7 @@ public class MainView {
     public void onCloseProjectClick() {
         clearTree();
         closeAllTabs();
+        stopGitStatusListener();
     }
 
     /**
@@ -223,6 +307,54 @@ public class MainView {
      */
     private void clearTree() {
     	projectTree.setRoot(new TreeItem<>(""));
+    }
+
+    private void saveCurrentFile() {
+        Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
+        if (currentTab == null || currentTab.getUserData() == null) {
+            System.out.println("No active file to save.");
+            return; // Skip if no file is loaded
+        }
+
+        // Retrieve file path from the tab's userData
+        String filePath = currentTab.getUserData().toString();
+        if (filePath.isBlank()) {
+            System.out.println("Invalid file path.");
+            return; // Skip if file path is invalid
+        }
+
+        // Extract the content of the editor
+        CodeArea editor = (CodeArea) currentTab.getContent();
+        String fileContent = editor.getText();
+
+        // Call save logic and print status
+        saveFile(filePath, fileContent);
+        System.out.println("File saved: " + filePath);
+    }
+
+
+    public void saveFile(String filePath, String fileContent) {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            boolean dirsCreated = parentDir.mkdirs();
+            if (!dirsCreated) {
+                System.err.println("Failed to create directories for: " + parentDir.getAbsolutePath());
+                return;
+            }
+        }
+
+        // Write content to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(fileContent);
+            System.out.println("File saved successfully: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Failed to save file: " + filePath);
+            e.printStackTrace();
+
+        }
+
+
     }
 
     /**

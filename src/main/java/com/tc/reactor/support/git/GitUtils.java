@@ -1,30 +1,79 @@
 package com.tc.reactor.support.git;
 
+import javafx.scene.control.TreeItem;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.lib.IndexDiff;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 public class GitUtils {
 
     private Repository repository;
 
     /**
-     * Loads the Git repository from the specified directory.
+     * Sets the repository for the utility by specifying the path to a Git repository.
+     * This method verifies the existence of a valid `.git` directory in the specified path
+     * and initializes the repository to be used by the utility.
      *
-     * @param repoPath The path to the directory where the .git folder is located.
-     * @throws IOException If the repository cannot be loaded.
+     * @param repoPath The file system path to a Git repository.
+     * @throws IOException If an I/O error occurs during the repository setup.
+     * @throws RepositoryNotFoundException If no Git repository exists at the specified path.
      */
     public void setRepository(String repoPath) throws IOException {
+        File gitDir = new File(repoPath, ".git");
+        if (!gitDir.exists() || !gitDir.isDirectory()) {
+            throw new RepositoryNotFoundException("No Git repository found in the selected directory: " + repoPath);
+        }
+
         this.repository = new FileRepositoryBuilder()
-                .setGitDir(new File(repoPath + "/.git")) // Path to the .git folder
-                .readEnvironment() // Automatically read environment settings, such as user configs
-                .findGitDir()      // Search for the .git directory if the path is incomplete
+                .setGitDir(gitDir) // Set the .git directory explicitly
+                .readEnvironment() // Automatically read environment settings
                 .build();
     }
+
+    /**
+     * Returns a TreeItem containing the current status, including uncommitted changes.
+     * This method retrieves added, modified, removed, and untracked files/folders.
+     *
+     * @return a TreeItem with the uncommitted changes
+     * @throws GitAPIException if the Git command fails
+     */
+    public TreeItem<String> getUncommittedChanges() throws GitAPIException {
+        TreeItem<String> root = new TreeItem<>("Uncommitted Changes");
+        try (Git git = new Git(repository)) {
+            Status status = git.status().call();
+            System.out.println("Uncommitted Changes: " + status);
+            // Added files
+            addStatusToTreeItem(root, "Added Files", status.getAdded());
+            // Modified files
+            addStatusToTreeItem(root, "Modified Files", status.getModified());
+            // Removed files
+            addStatusToTreeItem(root, "Removed Files", status.getRemoved());
+            // Untracked files
+            addStatusToTreeItem(root, "Untracked Files", status.getUntracked());
+        }
+        System.out.println("Uncommitted Changes TreeItem: " + root);
+        return root;
+    }
+
+    private void addStatusToTreeItem(TreeItem<String> parent, String category, Set<String> changes) {
+        if (!changes.isEmpty()) {
+            TreeItem<String> categoryNode = new TreeItem<>(category);
+            for (String file : changes) {
+                categoryNode.getChildren().add(new TreeItem<>(file));
+            }
+            parent.getChildren().add(categoryNode);
+        }
+    }
+
 
     /**
      * Returns the current loaded repository.
