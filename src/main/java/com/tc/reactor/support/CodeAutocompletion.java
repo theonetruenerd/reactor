@@ -122,6 +122,7 @@ public class CodeAutocompletion {
 
     private void positionPopupAtCaret() {
         Bounds caretBounds = codeArea.getCaretBounds().orElse(null);
+        System.out.println("Caret Bounds: " + caretBounds);
         if (caretBounds == null) {
             System.err.println("Caret bounds are null.");
             suggestionPopup.setX(100);
@@ -129,7 +130,7 @@ public class CodeAutocompletion {
             return;
         }
 
-        javafx.geometry.Point2D screenCoords = codeArea.localToScreen(caretBounds.getMinX(), caretBounds.getMaxY());
+        javafx.geometry.Point2D screenCoords = codeArea.localToScreen(caretBounds.getMinX(), caretBounds.getMinY());
         if (screenCoords == null) {
             System.err.println("Screen coordinates are null.");
             suggestionPopup.setX(100);
@@ -140,8 +141,8 @@ public class CodeAutocompletion {
         System.out.println("Placing popup at: " + screenCoords);
 
         Platform.runLater(() -> {
-            suggestionPopup.setX(screenCoords.getX());
-            suggestionPopup.setY(screenCoords.getY() + 5); // Optional offset for better visibility
+            suggestionPopup.setX(caretBounds.getMinX());
+            suggestionPopup.setY(caretBounds.getMaxY() + 5); // Optional offset for better visibility
         });
     }
 
