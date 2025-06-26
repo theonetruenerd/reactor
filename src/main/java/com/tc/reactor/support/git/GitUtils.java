@@ -2,63 +2,53 @@ package com.tc.reactor.support.git;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+import java.io.File;
 import java.io.IOException;
 
 public class GitUtils {
 
-    private Git git;
+    private Repository repository;
 
-    public GitUtils(String repositoryPath) throws Exception {
-        this.git = Git.open(new java.io.File(repositoryPath));
+    /**
+     * Loads the Git repository from the specified directory.
+     *
+     * @param repoPath The path to the directory where the .git folder is located.
+     * @throws IOException If the repository cannot be loaded.
+     */
+    public void setRepository(String repoPath) throws IOException {
+        this.repository = new FileRepositoryBuilder()
+                .setGitDir(new File(repoPath + "/.git")) // Path to the .git folder
+                .readEnvironment() // Automatically read environment settings, such as user configs
+                .findGitDir()      // Search for the .git directory if the path is incomplete
+                .build();
     }
 
-    public void pull(String username, String password) throws GitAPIException {
-        git.pull()
-                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password))
-                .call();
-        System.out.println("Pull successful");
+    /**
+     * Returns the current loaded repository.
+     *
+     * @return the Repository object
+     */
+    public Repository getRepository() {
+        return repository;
     }
 
-    public void push(String username, String password) throws GitAPIException {
-        git.push()
-                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password))
-                .call();
-        System.out.println("Push successful");
-    }
-
-    public void commit(String message) throws GitAPIException {
-        git.commit().setMessage(message).call();
-        System.out.println("Commit successful");
-    }
-
-    public void checkout(String branchName) throws GitAPIException {
-        git.checkout().setName(branchName).call();
-        System.out.println("Checked out to branch " + branchName);
-    }
-
-    public void fetch(String username, String password) throws GitAPIException {
-        git.fetch()
-                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password))
-                .call();
-        System.out.println("Fetch successful");
-    }
-
-    public void merge(String branchToMerge) throws GitAPIException, IOException {
-        git.merge()
-                .include(git.getRepository().resolve(branchToMerge))
-                .call();
-        System.out.println("Merge successful: " + branchToMerge);
-    }
-
-    public void rebase(String branchName) throws GitAPIException {
-        git.rebase().setUpstream(branchName).call();
-        System.out.println("Rebase successful: " + branchName);
-    }
-
-    public void add(String path) throws GitAPIException {
-        git.add().addFilepattern(path).call();
-        System.out.println("Added " + path);
+    /**
+     * Creates a new Git repository at the specified file system path.
+     *
+     * @param repoPath The file system path where the repository will be initialized.
+     * @throws IOException If an error occurs while accessing the file system.
+     * @throws GitAPIException If an error occurs during the repository creation process.
+     */
+    public void createRepository(String repoPath) throws IOException, GitAPIException {
+        try {
+            Git git = Git.init().setDirectory(new File(repoPath)).call(); {
+                System.out.println("Repository created at " + repoPath);
+            }
+        } catch (GitAPIException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

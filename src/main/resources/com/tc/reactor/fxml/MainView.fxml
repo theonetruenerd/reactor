@@ -25,13 +25,13 @@
           </Menu>
             <Menu fx:id="gitMenu" mnemonicParsing="false" styleClass="root" text="Git">
                 <items>
-                    <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" onAction="#onPullMenuItemClick" styleClass="root" text="Pull" />
-                    <MenuItem fx:id="addMenuItem" mnemonicParsing="false" onAction="#onAddMenuItemClick" styleClass="root" text="Add" />
-                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" onAction="#onCommitMenuItemClick" styleClass="root" text="Commit" />
-                    <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" onAction="#onPushMenuItemClick" styleClass="root" text="Push" />
-                    <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" onAction="#onFetchMenuItemClick" styleClass="root" text="Fetch" />
+                    <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" styleClass="root" text="Pull" />
+                    <MenuItem fx:id="addMenuItem" mnemonicParsing="false" styleClass="root" text="Add" />
+                    <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" styleClass="root" text="Commit" />
+                    <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" styleClass="root" text="Push" />
+                    <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" styleClass="root" text="Fetch" />
                     <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" onAction="#onCheckoutMenuItemClick" styleClass="root" text="Checkout" />
+                    <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" styleClass="root" text="Checkout" />
                     <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" styleClass="root" text="Merge" />
                     <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" styleClass="root" text="Rebase" />
                 </items>

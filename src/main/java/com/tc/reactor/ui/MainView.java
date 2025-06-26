@@ -18,6 +18,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import org.antlr.v4.runtime.*;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.fxmisc.richtext.CodeArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -94,6 +96,8 @@ public class MainView {
     @FXML
     private TextArea logsTextArea;
 
+    GitUtils gitUtils = new GitUtils();
+
     /**
      * Initializes the window, setting up initial tabs
      */
@@ -107,7 +111,7 @@ public class MainView {
      * populates the project tree tab with files from the selected directory.
      */
     @FXML
-    private void onOpenProjectClick() {
+    private void onOpenProjectClick() throws GitAPIException, IOException {
         // Opens folder browser
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Project Directory");
@@ -117,6 +121,28 @@ public class MainView {
         if (selectedDirectory != null) {
             // Populates the project tree tab from the directory
             populateProjectTree(selectedDirectory);
+            try {
+                gitUtils.setRepository(String.valueOf(selectedDirectory));
+            } catch (RepositoryNotFoundException ex) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Git Repository Not Found");
+                alert.setHeaderText("Git Repository Not Found");
+                alert.setContentText("Would you like to create a new Git Repository?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    try {
+                        gitUtils.createRepository(String.valueOf(selectedDirectory));
+                    } catch (Exception e) {
+                        System.out.println("Git Repository Creation Failed: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("Git Repository Creation Cancelled");
+                }
+            } catch (IOException e) {
+                System.out.println("Error while checking repository: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No directory selected");
         }
     }
 
@@ -336,150 +362,6 @@ public class MainView {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void onPullMenuItemClick() throws Exception {
-        promptCredentialsAndExecute((username, password) -> {
-            try {
-                String repoPath = getRepositoryPath();
-                GitUtils gitUtils = new GitUtils(repoPath);
-                gitUtils.pull(username, password);
-                logsTextArea.appendText("Pull Successful\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Pull Failed: " + e.getMessage() + "\n");
-            }
-        });
-    }
-
-    @FXML
-    private void onAddMenuItemClick() throws Exception {
-        String repoPath = getRepositoryPath(); // Get the repository path
-
-        GitUtils gitUtils = new GitUtils(repoPath);
-
-        // Open a FileChooser to allow the user to select a file to add
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select File to Add");
-        fileChooser.setInitialDirectory(new File(repoPath)); // Set the initial directory as the repository folder
-
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-        if (selectedFile != null) {
-            try {
-                // Add the selected file to the Git index
-                gitUtils.add(selectedFile.getPath());
-                logsTextArea.appendText("File added to git: " + selectedFile.getName() + "\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Error adding file: " + e.getMessage() + "\n");
-            }
-        } else {
-            logsTextArea.appendText("No file was selected.\n");
-        }
-    }
-
-
-    @FXML
-    private void onPushMenuItemClick() throws Exception {
-        promptCredentialsAndExecute((username, password) -> {
-            try {
-                String repoPath = getRepositoryPath();
-                GitUtils gitUtils = new GitUtils(repoPath);
-                gitUtils.push(username, password);
-                logsTextArea.appendText("Push Successful\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Push Failed: " + e.getMessage() + "\n");
-            }
-        });
-    }
-
-    @FXML
-    private void onCommitMenuItemClick() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Commit Changes");
-        dialog.setHeaderText("Enter Commit Message");
-        dialog.setContentText("Message:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(message -> {
-            try {
-                String repoPath = getRepositoryPath();
-                GitUtils gitUtils = new GitUtils(repoPath);
-                gitUtils.commit(message);
-                logsTextArea.appendText("Commit operation successful: " + message + "\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Error during commit: " + e.getMessage() + "\n");
-            }
-        });
-    }
-
-    @FXML
-    private void onFetchMenuItemClick() throws Exception {
-        promptCredentialsAndExecute((username, password) -> {
-            try {
-                String repoPath = getRepositoryPath();
-                GitUtils gitUtils = new GitUtils(repoPath);
-                gitUtils.fetch(username, password);
-                logsTextArea.appendText("Fetch operation successful.\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Error during fetch: " + e.getMessage() + "\n");
-            }
-        });
-    }
-
-    @FXML
-    private void onCheckoutMenuItemClick() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Checkout");
-        dialog.setHeaderText("Checkout Branch");
-        dialog.setContentText("Branch Name:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(branch -> {
-            try {
-                String repoPath = getRepositoryPath();
-                GitUtils gitUtils = new GitUtils(repoPath);
-                gitUtils.checkout(branch);
-                logsTextArea.appendText("Checked out to branch: " + branch + "\n");
-            } catch (Exception e) {
-                logsTextArea.appendText("Error during checkout: " + e.getMessage() + "\n");
-            }
-        });
-    }
-
-    private void promptCredentialsAndExecute(GitAction action) throws Exception {
-        TextInputDialog usernameDialog = new TextInputDialog();
-        usernameDialog.setTitle("Git Authentication");
-        usernameDialog.setHeaderText("Enter Git Username");
-        usernameDialog.setContentText("Username:");
-        Optional<String> username = usernameDialog.showAndWait();
-
-        TextInputDialog passwordDialog = new TextInputDialog();
-        passwordDialog.setTitle("Git Authentication");
-        passwordDialog.setHeaderText("Enter Git Password");
-        passwordDialog.setContentText("Password:");
-        Optional<String> password = passwordDialog.showAndWait();
-
-        if (username.isPresent() && password.isPresent()) {
-            action.execute(username.get(), password.get());
-        } else {
-            logsTextArea.appendText("Authentication canceled.\n");
-        }
-    }
-
-    private String getRepositoryPath() {
-        TreeItem<String> rootItem = projectTree.getRoot();
-        if (rootItem != null) {
-            return rootItem.getValue(); // Assuming root item value is the repository path
-        }
-        logsTextArea.appendText("No repository selected.\n");
-        throw new IllegalStateException("Repository path not found.");
-    }
-
-    // Interface for Git Actions
-    @FunctionalInterface
-    private interface GitAction {
-        void execute(String username, String password) throws Exception;
-    }
-
 
     public void checkSyntax(String sourceCode) {
         CharStream input = CharStreams.fromString(sourceCode);
