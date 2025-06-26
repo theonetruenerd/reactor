@@ -1,8 +1,7 @@
 /* TODO Add proper style and then colour schemes, light and dark mode, etc*/
 
 .root {
-    -fx-font-family: "JetBrains Mono";
-    -fx-font-size: 14px;
+    -fx-font: 14px "JetBrains Mono";
     /*-fx-background-color: #131318;*/
     /*-fx-text-fill: #E5E1E9;*/
     /*-fx-text-base-color: #E5E1E9;*/
@@ -12,40 +11,60 @@
 .tab-pane .tab-header-area .tab-header-background .tab {
     /*-fx-bar-background: #131318;*/
     /*-fx-background-color: #131318;*/
+    -fx-font: 14px "JetBrains Mono";
     -fx-border-radius: 0 0 18 18;
     -fx-background-radius: 0 0 18 18;
 }
 
+.text-area {
+    -fx-font: 14px "JetBrains Mono";
+}
+
+.styled-text-area .text {
+    -fx-font: 14px "JetBrains Mono";
+}
+
+.text-field {
+    -fx-font: 14px "JetBrains Mono";
+}
+
 .keyword {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #0033B3;
     -fx-font-weight: bold;
 }
 
 .scope {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #00AAAA;
     -fx-font-weight: bold;
 }
 
 .comment {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #8C8C8C;
     -fx-font-style: italic;
 }
 
 .types {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #CF8E6D;
     -fx-font-weight: bold;
 }
 
 .blocks {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #AA0000;
     -fx-font-weight: bold;
 }
 
 .string {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #00AA00;
 }
 
 .hex {
+    -fx-font: 14px "JetBrains Mono";
     -fx-fill: #1750EB;
 }
 
