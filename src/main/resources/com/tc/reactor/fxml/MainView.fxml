@@ -7,7 +7,7 @@
 
 <BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
-       <HBox stylesheets="@../css/styles.css">
+       <HBox styleClass="root" stylesheets="@../css/styles.css">
           <MenuBar fx:id="menuBar" prefHeight="30.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
             <menus>
               <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="root" text="File">
@@ -110,7 +110,7 @@
                   <font>
                      <Font name="JetBrains Mono Regular" size="12.0" />
                   </font></Button>
-             <Button fx:id="closeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="✕" onAction="#onCloseMenuItemClick"/>
+             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" stylesheets="@../css/styles.css" text="✕" />
            </buttons>
          </ButtonBar>
        </HBox>
@@ -126,7 +126,7 @@
       <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="363.0" prefWidth="560.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="outputTab" closable="false" styleClass="root" text="Output">
             <content>
@@ -136,7 +136,8 @@
                            <styleClass>
                               <String fx:value="root" />
                               <String fx:value="tab" />
-                           </styleClass></TextArea>
+                           </styleClass>
+                        </TextArea>
                      </children>
               </AnchorPane>
             </content>
@@ -186,28 +187,28 @@
       </TabPane>
    </bottom>
    <right>
-      <VBox fx:id="gitVBox" prefHeight="200.0" prefWidth="240.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="gitVBox" prefHeight="200.0" prefWidth="240.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/styles.css">
+            <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" stylesheets="@../css/styles.css" text="⟳" />
-                  <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/styles.css" text="↩" />
-                <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/styles.css" text="⭳" />
-                  <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
+                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="⟳" />
+                  <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="↩" />
+                <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="⭳" />
+                  <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
                      <font>
                         <Font name="JetBrains Mono Regular" size="12.0" />
                      </font></Button>
-                  <Button fx:id="collapseCommitButton" layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/styles.css" text="˅˄" wrapText="true">
+                  <Button fx:id="collapseCommitButton" layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˅˄" wrapText="true">
                      <font>
                         <Font name="JetBrains Mono Regular" size="12.0" />
                      </font></Button>
               </items>
             </ToolBar>
-            <TreeView fx:id="gitCommitTreeView" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <TextArea fx:id="commitMessageTextArea" promptText="Enter commit message here..." stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <ToolBar fx:id="gitCommitAndPushToolBar" stylesheets="@../css/styles.css">
+            <TreeView fx:id="gitCommitTreeView" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="commitMessageTextArea" promptText="Enter commit message here..." styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <ToolBar fx:id="gitCommitAndPushToolBar" styleClass="root" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="gitCommitButton" mnemonicParsing="false" onAction="#onCommitButtonClick" prefHeight="30.0" prefWidth="72.0" stylesheets="@../css/styles.css" text="Commit" />
+                  <Button fx:id="gitCommitButton" mnemonicParsing="false" onAction="#onCommitButtonClick" prefHeight="30.0" prefWidth="72.0" styleClass="root" stylesheets="@../css/styles.css" text="Commit" />
                 <Button fx:id="gitCommitAndPushButton" mnemonicParsing="false" stylesheets="@../css/styles.css" text="Commit and Push" />
               </items>
             </ToolBar>

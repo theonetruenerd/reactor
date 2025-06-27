@@ -2,15 +2,9 @@
 
 .root {
     -fx-font: 14px "JetBrains Mono";
-    /*-fx-background-color: #131318;*/
-    /*-fx-text-fill: #E5E1E9;*/
-    /*-fx-text-base-color: #E5E1E9;*/
-    /*-fx-border-color: #928F9A;*/
 }
 
 .tab-pane .tab-header-area .tab-header-background .tab {
-    /*-fx-bar-background: #131318;*/
-    /*-fx-background-color: #131318;*/
     -fx-font: 14px "JetBrains Mono";
     -fx-border-radius: 0 0 18 18;
     -fx-background-radius: 0 0 18 18;
