@@ -29,86 +29,19 @@ import java.util.*;
 public class MainView {
 
     // Defining the FXML classes:
-    // Line breaks in class definitions are where the sections split in the fxml
-    @FXML
-    private MenuBar menuBar;
-    @FXML
-    private Menu fileMenu;
-    @FXML
-    private MenuItem newProjectMenuItem;
-    @FXML
-    private MenuItem openProjectMenuItem;
-    @FXML
-    private MenuItem closeProjectMenuItem;
-    @FXML
-    private MenuItem closeMenuItem;
+    @FXML private MenuBar menuBar;
+    @FXML private TreeView<String> projectTree;
+    @FXML private TabPane mainTabPane;
+    @FXML private TabPane bottomTabPane;
+    @FXML private TextArea terminalTextArea;
+    @FXML private TextArea outputTextArea;
+    @FXML private TextArea logsTextArea;
+    @FXML private TreeView<String> gitCommitTreeView;
+    @FXML private TextArea commitMessageTextArea;
 
-    @FXML
-    private Menu editMenu;
-    @FXML
-    private MenuItem saveMenuItem;
-    @FXML
-    private MenuItem deleteMenuItem;
+    private final GitUtils gitUtils = new GitUtils();
+    private final Map<String, String> fileMap = new HashMap<>();
 
-    @FXML
-    private Menu gitMenu;
-    @FXML
-    private MenuItem pullMenuItem;
-    @FXML
-    private MenuItem commitMenuItem;
-    @FXML
-    private MenuItem pushMenuItem;
-    @FXML
-    private MenuItem fetchMenuItem;
-    @FXML
-    private MenuItem checkoutMenuItem;
-    @FXML
-    private MenuItem mergeMenuItem;
-    @FXML
-    private MenuItem rebaseMenuItem;
-
-    @FXML
-    private Menu helpMenu;
-    @FXML
-    private MenuItem aboutMenuItem;
-    @FXML
-    private MenuItem settingsMenuItem;
-
-    @FXML
-    private TreeView<String> projectTree;
-
-    @FXML
-    private TabPane mainTabPane;
-
-    @FXML
-    private TabPane bottomTabPane;
-    @FXML
-    private Tab terminalTab;
-    @FXML
-    private Tab outputTab;
-    @FXML
-    private Tab logsTab;
-    @FXML
-    private TextArea terminalTextArea;
-    @FXML
-    private TextArea outputTextArea;
-    @FXML
-    private TextArea logsTextArea;
-
-    private GitUtils gitUtils = new GitUtils();
-
-    @FXML
-    private TreeView<String> gitCommitTreeView;
-    @FXML
-    private Button refreshCommitButton;
-    @FXML
-    private Button commitButton;
-    @FXML
-    private TextArea commitMessageTextArea;
-    @FXML
-    private Button pushButton;
-
-    public Map<String, String> fileMap = new HashMap<>();
 
     /**
      * Initializes the window, setting up initial tabs
@@ -129,51 +62,6 @@ public class MainView {
         });
     }
 
-//    public void startGitStatusListener() {
-//        if (gitUtils.getRepository() == null) {
-//            throw new IllegalStateException("Git repository is not initialized.");
-//        }
-//
-//        isListenerRunning = true;
-//
-//        gitStatusTask = new Task<>() {
-//            @Override
-//            protected Void call() {
-//                while (isListenerRunning) {
-//                    try {
-//                        // Retrieve uncommitted changes
-//                        TreeItem<String> changes = gitUtils.getUncommittedChanges();
-//
-//                        // Update the UI on the JavaFX Application Thread
-//                        Platform.runLater(() -> {
-//                            gitCommitTreeView.setRoot(changes);
-//                        });
-//
-//                        // Poll every 2 seconds (adjust as required)
-//                        Thread.sleep(2000);
-//                    } catch (GitAPIException | InterruptedException e) {
-//                        e.printStackTrace();
-//                        stopGitStatusListener();  // Stop listener on error
-//                        Platform.runLater(() -> gitCommitTreeView.setRoot(new TreeItem<>("Error: " + e.getMessage())));
-//                    }
-//                }
-//
-//                return null;
-//            }
-//        };
-//
-//        Thread statusThread = new Thread(gitStatusTask);
-//        statusThread.setDaemon(true);
-//        statusThread.start();
-//    }
-//
-//    public void stopGitStatusListener() {
-//        isListenerRunning = false;
-//        if (gitStatusTask != null) {
-//            gitStatusTask.cancel();
-//        }
-//    }
-
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
      * populates the project tree tab with files from the selected directory.
@@ -189,52 +77,52 @@ public class MainView {
         if (selectedDirectory != null) {
             // Populates the project tree tab from the directory
             populateProjectTree(selectedDirectory);
-            try {
-                // Attempt to load the Git repository from the selected directory
-                gitUtils.setRepository(selectedDirectory.getAbsolutePath());
-                System.out.println("Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
-            } catch (RepositoryNotFoundException ex) {
-                // If no Git repository is found, show a confirmation dialog to the user
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Git Repository Not Found");
-                alert.setHeaderText("This folder is not a Git repository.");
-                alert.setContentText("Would you like to create a new Git repository in the selected folder?");
-
-                Optional<ButtonType> result = alert.showAndWait();
-
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // User chooses to create a Git repository
-                    try {
-                        gitUtils.createRepository(selectedDirectory.getAbsolutePath());
-                        System.out.println("New Git repository created at: " + selectedDirectory.getAbsolutePath());
-                    } catch (Exception e) {
-                        // Handle errors during repository creation
-                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setTitle("Repository Creation Failed");
-                        errorAlert.setHeaderText("An error occurred while creating the repository.");
-                        errorAlert.setContentText(e.getMessage());
-                        errorAlert.showAndWait();
-                        System.err.println("Git Repository Creation Failed: " + e.getMessage());
-                    }
-                } else {
-                    // User cancels repository creation
-                    System.out.println("Git repository setup canceled by the user.");
-                }
-            } catch (IOException e) {
-                // Handle general I/O exceptions when accessing the repository
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText("Error while checking the Git repository.");
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.showAndWait();
-                System.err.println("Error while checking repository: " + e.getMessage());
-            }
+            handleRepositoryInitialization(selectedDirectory);
         } else {
             System.out.println("No directory selected");
         }
-
-//        startGitStatusListener();
         System.out.println(gitUtils.getRepository());
+    }
+
+
+    private void handleRepositoryInitialization(File selectedDirectory) {
+        try {
+            gitUtils.setRepository(selectedDirectory.getAbsolutePath());
+            System.out.println("Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+        } catch (RepositoryNotFoundException e) {
+            showGitRepositoryDialog(selectedDirectory);
+        } catch (IOException e) {
+            showErrorDialog("Error while accessing Git repository.", e.getMessage());
+        }
+    }
+
+    private void showGitRepositoryDialog(File selectedDirectory) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Git Repository Not Found");
+        alert.setHeaderText("This folder is not a Git repository.");
+        alert.setContentText("Would you like to create a new Git repository in the selected folder?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                createGitRepository(selectedDirectory);
+            }
+        });
+    }
+
+    private void createGitRepository(File selectedDirectory) {
+        try {
+            gitUtils.createRepository(selectedDirectory.getAbsolutePath());
+            System.out.println("Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+        } catch (Exception e) {
+            showErrorDialog("Error while creating Git repository.", e.getMessage());
+        }
+    }
+
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
     }
 
     /**
@@ -305,7 +193,6 @@ public class MainView {
     public void onCloseProjectClick() {
         clearTree();
         closeAllTabs();
-//        stopGitStatusListener();
     }
 
     /**
@@ -460,14 +347,6 @@ public class MainView {
         } catch (IOException e) {
             editor.appendText("Error reading file: " + e.getMessage());
         }
-
-//        if(extension.equals("hsl")) {
-//            editor.textProperty().addListener((obs, oldText, newText) -> {
-//                checkSyntax(newText);
-//            });
-
-//        }
-
         mainTabPane.getTabs().add(tab);
         mainTabPane.getSelectionModel().select(tab);
     }
@@ -499,60 +378,6 @@ public class MainView {
     @FXML
     protected void onCloseMenuItemClick() {
         Platform.exit();
-    }
-
-    /**
-     * Handles the click event for the save menu item. This method is called when the user clicks on the "Save" button in the menu.
-     */
-    @FXML
-    protected void onSaveMenuItemClick() {
-        // TODO Add ability to save files
-    }
-
-    /**
-     * Handles opening IDE settings - LOCATION NOT SET ERROR
-     */
-    @FXML
-    protected void onSettingsMenuItemClick() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/Settings.fxml"));
-            Parent settingsRoot = fxmlLoader.load();
-
-            Stage settingsStage = new Stage();
-            settingsStage.setTitle("Settings");
-            settingsStage.setScene(new Scene(settingsRoot));
-            settingsStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void checkSyntax(String sourceCode) {
-        CharStream input = CharStreams.fromString(sourceCode);
-        HslLexerLexer lexer = new HslLexerLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        HslLexerParser parser = new HslLexerParser(tokens);
-
-        // Add custom error listener BEFORE parsing
-        parser.addErrorListener(new BaseErrorListener() {
-            @Override
-            public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
-                                    int charPositionInLine, String msg, RecognitionException e) {
-                String errorMessage = String.format("Syntax Error at line %d:%d - %s%n", line, charPositionInLine, msg);
-
-                // Update the output TextArea in a thread-safe way
-                Platform.runLater(() -> {
-                    if (outputTextArea != null) {
-                        outputTextArea.appendText(errorMessage);
-                    } else {
-                        System.err.println("OutputTextArea is not initialized.");
-                    }
-                });
-            }
-        });
-
-        // Parse the code (execute the entry rule)
-        parser.hslFile();
     }
 
 }

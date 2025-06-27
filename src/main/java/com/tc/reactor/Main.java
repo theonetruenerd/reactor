@@ -61,6 +61,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setMaximized(true);
+        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
     }
 
     public static void main(String[] args) {
