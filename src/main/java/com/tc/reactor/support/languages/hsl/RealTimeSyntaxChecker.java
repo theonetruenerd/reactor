@@ -13,9 +13,9 @@ public class RealTimeSyntaxChecker {
 
     public void checkSyntax(String sourceCode) {
         CharStream input = CharStreams.fromString(sourceCode);
-        HslLexerLexer lexer = new HslLexerLexer(input);
+        HslLexer lexer = new HslLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        HslLexerParser parser = new HslLexerParser(tokens);
+        HslParser parser = new HslParser(tokens);
 
         // Add custom error listener BEFORE parsing
         parser.addErrorListener(new BaseErrorListener() {
