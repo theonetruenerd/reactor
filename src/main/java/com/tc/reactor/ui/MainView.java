@@ -1,8 +1,8 @@
 package com.tc.reactor.ui;
 
-import com.tc.reactor.support.CodeAutocompletion;
-import com.tc.reactor.support.CodeFormatter;
-import com.tc.reactor.support.SyntaxManager;
+import com.tc.reactor.support.editor.CodeAutocompletion;
+import com.tc.reactor.support.editor.CodeFormatter;
+import com.tc.reactor.support.editor.SyntaxManager;
 import com.tc.reactor.support.git.GitUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

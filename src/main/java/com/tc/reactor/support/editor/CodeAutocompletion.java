@@ -1,4 +1,4 @@
-package com.tc.reactor.support;
+package com.tc.reactor.support.editor;
 
 import com.tc.reactor.support.languages.hsl.keywords;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexer;

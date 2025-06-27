@@ -1,4 +1,4 @@
-package com.tc.reactor.support;
+package com.tc.reactor.support.editor;
 
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
