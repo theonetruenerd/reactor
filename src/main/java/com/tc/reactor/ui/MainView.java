@@ -108,6 +108,8 @@ public class MainView {
     @FXML
     private Button pushButton;
 
+    public Map<String, String> fileMap = new HashMap<>();
+
     /**
      * Initializes the window, setting up initial tabs
      */
@@ -244,7 +246,6 @@ public class MainView {
         // Gets the root file as the root directory
         TreeItem<File> rootItem = new TreeItem<>(rootDirectory);
 
-        Map<String, String> fileMap = new HashMap<>();
         // Sets it to be expanded in 1 tier by default
         rootItem.setExpanded(true);
         // Adds the files to the tree tab
@@ -268,7 +269,7 @@ public class MainView {
             result.getChildren().add(wrapTreeWithFileNames(child));
         }
         // Attach File as user data (optional but useful)
-        result.setValue(fileTree.getValue().getAbsolutePath()); // Use a full path in value
+//        result.setValue(fileTree.getValue().getAbsolutePath()); // Use a full path in value
         return result;
     }
 
@@ -396,14 +397,23 @@ public class MainView {
     private void handleTreeClick(MouseEvent event) {
         // Gets the selected item
         TreeItem<String> selectedItem = projectTree.getSelectionModel().getSelectedItem();
+
         // Checks if the selected item exists and whether it is a file
         if (selectedItem != null && selectedItem.isLeaf()) {
-            // Gets the full file path
-            String fullPath = selectedItem.getValue();
-            // Opens the file
-            openFileInTab(fullPath);
+
+            // Use fileMap to retrieve the full path using the displayed file name
+            String fileName = selectedItem.getValue();
+            String fullPath = fileMap.get(fileName);
+
+            if (fullPath != null) {
+                // Opens the file
+                openFileInTab(fullPath);
+            } else {
+                System.err.println("File path not found for: " + fileName);
+            }
         }
     }
+
 
     /**
      * Opens a file in the current tab. If a tab for the same file already exists, it is selected instead.
