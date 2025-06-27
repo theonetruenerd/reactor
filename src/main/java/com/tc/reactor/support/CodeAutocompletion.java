@@ -1,8 +1,7 @@
 package com.tc.reactor.support;
 
 import com.tc.reactor.support.languages.hsl.keywords;
-import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerLexer;
-import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexerParser;
+import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexer;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.ListView;
@@ -18,7 +17,6 @@ import org.fxmisc.richtext.CodeArea;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class CodeAutocompletion {
     private final CodeArea codeArea;
@@ -240,13 +238,13 @@ public class CodeAutocompletion {
         if ("hsl".equals(language)) {
             try {
                 CharStream input = CharStreams.fromString(text);
-                HslLexerLexer lexer = new HslLexerLexer(input);
+                HslLexer lexer = new HslLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
 
                 tokens.fill();
 
                 for (Token token : tokens.getTokens()) {
-                    if (token.getType() == HslLexerLexer.ID_LEX) {
+                    if (token.getType() == HslLexer.ID_LEX) {
                         identifiers.add(token.getText());
                     }
                 }

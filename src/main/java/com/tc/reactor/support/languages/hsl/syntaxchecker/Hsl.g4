@@ -1,4 +1,4 @@
-grammar HslLexer;
+grammar Hsl;
 
 // Lexer rules (Tokens)
 
