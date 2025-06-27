@@ -22,7 +22,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/MainView.fxml"));
         Scene scene = new Scene(loader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/styles.css")).toExternalForm());
-//        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
         stage.setTitle("Reactor");
         stage.setScene(scene);
         stage.setMaximized(true);
