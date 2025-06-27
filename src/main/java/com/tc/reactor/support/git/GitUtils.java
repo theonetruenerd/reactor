@@ -83,8 +83,6 @@ public class GitUtils {
         System.out.println("Committed changes");
     }
 
-
-
     /**
      * Returns the current loaded repository.
      *

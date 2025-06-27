@@ -174,13 +174,13 @@ namespaceDefinition
     ;
 
 structure
-    : STRUCT  id  LBRACE tagDeclarationList SEMICOLON RBRACE
-    | STRUCT  LBRACE tagDeclarationList SEMICOLON RBRACE  id
-    | STRUCT  id LBRACE tagDeclarationList SEMICOLON RBRACE  id
+    : STRUCT id LBRACE tagDeclarationList SEMICOLON RBRACE
+    | STRUCT LBRACE tagDeclarationList SEMICOLON RBRACE id
+    | STRUCT id LBRACE tagDeclarationList SEMICOLON RBRACE id
     ;
 
 array
-    : varDec  LSQUARE expression RSQUARE
+    : varDec LSQUARE expression RSQUARE
     ;
 
 tagDeclarationList
@@ -189,11 +189,11 @@ tagDeclarationList
 
 tagDeclaration
     : varDec
-    | varDec  LSQUARE NUMBER_LEX RSQUARE
+    | varDec LSQUARE NUMBER_LEX RSQUARE
     ;
 
 varDec
-    : storage  id
+    : storage id
     ;
 
 storage
@@ -213,9 +213,9 @@ errorHandler
     ;
 
 assignmentExpression
-    : id  '='  STRING_LEX '+'? STRING_LEX?
-    | id  '='  NUMBER_LEX
-    | id  '='  simpleStatement
+    : id '=' STRING_LEX '+'? STRING_LEX?
+    | id '=' NUMBER_LEX
+    | id '=' simpleStatement
     ;
 
 sequenceExpression
