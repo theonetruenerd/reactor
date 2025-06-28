@@ -6,19 +6,27 @@ import com.tc.reactor.support.editor.SyntaxManager;
 import com.tc.reactor.support.git.GitUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.fxmisc.richtext.CodeArea;
+import com.tc.reactor.support.languages.hsl.LibraryHandler;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.HexFormat;
 import java.util.Map;
+import java.util.Optional;
 
 public class MainView {
 
@@ -241,6 +249,47 @@ public class MainView {
             e.printStackTrace();
 
         }
+    }
+
+    @FXML
+    public void onCreateHslLibraryClick() {
+        try {
+            // Load NewFile.fxml for the input form
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/NewFile.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller to retrieve user inputs
+            NewFile controller = loader.getController();
+
+            // Create and show the modal dialog
+            Stage stage = new Stage();
+            stage.setTitle("Create New HSL Library");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Block other UI interaction
+            stage.showAndWait(); // Wait for the user to close the dialog
+
+            // Retrieve user inputs from the controller
+            String libraryName = controller.getLibraryName();
+            HexFormat majorId = HexFormat.ofDelimiter(controller.getMajorId());
+            Integer libraryVersion = controller.getLibraryVersion();
+            Path libraryPath = controller.getLibraryPath();
+            Optional<String> parentNamespace = controller.getParentNamespace();
+            Optional<String> libraryDescription = controller.getLibraryDescription();
+
+            // Validate inputs and create the library
+            if (libraryName != null && majorId != null && libraryVersion != null && libraryPath != null) {
+                LibraryHandler libraryHandler = new LibraryHandler();
+                libraryHandler.CreateLibrary(
+                        libraryName, majorId, libraryVersion, libraryPath, parentNamespace, libraryDescription
+                );
+                openFileInTab(libraryPath.resolve(libraryName + ".hsl").toString());
+            } else {
+                System.out.println("Library creation aborted: Missing required fields.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading NewFile.fxml: " + e.getMessage());
+        }
+
     }
 
     @FXML
