@@ -270,7 +270,7 @@ public class MainView {
 
             // Retrieve user inputs from the controller
             String libraryName = controller.getLibraryName();
-            HexFormat majorId = HexFormat.ofDelimiter(controller.getMajorId());
+            String majorId = controller.getMajorId();
             Integer libraryVersion = controller.getLibraryVersion();
             Path libraryPath = controller.getLibraryPath();
             Optional<String> parentNamespace = controller.getParentNamespace();

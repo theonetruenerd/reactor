@@ -11,7 +11,7 @@ import java.util.Optional;
 public class LibraryHandler {
 
     public void CreateLibrary(String libraryName,
-                              HexFormat majorId,
+                              String majorId,
                               Integer libraryVersion,
                               Path libraryPath,
                               Optional<String> parentNamespace,
@@ -40,7 +40,7 @@ public class LibraryHandler {
     }
 
     private String generateTemplate(String libraryName,
-                                    HexFormat majorId,
+                                    String majorId,
                                     Integer libraryVersion,
                                     Optional<String> parentNamespace,
                                     Optional<String> libraryDescription) {
@@ -49,11 +49,11 @@ public class LibraryHandler {
         String indent = parentNamespace.isPresent() ? "\t" : "";
         templateBuilder.append("//----------------------------------------------------------------------------------------");
         templateBuilder.append("\n//");
-        templateBuilder.append("\n// Library Name:\t\t\t");
+        templateBuilder.append("\n// Library Name:\t\t");
         parentNamespace.ifPresent(ns -> templateBuilder.append(ns).append("::"));
         templateBuilder.append(libraryName);
-        templateBuilder.append("\n// Desription:\t\t\t").append(libraryDescription.orElse("No description provided"));
-        templateBuilder.append("\n// Major ID:\t\t\t").append(majorId.toHexDigits(4));
+        templateBuilder.append("\n// Desription:\t\t").append(libraryDescription.orElse("No description provided"));
+        templateBuilder.append("\n// Major ID:\t\t").append(majorId);
         templateBuilder.append("\n//\n// Library Version:\t\t").append(libraryVersion);
         templateBuilder.append("\n//\n// Changelog:");
         templateBuilder.append("\n//");
@@ -76,7 +76,7 @@ public class LibraryHandler {
         templateBuilder.append("\n").append(indent).append("\t// Public functions");
         templateBuilder.append("\n");
         templateBuilder.append("\n").append(indent).append("} // End of ").append(libraryName).append(" namespace");
-        parentNamespace.ifPresent(ns -> templateBuilder.append("} // End of ").append(ns).append(" namespace"));
+        parentNamespace.ifPresent(ns -> templateBuilder.append("\n} // End of ").append(ns).append(" namespace"));
 
         return templateBuilder.toString();
     }
