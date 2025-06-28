@@ -69,15 +69,17 @@ public class CodeFormatter {
      */
     private void autoAddSingleQuotes(CodeArea codeArea) {
         int caretPosition = codeArea.getCaretPosition();
-        int startPosition = codeArea.getSelection().getStart();
-        int endPosition = codeArea.getSelection().getEnd();
-        if (endPosition == startPosition) {
+        int startPosition = codeArea.getAnchor();
+        System.out.println("Start Position: " + startPosition);
+        System.out.println("Caret Position: " + caretPosition);
+        if (caretPosition == startPosition) {
             codeArea.insertText(caretPosition, "'");
             codeArea.moveTo(caretPosition);
         } else
         {
-            String selectedText = codeArea.getText(startPosition, endPosition);
-            codeArea.replaceText(startPosition, endPosition, "'" + selectedText + "'");
+            String selectedText = codeArea.getText(startPosition, caretPosition);
+            System.out.println("Selected Text: " + selectedText);
+            codeArea.replaceText(startPosition, caretPosition, "'" + selectedText + "'");
         }
 
     }
@@ -90,15 +92,21 @@ public class CodeFormatter {
      */
     private void autoAddDoubleQuotes(CodeArea codeArea) {
         int caretPosition = codeArea.getCaretPosition();
-        int startPosition = codeArea.getSelection().getStart();
-        int endPosition = codeArea.getSelection().getEnd();
-        if (endPosition == startPosition) {
+        int startPosition = codeArea.getAnchor();
+        String selectedText = codeArea.getSelectedText();
+        String selection = codeArea.getSelection().toString();
+        System.out.println("Selected Text: " + selectedText);
+        System.out.println("Selection: " + selection);
+        System.out.println("Start Position: " + startPosition);
+        System.out.println("Caret Position: " + caretPosition);
+        if (caretPosition == startPosition) {
             codeArea.insertText(caretPosition, "\"");
             codeArea.moveTo(caretPosition);
         } else
         {
-            String selectedText = codeArea.getText(startPosition, endPosition);
-            codeArea.replaceText(startPosition, endPosition, "'" + selectedText + "'");
+            String selectedText2 = codeArea.getText(startPosition, caretPosition);
+            System.out.println("Selected Text: " + selectedText2);
+            codeArea.replaceText(startPosition, caretPosition, "\"" + selectedText2 + "\"");
         }
     }
 
