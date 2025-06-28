@@ -37,7 +37,7 @@ public class CodeFormatter {
                     case "/":
                         int caretPosition = codeArea.getCaretPosition();
                         if (codeArea.getText(caretPosition - 2, caretPosition - 1).equals("/")) {
-                            autoAddDocustrings(codeArea);
+                            autoAddDocustrings(codeArea, language);
                         }
                 }
             }
@@ -54,11 +54,22 @@ public class CodeFormatter {
     }
 
     // TODO Grab variables etc dynamically
-    private void autoAddDocustrings(CodeArea codeArea) {
+    private void autoAddDocustrings(CodeArea codeArea, String language) {
         int caretPosition = codeArea.getCaretPosition();
         String indentation = getLineIndentation(codeArea.getParagraph(codeArea.getCurrentParagraph()).getText());
-        codeArea.insertText(caretPosition, " Function: \n"+indentation+"// Scope: \n"+indentation+"// Description: \n"+indentation+"// Parameters: \n"+indentation+"// Returns:");
-        codeArea.moveTo(caretPosition + 11);
+        int currentParagraphIndex = codeArea.getCurrentParagraph();
+        String nextLine = "";
+        if (currentParagraphIndex + 1 < codeArea.getParagraphs().size()) {
+            nextLine = codeArea.getParagraph(currentParagraphIndex + 1).getText();
+        }
+        switch (language) {
+            case "hsl":
+                if (!nextLine.isEmpty()) {
+                    System.out.println("Next Line: " + nextLine);
+                }
+                codeArea.insertText(caretPosition, " Function: \n"+indentation+"// Scope: \n"+indentation+"// Description: \n"+indentation+"// Parameters: \n"+indentation+"// Returns:");
+                codeArea.moveTo(caretPosition + 11);
+        }
     }
 
     /**
