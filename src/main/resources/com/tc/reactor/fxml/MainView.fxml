@@ -191,7 +191,7 @@
          <children>
             <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="⟳" />
+                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="⟳" onAction="#onRefreshCommitButtonClick" />
                   <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="↩" />
                 <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="⭳" />
                   <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">

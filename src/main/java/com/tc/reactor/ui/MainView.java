@@ -40,6 +40,8 @@ public class MainView {
     @FXML private TextArea logsTextArea;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
+    @FXML private Button commitButton;
+    @FXML private Button refreshCommitButton;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
