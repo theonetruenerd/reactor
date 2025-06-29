@@ -15,7 +15,7 @@ public class NewFile {
     @FXML private TextField libraryNameField;
     @FXML private TextField majorIdField;
     @FXML private TextField libraryVersionField;
-    @FXML private TextArea parentNamespaceField;
+    @FXML private TextField parentNamespaceField;
     @FXML private TextArea libraryDescriptionField;
     @FXML private TextField libraryPathField;
 
@@ -52,9 +52,9 @@ public class NewFile {
         }
     }
 
-    public Integer getLibraryVersion() {
+    public Float getLibraryVersion() {
         try {
-            return Integer.parseInt(libraryVersionField.getText().trim());
+            return Float.parseFloat(libraryVersionField.getText().trim());
         } catch (NumberFormatException e) {
             System.err.println("Invalid library version: " + e.getMessage());
             return null;

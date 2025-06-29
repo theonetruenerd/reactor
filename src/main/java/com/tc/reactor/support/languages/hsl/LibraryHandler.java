@@ -5,14 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HexFormat;
 import java.util.Optional;
 
 public class LibraryHandler {
 
     public void CreateLibrary(String libraryName,
                               String majorId,
-                              Integer libraryVersion,
+                              Float libraryVersion,
                               Path libraryPath,
                               Optional<String> parentNamespace,
                               Optional<String> libraryDescription)
@@ -41,7 +40,7 @@ public class LibraryHandler {
 
     private String generateTemplate(String libraryName,
                                     String majorId,
-                                    Integer libraryVersion,
+                                    Float libraryVersion,
                                     Optional<String> parentNamespace,
                                     Optional<String> libraryDescription) {
         StringBuilder templateBuilder = new StringBuilder();
@@ -52,9 +51,10 @@ public class LibraryHandler {
         templateBuilder.append("\n// Library Name:\t\t");
         parentNamespace.ifPresent(ns -> templateBuilder.append(ns).append("::"));
         templateBuilder.append(libraryName);
-        templateBuilder.append("\n// Desription:\t\t").append(libraryDescription.orElse("No description provided"));
-        templateBuilder.append("\n// Major ID:\t\t").append(majorId);
-        templateBuilder.append("\n//\n// Library Version:\t\t").append(libraryVersion);
+        templateBuilder.append("\n// Desription:\t\t\t").append(libraryDescription.orElse("No description provided"));
+        templateBuilder.append("\n// Author:\t\t\t");
+        templateBuilder.append("\n// Major ID:\t\t\t").append(majorId);
+        templateBuilder.append("\n//\n// Library Version:\t\tv").append(libraryVersion);
         templateBuilder.append("\n//\n// Changelog:");
         templateBuilder.append("\n//");
         templateBuilder.append("\n//----------------------------------------------------------------------------------------");

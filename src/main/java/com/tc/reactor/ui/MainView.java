@@ -271,7 +271,7 @@ public class MainView {
             // Retrieve user inputs from the controller
             String libraryName = controller.getLibraryName();
             String majorId = controller.getMajorId();
-            Integer libraryVersion = controller.getLibraryVersion();
+            Float libraryVersion = controller.getLibraryVersion();
             Path libraryPath = controller.getLibraryPath();
             Optional<String> parentNamespace = controller.getParentNamespace();
             Optional<String> libraryDescription = controller.getLibraryDescription();
