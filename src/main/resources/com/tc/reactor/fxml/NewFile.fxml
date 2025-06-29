@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="407.0" prefWidth="635.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.NewFile">
+    <VBox alignment="TOP_CENTER" prefHeight="415.0" prefWidth="642.0" spacing="10" AnchorPane.topAnchor="10.0">
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Create New HSL Library" />
+        <GridPane hgap="10" style="-fx-padding: 10;" vgap="10">
+            <Label text="Library Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="libraryNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="Major ID (Hex):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="majorIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Library Version:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="libraryVersionField" prefHeight="22.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label prefHeight="42.0" prefWidth="207.0" text="Parent Namespace &#10;(Optional):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="parentNamespaceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label prefHeight="94.0" prefWidth="207.0" text="Library Description &#10;(Optional):" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextArea fx:id="libraryDescriptionField" prefHeight="96.0" prefRowCount="3" prefWidth="347.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <Label text="Library Path:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <TextField fx:id="libraryPathField" prefHeight="30.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button onAction="#onBrowseButtonClick" prefHeight="30.0" prefWidth="91.0" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+         <columnConstraints>
+            <ColumnConstraints maxWidth="224.0" minWidth="75.0" prefWidth="210.0" />
+            <ColumnConstraints maxWidth="461.0" minWidth="295.0" prefWidth="309.0" />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints maxHeight="105.0" minHeight="31.0" prefHeight="46.0" />
+            <RowConstraints maxHeight="96.0" minHeight="21.0" prefHeight="80.0" />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+         <Button onAction="#onCreateButtonClick" text="Create" />
+    </VBox>
+</AnchorPane>

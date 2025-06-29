@@ -19,7 +19,7 @@
                             <MenuItem mnemonicParsing="false" text="File" />
                             <MenuItem mnemonicParsing="false" text="Directory" />
                             <SeparatorMenuItem mnemonicParsing="false" />
-                            <MenuItem mnemonicParsing="false" text="HSL Library" />
+                            <MenuItem mnemonicParsing="false" text="HSL Library" onAction="#onCreateHslLibraryClick"/>
                             <MenuItem mnemonicParsing="false" text="XAML File" />
                             <MenuItem mnemonicParsing="false" text="Python File" />
                             <MenuItem mnemonicParsing="false" text="XML File" />
