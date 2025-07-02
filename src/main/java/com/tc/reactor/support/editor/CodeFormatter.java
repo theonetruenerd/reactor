@@ -110,13 +110,13 @@ public class CodeFormatter {
 
     private StringBuilder createDocstring(String function, String scope, String description, String[] parameters, String returns, String indent) {
         StringBuilder docstring = new StringBuilder();
-        docstring.append("--------------------------");
+        docstring.append("--------------------------\n");
         docstring.append(indent).append("// Function: ").append(function).append("\n");
         docstring.append(indent).append("// Scope: ").append(scope).append("\n");
         docstring.append(indent).append("// Description: ").append(description).append("\n");
         docstring.append(indent).append("// Parameters: \n");
         for (String parameter : parameters) {
-            docstring.append(indent).append("//\t");
+            docstring.append(indent).append("//    ");
             if (parameter.startsWith("i")) {
                 docstring.append(indent).append("[i] ");
             } else if (parameter.startsWith("o")) {
