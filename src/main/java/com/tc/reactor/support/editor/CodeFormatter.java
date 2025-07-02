@@ -66,10 +66,67 @@ public class CodeFormatter {
             case "hsl":
                 if (!nextLine.isEmpty()) {
                     System.out.println("Next Line: " + nextLine);
+                    if (nextLine.contains("function")) {
+
+                        String scope = "";
+                        // Scope
+                        if (nextLine.startsWith("private")) {
+                            scope = "private";
+                        } else if (nextLine.startsWith("global")) {
+                            scope = "global";
+                        } else if (nextLine.startsWith("static")) {
+                            scope = "static";
+                        } else {
+                            scope = "public";
+                        }
+
+                        // Function name
+                        String functionName = nextLine.substring(nextLine.indexOf("function") + 8, nextLine.indexOf("("));
+
+                        // Description
+                        String description = "";
+
+                        // Parameters
+                        String[] parameters = nextLine.substring(nextLine.indexOf("(") + 1, nextLine.indexOf(")")).split(",");
+
+                        // Return type
+                        String returnType = "";
+                        if (!nextLine.endsWith(")")) {
+                            returnType = nextLine.substring(nextLine.indexOf(")") + 1, nextLine.indexOf("{"));
+                        }
+
+                        String indent = getLineIndentation(nextLine);
+                        StringBuilder docstring = createDocstring(functionName, scope, description, parameters, returnType, indent);
+
+                        codeArea.insertText(caretPosition, docstring.toString());
+
+                        return;
+                    }
                 }
                 codeArea.insertText(caretPosition, " Function: \n"+indentation+"// Scope: \n"+indentation+"// Description: \n"+indentation+"// Parameters: \n"+indentation+"// Returns:");
                 codeArea.moveTo(caretPosition + 11);
         }
+    }
+
+    private StringBuilder createDocstring(String function, String scope, String description, String[] parameters, String returns, String indent) {
+        StringBuilder docstring = new StringBuilder();
+        docstring.append("--------------------------");
+        docstring.append(indent).append("// Function: ").append(function).append("\n");
+        docstring.append(indent).append("// Scope: ").append(scope).append("\n");
+        docstring.append(indent).append("// Description: ").append(description).append("\n");
+        docstring.append(indent).append("// Parameters: \n");
+        for (String parameter : parameters) {
+            docstring.append(indent).append("//\t");
+            if (parameter.startsWith("i")) {
+                docstring.append(indent).append("[i] ");
+            } else if (parameter.startsWith("o")) {
+                docstring.append(indent).append("[o] ");
+            }
+            docstring.append(indent).append(parameter).append("\n");
+        }
+        docstring.append(indent).append("// Returns: ").append(returns).append("\n");
+        docstring.append(indent).append("//--------------------------");
+        return docstring;
     }
 
     /**
