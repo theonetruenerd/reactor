@@ -9,14 +9,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.tc.reactor.support.languages.hsl.keywords.*;
+import static com.tc.reactor.support.languages.hsl.HslKeywords.*;
 
 public class SyntaxManager {
     /**
      * Sets up syntax highlighting for the given programming language.
      */
     public void setupSyntaxHighlighting(String language, CodeArea codeArea) {
-        // Fetch the keywords for the chosen language
+        // Fetch the HslKeywords for the chosen language
         List<String> keywords = LANGUAGE_KEYWORDS.getOrDefault(language, Collections.emptyList());
         List<String> scopes = SCOPE_KEYWORDS.getOrDefault(language, Collections.emptyList());
         List<String> types = TYPES_KEYWORDS.getOrDefault(language, Collections.emptyList());

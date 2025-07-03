@@ -1,6 +1,6 @@
 package com.tc.reactor.support.editor;
 
-import com.tc.reactor.support.languages.hsl.keywords;
+import com.tc.reactor.support.languages.hsl.HslKeywords;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.HslLexer;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -202,10 +202,10 @@ public class CodeAutocompletion {
         List<String> suggestions = new ArrayList<>();
 
         if ("hsl".equals(language)) {
-            addMatchingKeywords(suggestions, keywords.LANGUAGE_KEYWORDS.get("hsl"), currentWord);
-            addMatchingKeywords(suggestions, keywords.SCOPE_KEYWORDS.get("hsl"), currentWord);
-            addMatchingKeywords(suggestions, keywords.TYPES_KEYWORDS.get("hsl"), currentWord);
-            addMatchingKeywords(suggestions, keywords.BLOCKS_KEYWORDS.get("hsl"), currentWord);
+            addMatchingKeywords(suggestions, HslKeywords.LANGUAGE_KEYWORDS.get("hsl"), currentWord);
+            addMatchingKeywords(suggestions, HslKeywords.SCOPE_KEYWORDS.get("hsl"), currentWord);
+            addMatchingKeywords(suggestions, HslKeywords.TYPES_KEYWORDS.get("hsl"), currentWord);
+            addMatchingKeywords(suggestions, HslKeywords.BLOCKS_KEYWORDS.get("hsl"), currentWord);
 
             addMatchingIdentifiers(suggestions, currentWord);
         }
