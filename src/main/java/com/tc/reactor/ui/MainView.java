@@ -362,13 +362,17 @@ public class MainView {
             }
         }
 
+        boolean readOnly = checkReadOnly(getFileExtension(filePath));
+
         // If no tab exists for the file, create a new one
         File file = new File(filePath);
         Tab tab = new Tab(file.getName());
         tab.setUserData(filePath); // Store a file path for future reference
         CodeArea editor = new CodeArea();
         tab.setContent(editor);
-
+        if (readOnly) {
+            editor.setEditable(false);
+        }
 
         String extension = getFileExtension(file.getName());
 
@@ -414,6 +418,16 @@ public class MainView {
      * Initializes the window by setting up initial tabs.
      */
     private void setupInitialTabs() {
+    }
+
+    private boolean checkReadOnly(String extension) {
+        switch (extension) {
+            case "med", "stp":
+
+                return true;
+            default:
+                return false;
+        }
     }
 
     /**
