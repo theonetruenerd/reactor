@@ -29,16 +29,30 @@ public class CodeFormatter {
                         autoAddSquareBrackets(codeArea);
                         break;
                     case "\"":
-                        autoAddDoubleQuotes(codeArea);
+                        if(!checkForPreexisting(codeArea,'"')) {
+                            autoAddDoubleQuotes(codeArea);
+                        }
                         break;
                     case "'":
-                        autoAddSingleQuotes(codeArea);
+                        if(!checkForPreexisting(codeArea,'\'')) {
+                            autoAddSingleQuotes(codeArea);
+                        }
                         break;
                     case "/":
                         int caretPosition = codeArea.getCaretPosition();
                         if (codeArea.getText(caretPosition - 2, caretPosition - 1).equals("/")) {
                             autoAddDocustrings(codeArea, language);
                         }
+                        break;
+                    case ")":
+                        checkForPreexisting(codeArea,')');
+                        break;
+                    case "]":
+                        checkForPreexisting(codeArea, ']');
+                        break;
+                    case "}":
+                        checkForPreexisting(codeArea,'}');
+                        break;
                 }
             }
         });
@@ -127,6 +141,25 @@ public class CodeFormatter {
         docstring.append(indent).append("// Returns: ").append(returns).append("\n");
         docstring.append(indent).append("//--------------------------");
         return docstring;
+    }
+
+    /**
+     * Checks if the next character in the code area matches the input character and
+     * deletes it if a match is found.
+     *
+     * @param codeArea The CodeArea where the check is performed.
+     * @param inputChar The character to be matched with the next character in the code area.
+     * @return True if a match is found, false otherwise.
+     */
+    private boolean checkForPreexisting(CodeArea codeArea, Character inputChar) {
+        char nextChar = codeArea.getText(codeArea.getCaretPosition(), codeArea.getCaretPosition() + 1).charAt(0);
+        System.out.println("Next Char: " + nextChar);
+        if (nextChar == inputChar) {
+            codeArea.deleteNextChar();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
