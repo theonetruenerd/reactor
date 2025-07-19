@@ -56,9 +56,9 @@ public class Settings {
     }
 
     private VBox createGeneralSettings() {
-        VBox vbox = new VBox();
-        vbox.getChildren().add(new Label("General settings"));
-        return vbox;
+        VBox generalSettings = new VBox(10);
+        generalSettings.getChildren().add(new Label("General settings"));
+        return generalSettings;
     }
 
     private VBox createEditorSettings() {
@@ -79,15 +79,15 @@ public class Settings {
     }
 
     private VBox createGitSettings() {
-        VBox vbox = new VBox();
-        vbox.getChildren().add(new Label("Git settings"));
-        return vbox;
+        VBox gitSettings = new VBox(10);
+        gitSettings.getChildren().add(new Label("Git settings"));
+        return gitSettings;
     }
 
     private VBox createKeybindSettings() {
-        VBox vbox = new VBox();
-        vbox.getChildren().add(new Label("Keybind settings"));
-        return vbox;
+        VBox keybindSettings = new VBox(10);
+        keybindSettings.getChildren().add(new Label("Keybind settings"));
+        return keybindSettings;
     }
 
     @FXML
