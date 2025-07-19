@@ -1,5 +1,7 @@
 package com.tc.reactor.ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -18,7 +20,13 @@ public class Settings {
 
     @FXML
     private void initialize() {
+        setupSettingsTabs();
+    }
 
+    @FXML
+    private void setupSettingsTabs() {
+        ObservableList<String> settingsList = FXCollections.observableArrayList("General","Editor","Git");
+        settingsListView.setItems(settingsList);
     }
 
     private void applySettings() {
