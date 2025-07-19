@@ -312,6 +312,22 @@ public class MainView {
     }
 
     @FXML
+    public void onSettingsMenuClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/Settings.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Settings");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Block other UI interaction
+            stage.showAndWait(); // Wait for the user to close the dialog
+        } catch (IOException e) {
+            System.err.println("Error loading Settings.fxml: " + e.getMessage());
+        }
+    }
+
+    @FXML
     public void onRefreshCommitButtonClick() throws GitAPIException {
         TreeItem<String> changes = gitUtils.getUncommittedChanges();
         Platform.runLater(() -> {
