@@ -38,6 +38,9 @@
          <left>
             <ListView fx:id="settingsGroupsList" prefHeight="428.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
+         <center>
+            <StackPane fx:id="settingsStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
