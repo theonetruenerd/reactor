@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="396.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.Settings">
+<AnchorPane prefHeight="455.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.Settings">
    <children>
-      <BorderPane prefHeight="430.0" prefWidth="460.0">
+      <BorderPane prefHeight="455.0" prefWidth="560.0">
          <top>
             <MenuBar fx:id="settingsMenuBar" BorderPane.alignment="CENTER">
               <menus>
@@ -30,16 +30,14 @@
          <bottom>
             <ButtonBar fx:id="settingsButtonBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button fx:id="settingsApplyButton" mnemonicParsing="false" text="Apply" />
+                <Button fx:id="settingsCancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onSettingsCancelButtonClick" text="Cancel" />
+                  <Button fx:id="settingsApplyButton" defaultButton="true" layoutX="495.0" layoutY="18.0" mnemonicParsing="false" onAction="#onSettingsApplyButtonClick" text="Apply" />
               </buttons>
             </ButtonBar>
          </bottom>
          <left>
-            <ListView prefHeight="408.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <ListView fx:id="settingsGroupsList" prefHeight="428.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
-         <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
       </BorderPane>
    </children>
 </AnchorPane>
