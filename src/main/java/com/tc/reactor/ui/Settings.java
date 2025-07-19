@@ -23,7 +23,7 @@ public class Settings {
 
         settingsGroupsList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
         {
-            if (newVal != null) {
+            if (newVal != null && !newVal.isBlank() && !newVal.equals(oldVal)) {
                 loadSettingsContent(newVal);
             }
         });
