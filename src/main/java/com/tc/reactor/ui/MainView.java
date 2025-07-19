@@ -423,7 +423,7 @@ public class MainView {
     private boolean checkReadOnly(String extension) {
         switch (extension) {
             case "med", "stp":
-
+                // Open read only window and return true or false or cancel based on user input
                 return true;
             default:
                 return false;
