@@ -52,7 +52,7 @@ public class MainView {
         TEXT, HTML
     }
 
-    private HtmlEditorType preferredEditor = HtmlEditorType.TEXT;
+    private HtmlEditorType preferredEditor = HtmlEditorType.HTML;
 
     /**
      * Initializes the window, setting up initial tabs
