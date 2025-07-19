@@ -7,12 +7,14 @@ import com.tc.reactor.support.git.GitUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,6 +48,11 @@ public class MainView {
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
 
+    private enum HtmlEditorType {
+        TEXT, HTML
+    }
+
+    private HtmlEditorType preferredEditor = HtmlEditorType.TEXT;
 
     /**
      * Initializes the window, setting up initial tabs
@@ -368,13 +375,35 @@ public class MainView {
         File file = new File(filePath);
         Tab tab = new Tab(file.getName());
         tab.setUserData(filePath); // Store a file path for future reference
+        String extension = getFileExtension(file.getName());
+
+        if (extension.equals("html") || extension.equals("htm")) {
+            if (preferredEditor == HtmlEditorType.HTML) {
+                HTMLEditor htmlEditor = new HTMLEditor();
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    StringBuilder content = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        content.append(line).append("\n");
+                    }
+                    htmlEditor.setHtmlText(content.toString());
+                } catch (IOException e) {
+                    showErrorDialog("Error", "Failed to open HTML file: " + e.getMessage());
+
+                }
+                tab.setContent(htmlEditor);
+                mainTabPane.getTabs().add(tab);
+                mainTabPane.getSelectionModel().select(tab);
+                return;
+            }
+        }
+
         CodeArea editor = new CodeArea();
         tab.setContent(editor);
         if (readOnly) {
             editor.setEditable(false);
         }
 
-        String extension = getFileExtension(file.getName());
 
         SyntaxManager syntaxManager = new SyntaxManager();
         syntaxManager.setupSyntaxHighlighting(extension, editor);
@@ -412,6 +441,48 @@ public class MainView {
             return fileName.substring(dotIndex + 1).toLowerCase();
         }
         return ""; // No extension
+    }
+
+    @FXML
+    private void onToggleEditorPreference() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Toggle Editor Preference");
+        alert.setHeaderText("Select Default Editor for HTML/HTM Files");
+        alert.setContentText("Would you like to use the HTML editor or the text editor?");
+        ButtonType htmlButtonType = new ButtonType("HTML Editor");
+        ButtonType textButtonType = new ButtonType("Text Editor");
+        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(htmlButtonType, textButtonType);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()){
+            if (result.get() == htmlButtonType){
+                preferredEditor = HtmlEditorType.HTML;
+                System.out.println("HTML Editor selected");
+            } else {
+                preferredEditor = HtmlEditorType.TEXT;
+                System.out.println("Text Editor selected");
+            }
+        }
+    }
+
+    @FXML
+    private void onSwitchEditor() {
+        Tab selectedTab = mainTabPane.getSelectionModel().getSelectedItem();
+        String filePath = (String) selectedTab.getUserData();
+        Node currentEditor = selectedTab.getContent();
+
+        if (currentEditor instanceof HTMLEditor && preferredEditor == HtmlEditorType.TEXT) {
+            // Switch from HTMLEditor to Text Editor
+            CodeArea codeEditor = new CodeArea();
+            codeEditor.replaceText(((HTMLEditor) currentEditor).getHtmlText());
+            selectedTab.setContent(codeEditor);
+        } else if (currentEditor instanceof CodeArea && preferredEditor == HtmlEditorType.HTML) {
+            // Switch from Text Editor to HTMLEditor
+            HTMLEditor htmlEditor = new HTMLEditor();
+            htmlEditor.setHtmlText(((CodeArea) currentEditor).getText());
+            selectedTab.setContent(htmlEditor);
+        }
+
     }
 
     /**
