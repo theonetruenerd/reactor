@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Settings {
@@ -16,7 +15,7 @@ public class Settings {
     @FXML private ButtonBar settingsButtonBar;
     @FXML private Button settingsApplyButton;
     @FXML private Button settingsCancelButton;
-    @FXML private ListView<String> settingsListView;
+    @FXML private ListView<String> settingsGroupsList;
 
     @FXML
     private void initialize() {
@@ -25,8 +24,12 @@ public class Settings {
 
     @FXML
     private void setupSettingsTabs() {
-        ObservableList<String> settingsList = FXCollections.observableArrayList("General","Editor","Git");
-        settingsListView.setItems(settingsList);
+        ObservableList<String> settingsList = FXCollections.observableArrayList(
+                "General",
+                "Editor",
+                "Git",
+                "Keybinds");
+        settingsGroupsList.setItems(settingsList);
     }
 
     private void applySettings() {
