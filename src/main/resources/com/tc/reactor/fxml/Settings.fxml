@@ -27,19 +27,19 @@
               </menus>
             </MenuBar>
          </top>
-         <left>
-            <TreeView fx:id="settingsTree" prefHeight="405.0" prefWidth="112.0" BorderPane.alignment="CENTER" />
-         </left>
-         <center>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
          <bottom>
             <ButtonBar fx:id="settingsButtonBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button fx:id="settingsApplyButton" mnemonicParsing="false" text="Button" />
+                <Button fx:id="settingsApplyButton" mnemonicParsing="false" text="Apply" />
               </buttons>
             </ButtonBar>
          </bottom>
+         <left>
+            <ListView prefHeight="408.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
