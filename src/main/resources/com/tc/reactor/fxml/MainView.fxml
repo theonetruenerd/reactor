@@ -19,7 +19,7 @@
                             <MenuItem mnemonicParsing="false" text="File" />
                             <MenuItem mnemonicParsing="false" text="Directory" />
                             <SeparatorMenuItem mnemonicParsing="false" />
-                            <MenuItem mnemonicParsing="false" text="HSL Library" onAction="#onCreateHslLibraryClick"/>
+                            <MenuItem mnemonicParsing="false" onAction="#onCreateHslLibraryClick" text="HSL Library" />
                             <MenuItem mnemonicParsing="false" text="XAML File" />
                             <MenuItem mnemonicParsing="false" text="Python File" />
                             <MenuItem mnemonicParsing="false" text="XML File" />
@@ -29,7 +29,7 @@
                     <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" styleClass="root" text="Open Project" />
                     <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" onAction="#onCloseProjectClick" styleClass="root" text="Close Project" />
                     <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" styleClass="root" text="Save" />
-                      <MenuItem fx:id="saveMenuItem1" mnemonicParsing="false" styleClass="root" text="Settings" />
+                      <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#onSettingsMenuClick" styleClass="root" text="Settings" />
                     <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" text="Exit" />
                 </items>
               </Menu>
@@ -64,7 +64,7 @@
                 <items>
                   <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="root" text="About Reactor" />
                       <SeparatorMenuItem mnemonicParsing="false" />
-                      <Menu mnemonicParsing="false" text="Hamilton">
+                      <Menu mnemonicParsing="false" text="Documentation">
                         <items>
                             <Menu mnemonicParsing="false" text="Venus">
                               <items>
@@ -79,40 +79,10 @@
                           <MenuItem mnemonicParsing="false" text="TADM Programmer's Guide" />
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Tecan">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Beckman-Coulter">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Opentrons">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Waters">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
                 </items>
               </Menu>
             </menus>
           </MenuBar>
-         <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
-           <buttons>
-               <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
-               <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
-                  <font>
-                     <Font name="JetBrains Mono Regular" size="12.0" />
-                  </font></Button>
-             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" stylesheets="@../css/styles.css" text="✕" />
-           </buttons>
-         </ButtonBar>
        </HBox>
    </top>
    <left>
@@ -191,7 +161,7 @@
          <children>
             <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="⟳" onAction="#onRefreshCommitButtonClick" />
+                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" onAction="#onRefreshCommitButtonClick" styleClass="root" stylesheets="@../css/styles.css" text="⟳" />
                   <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="↩" />
                 <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="⭳" />
                   <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
