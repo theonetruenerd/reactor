@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -68,31 +69,51 @@ public class Settings {
         }
     }
 
-    private VBox createAppearanceAndBehaviourSettings() {
-        VBox appearanceAndBehaviourSettings = new VBox(10);
-        appearanceAndBehaviourSettings.alignmentProperty().setValue(javafx.geometry.Pos.TOP_CENTER);
+    private GridPane createAppearanceAndBehaviourSettings() {
+        // Making GridPane for tab
+        GridPane appearanceAndBehaviourSettings = new GridPane();
 
+        // Creating all elements
+        Label appearanceAndBehaviourLabel = new Label("Appearance and Behaviour");
+        Label appearanceLabel = new Label("Appearance");
+        Label themeLabel = new Label("Theme");
+        Label colourSchemeLabel = new Label("Colour Scheme");
+        CheckBox syncWithOSCheckBox = new CheckBox("Sync with OS");
+        Label menusAndToolbarsLabel = new Label("Menus and Toolbars");
+        Label systemSettingsLabel = new Label("System Settings");
         ComboBox<String> themeComboBox = new ComboBox<>();
+        ComboBox<String> editorColourSchemeComboBox = new ComboBox<>();
+
+        //  Populating theme combo box
         themeComboBox.getItems().addAll("Light", "Dark");
         themeComboBox.getSelectionModel().selectFirst();
 
-        ComboBox<String> editorColourSchemeComboBox = new ComboBox<>();
+        // Populating colour scheme combo box
         editorColourSchemeComboBox.getItems().addAll("Default", "Solarized Dark", "Solarized Light");
         editorColourSchemeComboBox.getSelectionModel().selectFirst();
 
+        // Setting Constraints
+        GridPane.setConstraints(appearanceAndBehaviourLabel, 0, 0, 3, 1);
+        GridPane.setConstraints(appearanceLabel, 0, 1);
+        GridPane.setConstraints(themeLabel, 0, 2);
+        GridPane.setConstraints(colourSchemeLabel, 0, 3);
+        GridPane.setConstraints(syncWithOSCheckBox, 2, 2);
+        GridPane.setConstraints(menusAndToolbarsLabel, 0, 4);
+        GridPane.setConstraints(systemSettingsLabel, 0, 5);
+        GridPane.setConstraints(themeComboBox, 1, 2);
+        GridPane.setConstraints(editorColourSchemeComboBox, 2, 3);
+
+        // Filling pane
         appearanceAndBehaviourSettings.getChildren().addAll(
-                new Label("Appearance and Behaviour"),
-                new Separator(),
-                new Label("Appearance"),
-                new Label("Theme"),
+                appearanceAndBehaviourLabel,
+                appearanceLabel,
+                themeLabel,
+                colourSchemeLabel,
+                syncWithOSCheckBox,
+                menusAndToolbarsLabel,
+                systemSettingsLabel,
                 themeComboBox,
-                new CheckBox("Sync with OS"),
-                new Label("Editor Colour Scheme"),
-                editorColourSchemeComboBox,
-                new Separator(),
-                new Label("Menus and Toolbars"),
-                new Separator(),
-                new Label("System Settings")
+                editorColourSchemeComboBox
         );
         return appearanceAndBehaviourSettings;
     }
@@ -227,7 +248,7 @@ public class Settings {
     }
 
     private void applySettings() {
-
+        System.out.println("Applying settings...");
     }
 
     private void cancelSettings() {
