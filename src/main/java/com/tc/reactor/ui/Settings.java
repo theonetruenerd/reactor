@@ -37,17 +37,29 @@ public class Settings {
         settingsStackPane.getChildren().clear();
 
         switch (settingsGroup) {
-            case "General":
-                settingsStackPane.getChildren().add(createGeneralSettings());
+            case "Appearance and Behaviour":
+                settingsStackPane.getChildren().add(createAppearanceAndBehaviourSettings());
+                break;
+            case "Keybinds":
+                settingsStackPane.getChildren().add(createKeybindSettings());
                 break;
             case "Editor":
                 settingsStackPane.getChildren().add(createEditorSettings());
                 break;
-            case "Git":
-                settingsStackPane.getChildren().add(createGitSettings());
+            case "Version Control":
+                settingsStackPane.getChildren().add(createVersionControlSettings());
                 break;
-            case "Keybinds":
-                settingsStackPane.getChildren().add(createKeybindSettings());
+            case "Languages":
+                settingsStackPane.getChildren().add(createLanguagesSettings());
+                break;
+            case "Tools":
+                settingsStackPane.getChildren().add(createToolsSettings());
+                break;
+            case "Backup and Sync":
+                settingsStackPane.getChildren().add(createBackupAndSyncSettings());
+                break;
+            case "Advanced Settings":
+                settingsStackPane.getChildren().add(createAdvancedSettings());
                 break;
             default:
                 settingsStackPane.getChildren().add(new Label("No settings available."));
@@ -55,48 +67,51 @@ public class Settings {
         }
     }
 
-    private VBox createGeneralSettings() {
-        VBox generalSettings = new VBox(10);
-        generalSettings.getChildren().add(new Label("General settings"));
-        return generalSettings;
-    }
-
-    private VBox createEditorSettings() {
-        VBox editorSettings = new VBox(10);
-        editorSettings.getChildren().addAll(
-                new Label("Editor Settings"),
-                new CheckBox("Enable Syntax Highlighting"),
-                new Label("Font Size:"),
-                new Spinner<>(8, 32, 12, 1),
-                new Label("Font Family:"),
-                new ComboBox<>(FXCollections.observableArrayList("Arial", "Courier New", "Consolas", "DejaVu Sans Mono")),
-                new Label("Font Style:"),
-                new ComboBox<>(FXCollections.observableArrayList("Regular", "Bold", "Italic", "Bold Italic")),
-                new Label("Line Spacing:"),
-                new Spinner<>(0.25, 1.5, 1, 0.25)
-        );
-        return editorSettings;
-    }
-
-    private VBox createGitSettings() {
-        VBox gitSettings = new VBox(10);
-        gitSettings.getChildren().add(new Label("Git settings"));
-        return gitSettings;
+    private VBox createAppearanceAndBehaviourSettings() {
+        return new VBox();
     }
 
     private VBox createKeybindSettings() {
-        VBox keybindSettings = new VBox(10);
-        keybindSettings.getChildren().add(new Label("Keybind settings"));
-        return keybindSettings;
+        return new VBox();
+    }
+
+    private VBox createEditorSettings() {
+        return new VBox();
+    }
+
+    private VBox createVersionControlSettings() {
+        return new VBox();
+    }
+
+    private VBox createLanguagesSettings() {
+        return new VBox();
+    }
+
+    private VBox createToolsSettings() {
+        return new VBox();
+    }
+
+    private VBox createBackupAndSyncSettings() {
+        return new VBox();
+    }
+
+    private VBox createAdvancedSettings() {
+        return new VBox();
     }
 
     @FXML
     private void setupSettingsTabs() {
         ObservableList<String> settingsList = FXCollections.observableArrayList(
-                "General",
+                "Appearance and Behaviour",
+                "Keybinds",
                 "Editor",
-                "Git",
-                "Keybinds");
+                "Version Control",
+//                "Plugins",
+//                "Build, Execution and Deployment",
+                "Languages",
+                "Tools",
+                "Backup and Sync",
+                "Advanced Settings");
         settingsGroupsList.setItems(settingsList);
     }
 
