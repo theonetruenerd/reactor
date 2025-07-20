@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Settings {
@@ -68,35 +69,145 @@ public class Settings {
     }
 
     private VBox createAppearanceAndBehaviourSettings() {
-        return new VBox();
+        VBox appearanceAndBehaviourSettings = new VBox(10);
+        appearanceAndBehaviourSettings.alignmentProperty().setValue(javafx.geometry.Pos.TOP_CENTER);
+
+        ComboBox<String> themeComboBox = new ComboBox<>();
+        themeComboBox.getItems().addAll("Light", "Dark");
+        themeComboBox.getSelectionModel().selectFirst();
+
+        ComboBox<String> editorColourSchemeComboBox = new ComboBox<>();
+        editorColourSchemeComboBox.getItems().addAll("Default", "Solarized Dark", "Solarized Light");
+        editorColourSchemeComboBox.getSelectionModel().selectFirst();
+
+        appearanceAndBehaviourSettings.getChildren().addAll(
+                new Label("Appearance and Behaviour"),
+                new Separator(),
+                new Label("Appearance"),
+                new Label("Theme"),
+                themeComboBox,
+                new CheckBox("Sync with OS"),
+                new Label("Editor Colour Scheme"),
+                editorColourSchemeComboBox,
+                new Separator(),
+                new Label("Menus and Toolbars"),
+                new Separator(),
+                new Label("System Settings")
+        );
+        return appearanceAndBehaviourSettings;
     }
 
     private VBox createKeybindSettings() {
-        return new VBox();
+        VBox keybindSettings = new VBox(10);
+        keybindSettings.getChildren().addAll(
+                new Label("Keybinds"),
+                new Separator()
+        );
+        return keybindSettings;
     }
 
     private VBox createEditorSettings() {
-        return new VBox();
+        VBox editorSettings = new VBox(10);
+        editorSettings.getChildren().addAll(
+                new Label("Editor"),
+                new Separator(),
+                new Label("General"),
+                new Separator(),
+                new Label("Code Editing"),
+                new Separator(),
+                new Label("Font"),
+                new Separator(),
+                new Label("Colour Scheme"),
+                new Separator(),
+                new Label("Code Style"),
+                new Separator(),
+                new Label("TODO"),
+                new Separator()
+        );
+        return editorSettings;
     }
 
     private VBox createVersionControlSettings() {
-        return new VBox();
+        VBox versionControlSettings = new VBox(10);
+        versionControlSettings.getChildren().addAll(
+                new Label("Version Control"),
+                new Separator(),
+                new Label("Changelists"),
+                new Separator(),
+                new Label("Commit"),
+                new Separator(),
+                new Label("Confirmation"),
+                new Separator(),
+                new Label("Log"),
+                new Separator(),
+                new Label("Git"),
+                new Separator()
+        );
+        return versionControlSettings;
     }
 
     private VBox createLanguagesSettings() {
-        return new VBox();
+        VBox languagesSettings = new VBox(10);
+
+        ToggleGroup group = new ToggleGroup();
+        RadioButton htmlRadioButton = new RadioButton("WYSIWYG Editor");
+        RadioButton textRadioButton = new RadioButton("Text Editor");
+
+        htmlRadioButton.setToggleGroup(group);
+        textRadioButton.setToggleGroup(group);
+        htmlRadioButton.setSelected(true);
+
+        languagesSettings.getChildren().addAll(
+                new Label("Language Settings"),
+                new Separator(),
+                new Label("Venus"),
+                new Separator(),
+                new Label("HSL"),
+                new Separator(),
+                new Label("XAML"),
+                new Separator(),
+                new Label("CHM"),
+                new Separator(),
+                new Label("HTM"),
+                new Text( "Which editor to use for HTM files: " ),
+                htmlRadioButton,
+                textRadioButton,
+                new Separator()
+        );
+        return languagesSettings;
     }
 
     private VBox createToolsSettings() {
-        return new VBox();
+        VBox toolsSettings = new VBox(10);
+        toolsSettings.getChildren().addAll(
+                new Label("Tools"),
+                new Separator(),
+                new Label("CSV Formats"),
+                new Separator(),
+                new Label("Startup Tasks"),
+                new Separator(),
+                new Label("Terminal"),
+                new Separator()
+        );
+        return toolsSettings;
     }
 
     private VBox createBackupAndSyncSettings() {
-        return new VBox();
+        VBox backupAndSyncSettings = new VBox(10);
+        backupAndSyncSettings.getChildren().addAll(
+                new Label("Backup and Sync"),
+                new Separator()
+        );
+        return backupAndSyncSettings;
     }
 
     private VBox createAdvancedSettings() {
-        return new VBox();
+        VBox advancedSettings = new VBox(10);
+        advancedSettings.getChildren().addAll(
+                new Label("Advanced Settings"),
+                new Separator()
+        );
+        return advancedSettings;
     }
 
     @FXML
