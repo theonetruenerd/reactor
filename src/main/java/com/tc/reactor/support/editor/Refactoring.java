@@ -1,6 +1,9 @@
 package com.tc.reactor.support.editor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.scene.control.TextInputDialog;
@@ -9,21 +12,27 @@ import org.fxmisc.richtext.CodeArea;
 public class Refactoring {
 
     private final CodeArea codeArea;
+    private final Set<String> identifiers = new HashSet<>();
 
     public Refactoring(CodeArea codeArea) {
         this.codeArea = codeArea;
     }
 
     public void renameVariable(CodeArea codeArea) {
-        // Step 1: Identify the selected variable
         String oldName = getSelectedVariableName();
+
+        extractVariableDeclarations(codeArea.getText());
+
+        if (!identifiers.contains(oldName)) {
+            System.out.println("No variable with name '" + oldName + "' found in the file.");
+            return;
+        }
 
         if (oldName.isEmpty()) {
             System.out.println("No variable selected for renaming.");
             return;
         }
 
-        // Step 2: Prompt the user for a new name
         String newName = promptForNewVariableName(oldName);
 
         if (newName == null || newName.trim().isEmpty() || oldName.equals(newName)) {
@@ -31,7 +40,6 @@ public class Refactoring {
             return;
         }
 
-        // Step 3: Update all occurrences of the variable in the file
         renameVariableInFile(codeArea, oldName, newName);
     }
 
@@ -76,6 +84,25 @@ public class Refactoring {
         dialog.setContentText("Enter the new name for the variable '" + oldName + "':");
 
         return dialog.showAndWait().orElse(null); // Returns the new name, or null if the dialog is canceled
+    }
+
+    private void extractVariableDeclarations(String text) {
+        Pattern pattern = Pattern.compile("variable\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*[=;]");
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            identifiers.add(matcher.group(1));
+        }
+
+        String[] types = {"sequence", "string", "device", "resource", "timer", "dialog", "object", "event", "file"};
+        for (String type : types) {
+            pattern = Pattern.compile(type + "\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*[=;]");
+            matcher = pattern.matcher(text);
+
+            while (matcher.find()) {
+                identifiers.add(matcher.group(1));
+            }
+        }
     }
 
 }
