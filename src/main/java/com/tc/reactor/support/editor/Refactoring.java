@@ -58,10 +58,14 @@ public class Refactoring {
             int caretPosition = codeArea.getCaretPosition();
             String text = codeArea.getText();
             int wordStart = caretPosition;
+            int wordEnd = caretPosition;
             while (wordStart > 0 && Character.isLetterOrDigit(text.charAt(wordStart - 1))) {
                 wordStart--;
             }
-            return text.substring(wordStart, caretPosition);
+            while (wordEnd < text.length() && Character.isLetterOrDigit(text.charAt(wordEnd))) {
+                wordEnd++;
+            }
+            return text.substring(wordStart, wordEnd);
         }
     }
 
