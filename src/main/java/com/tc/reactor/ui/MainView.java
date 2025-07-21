@@ -2,6 +2,7 @@ package com.tc.reactor.ui;
 
 import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
+import com.tc.reactor.support.editor.ContextMenuSetup;
 import com.tc.reactor.support.editor.SyntaxManager;
 import com.tc.reactor.support.git.GitUtils;
 import javafx.application.Platform;
@@ -409,6 +410,8 @@ public class MainView {
         syntaxManager.setupSyntaxHighlighting(extension, editor);
         CodeFormatter codeFormatter = new CodeFormatter();
         codeFormatter.setupAutoFormatting(editor, extension);
+        ContextMenuSetup contextMenuSetup = new ContextMenuSetup();
+        contextMenuSetup.setupContextMenu(editor);
 
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
