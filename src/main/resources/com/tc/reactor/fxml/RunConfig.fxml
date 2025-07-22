@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.cell.ComboBoxTableCell?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.RunConfig">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -52,8 +51,8 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
-                        <ComboBox fx:id="exeComboBox" id="exeComboBox" editable="true" prefHeight="25.0" prefWidth="235.0" visibleRowCount="1" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="Button" />
+                        <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" prefHeight="25.0" prefWidth="235.0" visibleRowCount="1" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="..." onAction="#onExeBrowseButtonClick"/>
                      </children></HBox>
                   <TextField GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Path to exe" GridPane.rowIndex="1" />
@@ -69,7 +68,7 @@
                         <TextField prefHeight="25.0" prefWidth="260.0" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" onAction="#onCancelButtonClick" />
+                  <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <Button mnemonicParsing="false" text="Apply" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                </children>
             </GridPane>
