@@ -29,7 +29,7 @@
             </MenuBar>
          </top>
          <left>
-            <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <TreeView fx:id="runConfigTreeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
             <GridPane BorderPane.alignment="CENTER">
@@ -54,7 +54,7 @@
                         <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" onAction="#onExeComboBoxClick" prefHeight="25.0" prefWidth="235.0" promptText="Enter path to exe" visibleRowCount="1" />
                         <Button mnemonicParsing="false" onAction="#onExeBrowseButtonClick" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="..." />
                      </children></HBox>
-                  <TextField GridPane.columnIndex="1" />
+                  <TextField fx:id="runConfigName" GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Path to exe" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Args" GridPane.rowIndex="2" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Environment Variables" GridPane.rowIndex="3" />
@@ -69,7 +69,7 @@
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <Button mnemonicParsing="false" text="Apply" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApplyButtonClick" text="Apply" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </center></BorderPane>
