@@ -103,21 +103,18 @@
               </Menu>
             </menus>
           </MenuBar>
-         <MenuButton mnemonicParsing="false" text="Run Config">
+         <SplitMenuButton mnemonicParsing="false" text="Run Config">
            <items>
-               <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-                 <content>
-                   <CheckBox text="Click Me" />
-                 </content>
-               </CustomMenuItem>
-               <MenuItem mnemonicParsing="false" text="Example Config 1" />
                <SeparatorMenuItem mnemonicParsing="false" />
              <MenuItem mnemonicParsing="false" text="Add Config" />
              <MenuItem mnemonicParsing="false" text="Edit Config" />
+               <MenuItem mnemonicParsing="false" text="Delete Config" />
            </items>
-         </MenuButton>
+         </SplitMenuButton>
          <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
            <buttons>
+               <Button mnemonicParsing="false" text="▶" />
+               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
                <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
                <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
                   <font>
