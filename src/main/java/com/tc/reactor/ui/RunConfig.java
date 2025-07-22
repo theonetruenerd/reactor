@@ -28,6 +28,8 @@ public class RunConfig {
     @FXML private void initialize() {
         exeComboBox.setItems(exeList);
         runConfigTreeView.setRoot(runConfigRoots);
+        runConfigTreeView.setShowRoot(false);
+        runConfigTreeView.setOnMouseClicked(event -> onRunConfigTreeViewClick());
     }
 
     @FXML
@@ -53,7 +55,7 @@ public class RunConfig {
         fileChooser.setInitialDirectory(initialFile);
         File selectedExe = fileChooser.showOpenDialog(new Stage());
         if (selectedExe != null) {
-            exeComboBox.setValue(selectedExe.getName());
+            exeComboBox.setValue(selectedExe.getAbsolutePath());
         }
     }
 
@@ -61,10 +63,12 @@ public class RunConfig {
     private void onRunConfigTreeViewClick() {
         System.out.println("Run config tree view clicked.");
         TreeItem<String> selectedItem = runConfigTreeView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
+        if (selectedItem != null && !selectedItem.getParent().getValue().equals("Run Configurations")) {
             runConfigName.setText(selectedItem.getValue());
+            exeComboBox.setValue(selectedItem.getParent().getValue());
         } else {
             runConfigName.setText("");
+            exeComboBox.setValue(null);
         }
     }
 
