@@ -12,10 +12,14 @@ import java.io.File;
 public class RunConfig {
 
     ObservableList<String> exeList =
-            FXCollections.observableArrayList("C:\\Program Files (x86)\\HAMILTON\\Bin\\HxRunCtrl.exe","test");
+            FXCollections.observableArrayList("C:\\Program Files (x86)\\HAMILTON\\Bin\\HxRun.exe");
 
     @FXML
-    public ComboBox<String> exeComboBox = new ComboBox<>(exeList);
+    public ComboBox<String> exeComboBox;
+
+    @FXML private void initialize() {
+        exeComboBox.setItems(exeList);
+    }
 
     @FXML
     private void onExeComboBoxClick() {

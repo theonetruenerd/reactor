@@ -51,8 +51,8 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
-                        <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" prefHeight="25.0" prefWidth="235.0" visibleRowCount="1" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="..." onAction="#onExeBrowseButtonClick"/>
+                        <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" onAction="#onExeComboBoxClick" prefHeight="25.0" prefWidth="235.0" promptText="Enter path to exe" visibleRowCount="1" />
+                        <Button mnemonicParsing="false" onAction="#onExeBrowseButtonClick" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="..." />
                      </children></HBox>
                   <TextField GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Path to exe" GridPane.rowIndex="1" />
