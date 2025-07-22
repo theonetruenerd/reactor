@@ -8,8 +8,7 @@ import org.antlr.v4.runtime.*;
 
 public class RealTimeSyntaxChecker {
 
-    @FXML
-    private TextArea outputTextArea;
+    @FXML private TextArea outputTextArea;
 
     public void checkSyntax(String sourceCode) {
         CharStream input = CharStreams.fromString(sourceCode);

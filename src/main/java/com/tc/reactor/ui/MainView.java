@@ -43,7 +43,7 @@ public class MainView {
     @FXML private TabPane bottomTabPane;
     @FXML private TextArea terminalTextArea;
     @FXML private TextArea outputTextArea;
-    @FXML private TextArea logsTextArea;
+    @FXML public TextArea logsTextArea;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
     @FXML private Button commitButton;
@@ -70,7 +70,7 @@ public class MainView {
             RunConfig runConfig = new RunConfig();
             runConfig.loadRunConfigsFromFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            logsTextArea.appendText("\n> "+e.getMessage());
         }
         updateRunConfigMenu();
     }
@@ -102,16 +102,16 @@ public class MainView {
             populateProjectTree(selectedDirectory);
             handleRepositoryInitialization(selectedDirectory);
         } else {
-            System.out.println("No directory selected");
+            logsTextArea.appendText("\n> "+"No directory selected");
         }
-        System.out.println(gitUtils.getRepository());
+        logsTextArea.appendText("\n> "+gitUtils.getRepository().toString());
     }
 
 
     private void handleRepositoryInitialization(File selectedDirectory) {
         try {
             gitUtils.setRepository(selectedDirectory.getAbsolutePath());
-            System.out.println("Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
         } catch (RepositoryNotFoundException e) {
             showGitRepositoryDialog(selectedDirectory);
         } catch (IOException e) {
@@ -134,7 +134,7 @@ public class MainView {
     private void createGitRepository(File selectedDirectory) {
         try {
             gitUtils.createRepository(selectedDirectory.getAbsolutePath());
-            System.out.println("Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
         } catch (Exception e) {
             showErrorDialog("Error while creating Git repository.", e.getMessage());
         }
@@ -145,7 +145,7 @@ public class MainView {
         String runConfig = runConfigSplitMenu.getText();
 
         if (runConfig == null || runConfig.isBlank() || runConfig.equals("Run Configs")) {
-            System.out.println("No run configuration selected.");
+            logsTextArea.appendText("\n> "+"No run configuration selected.");
             return;
         }
 
@@ -162,10 +162,10 @@ public class MainView {
         exe = exe.replace("\\", "\\\\");
         exe = "\"" + exe + "\"";
 
-        System.out.println(Arrays.toString(configParts));
+        logsTextArea.appendText("\n> "+Arrays.toString(configParts));
         String command = String.format("%s %s %s", exe, currentFilePath, args);
 
-        System.out.println(command);
+        logsTextArea.appendText("\n> "+command);
 
         Runtime rt = Runtime.getRuntime();
         Process proc = rt.exec(command);
@@ -175,7 +175,7 @@ public class MainView {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                logsTextArea.appendText("\n> "+line);
             }
         }
     }
@@ -269,14 +269,14 @@ public class MainView {
     private void saveCurrentFile() {
         Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
         if (currentTab == null || currentTab.getUserData() == null) {
-            System.out.println("No active file to save.");
+            logsTextArea.appendText("\n> "+"No active file to save.");
             return; // Skip if no file is loaded
         }
 
         // Retrieve file path from the tab's userData
         String filePath = currentTab.getUserData().toString();
         if (filePath.isBlank()) {
-            System.out.println("Invalid file path.");
+            logsTextArea.appendText("\n> "+"Invalid file path.");
             return; // Skip if file path is invalid
         }
 
@@ -286,7 +286,7 @@ public class MainView {
 
         // Call save logic and print status
         saveFile(filePath, fileContent);
-        System.out.println("File saved: " + filePath);
+        logsTextArea.appendText("\n> "+"File saved: " + filePath);
     }
 
 
@@ -304,7 +304,7 @@ public class MainView {
         // Write content to the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(fileContent);
-            System.out.println("File saved successfully: " + file.getAbsolutePath());
+            logsTextArea.appendText("\n> "+"File saved successfully: " + file.getAbsolutePath());
         } catch (IOException e) {
             System.err.println("Failed to save file: " + filePath);
             e.printStackTrace();
@@ -337,7 +337,7 @@ public class MainView {
 
                         // Optionally, add an action to the menu item
                         menuItem.setOnAction(event -> {
-                            System.out.println("Selected configuration: " + config.configName);
+                            logsTextArea.appendText("\n> "+"Selected configuration: " + config.configName);
                             runConfigSplitMenu.setText(menuText);
                             // Perform desired actions with the configuration
                         });
@@ -349,7 +349,7 @@ public class MainView {
                     System.err.println("Failed to load configurations: " + e.getMessage());
                 }
             } else {
-                System.out.println("Configuration file not found: " + file.getAbsolutePath());
+                logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
             }
 
         }
@@ -385,7 +385,7 @@ public class MainView {
 
             String exePath = controller.exeComboBox.getValue();
 
-            System.out.println("Exe path: " + exePath);
+            logsTextArea.appendText("\n> "+"Exe path: " + exePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -399,15 +399,15 @@ public class MainView {
 
         String selectedConfig = runConfigSplitMenu.getText();
 
-        System.out.println("Delete config selected");
+        logsTextArea.appendText("\n> "+"Delete config selected");
 
         if (selectedConfig == null || selectedConfig.isBlank() || selectedConfig.equals("Run Configs")) {
-            System.out.println("No run configuration selected.");
+            logsTextArea.appendText("\n> "+"No run configuration selected.");
             return;
         }
 
         if(!file.exists()) {
-            System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
             return;
         }
 
@@ -420,7 +420,7 @@ public class MainView {
             });
 
             if (!removed) {
-                System.out.println("No matching configuration found to delete.");
+                logsTextArea.appendText("\n> "+"No matching configuration found to delete.");
                 return;
             }
 
@@ -432,7 +432,7 @@ public class MainView {
 
             runConfigSplitMenu.setText("Run Configs");
 
-            System.out.println("Configuration deleted successfully.");
+            logsTextArea.appendText("\n> "+"Configuration deleted successfully.");
         } catch (IOException e) {
             System.err.println("Failed to update configurations: " + e.getMessage());
         }
@@ -472,7 +472,7 @@ public class MainView {
                 );
                 openFileInTab(libraryPath.resolve(libraryName + ".hsl").toString());
             } else {
-                System.out.println("Library creation aborted: Missing required fields.");
+                logsTextArea.appendText("\n> "+"Library creation aborted: Missing required fields.");
             }
         } catch (IOException e) {
             System.err.println("Error loading NewFile.fxml: " + e.getMessage());
@@ -484,7 +484,7 @@ public class MainView {
     public void onCommitButtonClick() {
         try {
             gitUtils.commit(commitMessageTextArea.getText());
-            System.out.println("Commit successful.");
+            logsTextArea.appendText("\n> "+"Commit successful.");
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -639,10 +639,10 @@ public class MainView {
         if (result.isPresent()){
             if (result.get() == htmlButtonType){
                 preferredEditor = HtmlEditorType.HTML;
-                System.out.println("HTML Editor selected");
+                logsTextArea.appendText("\n> "+"HTML Editor selected");
             } else {
                 preferredEditor = HtmlEditorType.TEXT;
-                System.out.println("Text Editor selected");
+                logsTextArea.appendText("\n> "+"Text Editor selected");
             }
         }
     }

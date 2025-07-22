@@ -17,6 +17,7 @@ public class NewFile {
     @FXML private TextField parentNamespaceField;
     @FXML private TextArea libraryDescriptionField;
     @FXML private TextField libraryPathField;
+    @FXML private TextArea logsTextArea;
 
     @FXML
     private void onBrowseButtonClick() {
@@ -46,7 +47,7 @@ public class NewFile {
         try {
             return majorIdField.getText().trim().toUpperCase();
         } catch (IllegalArgumentException e) {
-            System.err.println("Invalid Major ID format: " + e.getMessage());
+            logsTextArea.appendText("Invalid Major ID format: " + e.getMessage() + "\n");
             return null;
         }
     }
@@ -55,7 +56,7 @@ public class NewFile {
         try {
             return Float.parseFloat(libraryVersionField.getText().trim());
         } catch (NumberFormatException e) {
-            System.err.println("Invalid library version: " + e.getMessage());
+            logsTextArea.appendText("Invalid library version format: " + e.getMessage() + "\n");
             return null;
         }
     }

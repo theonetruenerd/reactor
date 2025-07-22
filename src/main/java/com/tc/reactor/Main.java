@@ -1,6 +1,9 @@
 package com.tc.reactor;
 
+import com.tc.reactor.ui.MainView;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -15,6 +18,8 @@ public class Main extends Application {
     private static final String FONT_PATH = "/com/tc/reactor/fonts/JetBrainsMono-Regular.ttf";
     private static final String STYLESHEET_PATH = "css/styles.css";
     private static final String FXML_PATH = "fxml/MainView.fxml";
+
+    @FXML private TextArea logsTextArea;
 
     @Override
     public void start(Stage stage) {
@@ -37,8 +42,8 @@ public class Main extends Application {
                 throw new IllegalArgumentException("Font not found: " + fontPath);
             }
         } catch (Exception e) {
-            System.err.println("Error loading font: " + fontPath);
-            e.printStackTrace();
+            logsTextArea.appendText("Error loading font: " + fontPath + "\n");
+            logsTextArea.appendText(e.getMessage() + "\n");
         }
     }
 
@@ -50,8 +55,8 @@ public class Main extends Application {
                     .ifPresent(css -> scene.getStylesheets().add(css.toExternalForm()));
             return scene;
         } catch (Exception e) {
-            System.err.println("Error loading FXML: " + fxmlPath);
-            e.printStackTrace();
+            logsTextArea.appendText("Error loading FXML: " + fxmlPath + "\n");
+            logsTextArea.appendText(e.getMessage() + "\n");
             return null;
         }
     }
