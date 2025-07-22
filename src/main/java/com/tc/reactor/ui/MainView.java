@@ -360,7 +360,6 @@ public class MainView {
             onAddConfigClick();
         });
         runConfigSplitMenu.getItems().add(runConfigAddMenuItem);
-        runConfigSplitMenu.getItems().add(new MenuItem("Edit Config"));
         MenuItem runConfigDeleteMenuItem = new MenuItem("Delete Config");
         runConfigDeleteMenuItem.setOnAction(event -> {
             onDeleteConfigClick();
