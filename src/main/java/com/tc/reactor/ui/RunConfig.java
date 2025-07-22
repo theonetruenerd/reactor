@@ -8,6 +8,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
 
 public class RunConfig {
 
@@ -22,6 +26,9 @@ public class RunConfig {
 
     @FXML
     private TreeView<String> runConfigTreeView;
+
+    @FXML
+    private TextField runConfigArgs;
 
     TreeItem<String> runConfigRoots = new TreeItem<>("Run Configurations");
 
@@ -120,5 +127,19 @@ public class RunConfig {
             alert.showAndWait();
         }
 
+        String args = runConfigArgs.getText();
+
+        saveRunConfigToFile(runConfig.getValue(), exeName.getValue(), args);
+
+    }
+
+    private void saveRunConfigToFile(String configName, String exeName, String args) {
+
+        System.out.println(configName);
+        System.out.println(exeName);
+        System.out.println(args);
+
+        System.out.println("Saving run configs to file...");
+        System.out.println("WARNING: Not Yet Implemented!");
     }
 }

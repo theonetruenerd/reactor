@@ -60,7 +60,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Environment Variables" GridPane.rowIndex="3" />
                   <HBox GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                      <children>
-                        <TextField prefHeight="25.0" prefWidth="260.0" />
+                        <TextField fx:id="runConfigArgs" prefHeight="25.0" prefWidth="260.0" />
                      </children>
                   </HBox>
                   <HBox GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
