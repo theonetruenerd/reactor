@@ -24,7 +24,7 @@ public class RunConfig {
     ObservableList<String> exeList =
             FXCollections.observableArrayList("C:\\Program Files (x86)\\HAMILTON\\Bin\\HxRun.exe");
 
-    Path configFilePath = Path.of("C:\\Users\\TarunChapman\\IdeaProjects\\reactor\\src\\main\\resources\\run_configs.json");
+    public Path configFilePath = Path.of("C:\\Users\\TarunChapman\\IdeaProjects\\reactor\\src\\main\\resources\\run_configs.json");
 
     @FXML
     public ComboBox<String> exeComboBox;
@@ -198,7 +198,7 @@ public class RunConfig {
 
     }
 
-    private static class RunConfigSave {
+    public static class RunConfigSave {
         @JsonProperty String configName;
         @JsonProperty String exeName;
         @JsonProperty String args;

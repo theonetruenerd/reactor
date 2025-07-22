@@ -1,5 +1,6 @@
 package com.tc.reactor.ui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
 import com.tc.reactor.support.editor.ContextMenuSetup;
@@ -8,6 +9,7 @@ import com.tc.reactor.ui.RunConfig;
 import com.tc.reactor.support.git.GitUtils;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,10 +30,7 @@ import com.tc.reactor.support.languages.hsl.LibraryHandler;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.HexFormat;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MainView {
 
@@ -47,6 +46,7 @@ public class MainView {
     @FXML private TextArea commitMessageTextArea;
     @FXML private Button commitButton;
     @FXML private Button refreshCommitButton;
+    @FXML private SplitMenuButton runConfigSplitMenu;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
@@ -70,6 +70,7 @@ public class MainView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateRunConfigMenu();
     }
 
     private void setupKeyboardShortcuts() {
@@ -134,6 +135,46 @@ public class MainView {
             System.out.println("Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
         } catch (Exception e) {
             showErrorDialog("Error while creating Git repository.", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onRunButtonClick() throws IOException, InterruptedException {
+        String runConfig = runConfigSplitMenu.getText();
+
+        if (runConfig == null || runConfig.isBlank() || runConfig.equals("Run Configs")) {
+            System.out.println("No run configuration selected.");
+            return;
+        }
+
+        Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
+        String currentFilePath = currentTab.getUserData().toString();
+
+        currentFilePath = currentFilePath.replace("\\", "\\\\");
+        currentFilePath = "\"" + currentFilePath + "\"";
+
+        String[] configParts = runConfig.split(",");
+        String exe = configParts[1].split("::")[0].substring(1);
+        String args = configParts[1].split("::")[1];
+
+        exe = exe.replace("\\", "\\\\");
+        exe = "\"" + exe + "\"";
+
+        System.out.println(Arrays.toString(configParts));
+        String command = String.format("%s %s %s", exe, currentFilePath, args);
+
+        System.out.println(command);
+
+        Runtime rt = Runtime.getRuntime();
+        Process proc = rt.exec(command);
+        proc.waitFor();
+
+        // Handle output from the process
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
         }
     }
 
@@ -270,6 +311,58 @@ public class MainView {
     }
 
     @FXML
+    private void updateRunConfigMenu() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        RunConfig runConfig = new RunConfig();
+
+        File file = new File(runConfig.configFilePath.toUri());
+
+        runConfigSplitMenu.getItems().clear();
+
+        if (file.exists()) {
+            if (file.exists()) {
+                try {
+                    // Read JSON file into a list of configurations
+                    RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
+
+                    for (RunConfig.RunConfigSave config : configs) {
+                        // Format menu item text as "X [Y:Z]"
+                        String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
+
+                        // Create a new menu item
+                        MenuItem menuItem = new MenuItem(menuText);
+
+                        // Optionally, add an action to the menu item
+                        menuItem.setOnAction(event -> {
+                            System.out.println("Selected configuration: " + config.configName);
+                            runConfigSplitMenu.setText(menuText);
+                            // Perform desired actions with the configuration
+                        });
+
+                        // Add the menu item to the SplitMenuButton
+                        runConfigSplitMenu.getItems().add(menuItem);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Failed to load configurations: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            }
+
+        }
+
+        runConfigSplitMenu.getItems().add(new SeparatorMenuItem());
+        MenuItem runConfigAddMenuItem = new MenuItem("Add Config");
+        runConfigAddMenuItem.setOnAction(event -> {
+            onAddConfigClick();
+        });
+        runConfigSplitMenu.getItems().add(runConfigAddMenuItem);
+        runConfigSplitMenu.getItems().add(new MenuItem("Edit Config"));
+        runConfigSplitMenu.getItems().add(new MenuItem("Delete Config"));
+    }
+
+    @FXML
     public void onAddConfigClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/RunConfig.fxml"));
@@ -282,6 +375,8 @@ public class MainView {
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+
+            updateRunConfigMenu();
 
             String exePath = controller.exeComboBox.getValue();
 

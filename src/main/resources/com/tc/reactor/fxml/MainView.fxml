@@ -103,7 +103,7 @@
               </Menu>
             </menus>
           </MenuBar>
-         <SplitMenuButton mnemonicParsing="false" text="Run Config">
+         <SplitMenuButton fx:id="runConfigSplitMenu" mnemonicParsing="false" text="Run Config">
            <items>
                <SeparatorMenuItem mnemonicParsing="false" />
              <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" text="Add Config" />
@@ -114,8 +114,8 @@
          </SplitMenuButton>
          <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
            <buttons>
-               <Button mnemonicParsing="false" text="▶" />
-               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
+               <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRunButtonClick" text="▶" />
+               <Button fx:id="debugButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
                <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
                <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
                   <font>
