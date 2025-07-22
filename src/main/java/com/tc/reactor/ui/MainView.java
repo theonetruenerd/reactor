@@ -1,5 +1,7 @@
 package com.tc.reactor.ui;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
@@ -359,7 +361,11 @@ public class MainView {
         });
         runConfigSplitMenu.getItems().add(runConfigAddMenuItem);
         runConfigSplitMenu.getItems().add(new MenuItem("Edit Config"));
-        runConfigSplitMenu.getItems().add(new MenuItem("Delete Config"));
+        MenuItem runConfigDeleteMenuItem = new MenuItem("Delete Config");
+        runConfigDeleteMenuItem.setOnAction(event -> {
+            onDeleteConfigClick();
+        });
+        runConfigSplitMenu.getItems().add(runConfigDeleteMenuItem);
     }
 
     @FXML
@@ -384,6 +390,54 @@ public class MainView {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void onDeleteConfigClick() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        RunConfig runConfig = new RunConfig();
+        File file = new File(runConfig.configFilePath.toUri());
+
+        String selectedConfig = runConfigSplitMenu.getText();
+
+        System.out.println("Delete config selected");
+
+        if (selectedConfig == null || selectedConfig.isBlank() || selectedConfig.equals("Run Configs")) {
+            System.out.println("No run configuration selected.");
+            return;
+        }
+
+        if(!file.exists()) {
+            System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            return;
+        }
+
+        try {
+            RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
+            List<RunConfig.RunConfigSave> configList = new ArrayList<>(Arrays.asList(configs));
+            boolean removed = configList.removeIf(config -> {
+                String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
+                return menuText.equals(selectedConfig);
+            });
+
+            if (!removed) {
+                System.out.println("No matching configuration found to delete.");
+                return;
+            }
+
+            // Write the updated configurations back to the file
+            objectMapper.writeValue(file, configList);
+
+            // Update the menu to reflect the changes
+            updateRunConfigMenu();
+
+            runConfigSplitMenu.setText("Run Configs");
+
+            System.out.println("Configuration deleted successfully.");
+        } catch (IOException e) {
+            System.err.println("Failed to update configurations: " + e.getMessage());
+        }
+
     }
 
     @FXML
