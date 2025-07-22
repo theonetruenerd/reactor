@@ -106,9 +106,10 @@
          <SplitMenuButton mnemonicParsing="false" text="Run Config">
            <items>
                <SeparatorMenuItem mnemonicParsing="false" />
-             <MenuItem mnemonicParsing="false" text="Add Config" />
+             <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" text="Add Config" />
              <MenuItem mnemonicParsing="false" text="Edit Config" />
                <MenuItem mnemonicParsing="false" text="Delete Config" />
+
            </items>
          </SplitMenuButton>
          <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">

@@ -262,6 +262,28 @@ public class MainView {
     }
 
     @FXML
+    public void onAddConfigClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/RunConfig.fxml"));
+            Parent root = loader.load();
+
+            RunConfig controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Run Configuration");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            String exePath = controller.exeComboBox.getValue();
+
+            System.out.println("Exe path: " + exePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     public void onCreateHslLibraryClick() {
         try {
             // Load NewFile.fxml for the input form
