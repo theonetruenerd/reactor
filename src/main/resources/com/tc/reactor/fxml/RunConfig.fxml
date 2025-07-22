@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.RunConfig">
+<AnchorPane prefHeight="417.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.RunConfig">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <MenuBar BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
          <left>
-            <TreeView fx:id="runConfigTreeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <TreeView fx:id="runConfigTreeView" prefHeight="394.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane prefHeight="392.0" prefWidth="403.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="138.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="109.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="85.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -44,32 +24,59 @@
                 <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="199.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="283.0" minHeight="10.0" prefHeight="203.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="283.0" minHeight="10.0" prefHeight="197.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin></Text>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
-                        <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" onAction="#onExeComboBoxClick" prefHeight="25.0" prefWidth="235.0" promptText="Enter path to exe" visibleRowCount="1" />
-                        <Button mnemonicParsing="false" onAction="#onExeBrowseButtonClick" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="..." />
+                        <ComboBox id="exeComboBox" fx:id="exeComboBox" editable="true" onAction="#onExeComboBoxClick" prefHeight="25.0" prefWidth="235.0" promptText="Enter path to exe" visibleRowCount="1">
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin></ComboBox>
+                        <Button mnemonicParsing="false" onAction="#onExeBrowseButtonClick" prefHeight="25.0" prefWidth="25.0" snapToPixel="false" text="...">
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin></Button>
                      </children></HBox>
-                  <TextField fx:id="runConfigName" GridPane.columnIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Path to exe" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Args" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Environment Variables" GridPane.rowIndex="3" />
+                  <TextField fx:id="runConfigName" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets top="2.0" />
+                     </GridPane.margin></TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Path to exe" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin></Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Args" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin></Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Environment Variables" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin></Text>
                   <HBox GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                      <children>
-                        <TextField fx:id="runConfigArgs" prefHeight="25.0" prefWidth="260.0" />
+                        <TextField fx:id="runConfigArgs" prefHeight="25.0" prefWidth="260.0">
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin></TextField>
                      </children>
                   </HBox>
-                  <HBox GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                  <HBox prefHeight="28.0" prefWidth="274.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
                      <children>
                         <TextField prefHeight="25.0" prefWidth="260.0" />
                      </children>
+                     <GridPane.margin>
+                        <Insets top="12.0" />
+                     </GridPane.margin>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApplyButtonClick" text="Apply" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <Button mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="25.0" prefWidth="80.0" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Button fx:id="applyButton" mnemonicParsing="false" onAction="#onApplyButtonClick" prefHeight="25.0" prefWidth="82.0" text="Apply" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </center></BorderPane>
