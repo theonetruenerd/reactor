@@ -5,6 +5,7 @@ import com.tc.reactor.support.editor.CodeFormatter;
 import com.tc.reactor.support.editor.ContextMenuSetup;
 import com.tc.reactor.support.editor.SyntaxManager;
 import com.tc.reactor.support.git.GitUtils;
+import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -438,6 +439,7 @@ public class MainView {
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
+            new RealTimeSyntaxChecker();
         }
 
         StringBuilder stringBuilder = new StringBuilder();
