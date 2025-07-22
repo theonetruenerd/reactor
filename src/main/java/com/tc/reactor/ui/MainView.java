@@ -448,6 +448,7 @@ public class MainView {
 
             // Get the controller to retrieve user inputs
             NewFile controller = loader.getController();
+            controller.setMainView(this);
 
             // Create and show the modal dialog
             Stage stage = new Stage();
@@ -467,6 +468,7 @@ public class MainView {
             // Validate inputs and create the library
             if (libraryName != null && majorId != null && libraryVersion != null && libraryPath != null) {
                 LibraryHandler libraryHandler = new LibraryHandler();
+                libraryHandler.setMainView(this);
                 libraryHandler.CreateLibrary(
                         libraryName, majorId, libraryVersion, libraryPath, parentNamespace, libraryDescription
                 );

@@ -1,5 +1,6 @@
 package com.tc.reactor.support.languages.hsl;
 
+import com.tc.reactor.ui.MainView;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,6 +10,12 @@ import java.util.Optional;
 import java.time.LocalDate;
 
 public class LibraryHandler {
+
+    private MainView mainView;
+
+    public void setMainView(MainView mainView) {
+        this.mainView = mainView;
+    }
 
     public void CreateLibrary(String libraryName,
                               String majorId,
@@ -26,13 +33,13 @@ public class LibraryHandler {
                 }
             }
             if (libraryFile.createNewFile()) {
-                System.out.println("Library file created: " + libraryFile.getAbsolutePath());
+                mainView.logsTextArea.appendText("> Library file created: " + libraryFile.getAbsolutePath());
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(libraryFile))) {
                     writer.write(generateTemplate(libraryName, majorId, libraryVersion, parentNamespace, libraryDescription));
-                    System.out.println("File populated with template contents");
+                    mainView.logsTextArea.appendText("> File populated with template contents");
                 }
             } else {
-                System.err.println("File already exists: " + libraryFile.getAbsolutePath());
+                mainView.logsTextArea.appendText("> File already exists: " + libraryFile.getAbsolutePath());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
