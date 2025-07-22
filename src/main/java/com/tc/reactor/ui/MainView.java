@@ -4,6 +4,7 @@ import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
 import com.tc.reactor.support.editor.ContextMenuSetup;
 import com.tc.reactor.support.editor.SyntaxManager;
+import com.tc.reactor.ui.RunConfig;
 import com.tc.reactor.support.git.GitUtils;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
@@ -60,9 +61,15 @@ public class MainView {
      * Initializes the window, setting up initial tabs
      */
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         setupInitialTabs();
         Platform.runLater(this::setupKeyboardShortcuts);
+        try {
+            RunConfig runConfig = new RunConfig();
+            runConfig.loadRunConfigsFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupKeyboardShortcuts() {
