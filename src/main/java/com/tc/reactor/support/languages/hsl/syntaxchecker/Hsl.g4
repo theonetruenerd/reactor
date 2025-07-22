@@ -3,10 +3,10 @@ grammar Hsl;
 // Lexer rules (Tokens)
 
 NEWLINE             : [\n]+ -> skip;
-WHITE_SPACE         : [ \t\r]+ -> skip;
+WHITE_SPACE         : [ \t\r]{2,} -> skip;
 COMMENT             : '//' ~[\r\n]* -> skip;
 COLON               : ':';
-BINARY_OPERATOR     : '+' | '-' | '*' | '/' | '&&' | '||' | '=' | '<>' | '<=' | '>=';
+BINARY_OPERATOR     : '+' | '-' | '*' | '/' | '&&' | '||' | '=' | '<>' | '<=' | '>=' | '|' ;
 UNARY_OPERATOR      : '-' | '!';
 SEMICOLON           : ';';
 LBRACE              : '{';

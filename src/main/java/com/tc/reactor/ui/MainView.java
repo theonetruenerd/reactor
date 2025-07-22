@@ -1,11 +1,17 @@
 package com.tc.reactor.ui;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
 import com.tc.reactor.support.editor.ContextMenuSetup;
 import com.tc.reactor.support.editor.SyntaxManager;
+import com.tc.reactor.ui.RunConfig;
 import com.tc.reactor.support.git.GitUtils;
+import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,10 +32,7 @@ import com.tc.reactor.support.languages.hsl.LibraryHandler;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.HexFormat;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MainView {
 
@@ -45,6 +48,7 @@ public class MainView {
     @FXML private TextArea commitMessageTextArea;
     @FXML private Button commitButton;
     @FXML private Button refreshCommitButton;
+    @FXML private SplitMenuButton runConfigSplitMenu;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
@@ -59,9 +63,16 @@ public class MainView {
      * Initializes the window, setting up initial tabs
      */
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         setupInitialTabs();
         Platform.runLater(this::setupKeyboardShortcuts);
+        try {
+            RunConfig runConfig = new RunConfig();
+            runConfig.loadRunConfigsFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateRunConfigMenu();
     }
 
     private void setupKeyboardShortcuts() {
@@ -126,6 +137,46 @@ public class MainView {
             System.out.println("Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
         } catch (Exception e) {
             showErrorDialog("Error while creating Git repository.", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onRunButtonClick() throws IOException, InterruptedException {
+        String runConfig = runConfigSplitMenu.getText();
+
+        if (runConfig == null || runConfig.isBlank() || runConfig.equals("Run Configs")) {
+            System.out.println("No run configuration selected.");
+            return;
+        }
+
+        Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
+        String currentFilePath = currentTab.getUserData().toString();
+
+        currentFilePath = currentFilePath.replace("\\", "\\\\");
+        currentFilePath = "\"" + currentFilePath + "\"";
+
+        String[] configParts = runConfig.split(",");
+        String exe = configParts[1].split("::")[0].substring(1);
+        String args = configParts[1].split("::")[1];
+
+        exe = exe.replace("\\", "\\\\");
+        exe = "\"" + exe + "\"";
+
+        System.out.println(Arrays.toString(configParts));
+        String command = String.format("%s %s %s", exe, currentFilePath, args);
+
+        System.out.println(command);
+
+        Runtime rt = Runtime.getRuntime();
+        Process proc = rt.exec(command);
+        proc.waitFor();
+
+        // Handle output from the process
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
         }
     }
 
@@ -259,6 +310,133 @@ public class MainView {
             e.printStackTrace();
 
         }
+    }
+
+    @FXML
+    private void updateRunConfigMenu() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        RunConfig runConfig = new RunConfig();
+
+        File file = new File(runConfig.configFilePath.toUri());
+
+        runConfigSplitMenu.getItems().clear();
+
+        if (file.exists()) {
+            if (file.exists()) {
+                try {
+                    // Read JSON file into a list of configurations
+                    RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
+
+                    for (RunConfig.RunConfigSave config : configs) {
+                        // Format menu item text as "X [Y:Z]"
+                        String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
+
+                        // Create a new menu item
+                        MenuItem menuItem = new MenuItem(menuText);
+
+                        // Optionally, add an action to the menu item
+                        menuItem.setOnAction(event -> {
+                            System.out.println("Selected configuration: " + config.configName);
+                            runConfigSplitMenu.setText(menuText);
+                            // Perform desired actions with the configuration
+                        });
+
+                        // Add the menu item to the SplitMenuButton
+                        runConfigSplitMenu.getItems().add(menuItem);
+                    }
+                } catch (IOException e) {
+                    System.err.println("Failed to load configurations: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            }
+
+        }
+
+        runConfigSplitMenu.getItems().add(new SeparatorMenuItem());
+        MenuItem runConfigAddMenuItem = new MenuItem("Add Config");
+        runConfigAddMenuItem.setOnAction(event -> {
+            onAddConfigClick();
+        });
+        runConfigSplitMenu.getItems().add(runConfigAddMenuItem);
+        MenuItem runConfigDeleteMenuItem = new MenuItem("Delete Config");
+        runConfigDeleteMenuItem.setOnAction(event -> {
+            onDeleteConfigClick();
+        });
+        runConfigSplitMenu.getItems().add(runConfigDeleteMenuItem);
+    }
+
+    @FXML
+    public void onAddConfigClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/RunConfig.fxml"));
+            Parent root = loader.load();
+
+            RunConfig controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Run Configuration");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            updateRunConfigMenu();
+
+            String exePath = controller.exeComboBox.getValue();
+
+            System.out.println("Exe path: " + exePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onDeleteConfigClick() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        RunConfig runConfig = new RunConfig();
+        File file = new File(runConfig.configFilePath.toUri());
+
+        String selectedConfig = runConfigSplitMenu.getText();
+
+        System.out.println("Delete config selected");
+
+        if (selectedConfig == null || selectedConfig.isBlank() || selectedConfig.equals("Run Configs")) {
+            System.out.println("No run configuration selected.");
+            return;
+        }
+
+        if(!file.exists()) {
+            System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            return;
+        }
+
+        try {
+            RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
+            List<RunConfig.RunConfigSave> configList = new ArrayList<>(Arrays.asList(configs));
+            boolean removed = configList.removeIf(config -> {
+                String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
+                return menuText.equals(selectedConfig);
+            });
+
+            if (!removed) {
+                System.out.println("No matching configuration found to delete.");
+                return;
+            }
+
+            // Write the updated configurations back to the file
+            objectMapper.writeValue(file, configList);
+
+            // Update the menu to reflect the changes
+            updateRunConfigMenu();
+
+            runConfigSplitMenu.setText("Run Configs");
+
+            System.out.println("Configuration deleted successfully.");
+        } catch (IOException e) {
+            System.err.println("Failed to update configurations: " + e.getMessage());
+        }
+
     }
 
     @FXML
@@ -416,6 +594,7 @@ public class MainView {
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
+            new RealTimeSyntaxChecker();
         }
 
         StringBuilder stringBuilder = new StringBuilder();

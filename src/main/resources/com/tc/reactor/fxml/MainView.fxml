@@ -19,7 +19,7 @@
                             <MenuItem mnemonicParsing="false" text="File" />
                             <MenuItem mnemonicParsing="false" text="Directory" />
                             <SeparatorMenuItem mnemonicParsing="false" />
-                            <MenuItem mnemonicParsing="false" text="HSL Library" onAction="#onCreateHslLibraryClick"/>
+                            <MenuItem mnemonicParsing="false" onAction="#onCreateHslLibraryClick" text="HSL Library" />
                             <MenuItem mnemonicParsing="false" text="XAML File" />
                             <MenuItem mnemonicParsing="false" text="Python File" />
                             <MenuItem mnemonicParsing="false" text="XML File" />
@@ -103,8 +103,18 @@
               </Menu>
             </menus>
           </MenuBar>
+         <SplitMenuButton fx:id="runConfigSplitMenu" mnemonicParsing="false" text="Run Config">
+           <items>
+               <SeparatorMenuItem mnemonicParsing="false" />
+             <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" text="Add Config" />
+               <MenuItem mnemonicParsing="false" text="Delete Config" />
+
+           </items>
+         </SplitMenuButton>
          <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
            <buttons>
+               <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRunButtonClick" text="▶" />
+               <Button fx:id="debugButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
                <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
                <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
                   <font>
@@ -191,7 +201,7 @@
          <children>
             <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="⟳" onAction="#onRefreshCommitButtonClick" />
+                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" onAction="#onRefreshCommitButtonClick" styleClass="root" stylesheets="@../css/styles.css" text="⟳" />
                   <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="↩" />
                 <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="⭳" />
                   <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
