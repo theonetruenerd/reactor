@@ -269,18 +269,6 @@ public interface HslVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOptForExpression(HslParser.OptForExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link HslParser#functionReference}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionReference(HslParser.FunctionReferenceContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link HslParser#bindings}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBindings(HslParser.BindingsContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link HslParser#sequenceId}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

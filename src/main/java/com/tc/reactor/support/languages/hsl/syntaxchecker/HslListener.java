@@ -438,26 +438,6 @@ public interface HslListener extends ParseTreeListener {
 	 */
 	void exitOptForExpression(HslParser.OptForExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HslParser#functionReference}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionReference(HslParser.FunctionReferenceContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HslParser#functionReference}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionReference(HslParser.FunctionReferenceContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HslParser#bindings}.
-	 * @param ctx the parse tree
-	 */
-	void enterBindings(HslParser.BindingsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HslParser#bindings}.
-	 * @param ctx the parse tree
-	 */
-	void exitBindings(HslParser.BindingsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link HslParser#sequenceId}.
 	 * @param ctx the parse tree
 	 */

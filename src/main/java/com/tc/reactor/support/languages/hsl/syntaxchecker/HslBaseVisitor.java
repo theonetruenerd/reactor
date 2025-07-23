@@ -319,20 +319,6 @@ public class HslBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Hs
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFunctionReference(HslParser.FunctionReferenceContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitBindings(HslParser.BindingsContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitSequenceId(HslParser.SequenceIdContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

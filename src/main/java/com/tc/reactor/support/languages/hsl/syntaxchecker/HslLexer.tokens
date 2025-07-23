@@ -116,6 +116,7 @@ ID_LEX=76
 'private '=49
 'static '=50
 'const '=51
+'function '=62
 'method'=63
 'struct'=64
 'char'=65

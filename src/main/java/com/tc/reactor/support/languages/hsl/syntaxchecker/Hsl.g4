@@ -57,7 +57,7 @@ OBJECT              : 'object'[&]?' ';
 TIMER               : 'timer'[&]?' ';
 EVENT               : 'event'[&]?' ';
 FILE                : 'file'[&]?' ';
-FUNCTION            : 'function'[&]?' ';
+FUNCTION            : 'function ';
 METHOD              : 'method';
 STRUCT              : 'struct';
 CHAR                : 'char';
@@ -71,7 +71,7 @@ WHILE               : 'while';
 FOR                 : 'for';
 LOOP                : 'loop';
 NAMESPACE           : 'namespace ';
-ID_LEX              : [a-zA-Z_][a-zA-Z0-9_]*[ ,]*;
+ID_LEX              : [a-zA-Z_][a-zA-Z0-9_]*[,]*[ ]*;
 
 
 // Parser Rules
@@ -117,7 +117,7 @@ simpleStatement
     | fileExpression
     | expression
     | declaration
-    | functionReference
+//    | functionReference
     | functionCall
     ;
 
@@ -148,11 +148,11 @@ controlStatement
     ;
 
 functionDefinition
-    : (STATIC | CONST | GLOBAL | PRIVATE)* FUNCTION id formalList? returnType? LBRACE statementList RBRACE
+    : (STATIC | CONST | GLOBAL | PRIVATE)* FUNCTION funcId LPAREN formalList? RPAREN returnType? LBRACE statementList RBRACE
     ;
 
 formalList
-    : LPAREN (parameter (NEWLINE? COMMA parameter)*)? RPAREN
+    : (parameter (COMMA parameter)*)
     ;
 
 declaration
@@ -223,7 +223,8 @@ sequenceExpression
 
 stringExpression
     : stringId '=' stringExpression
-    | stringId '=' functionReference
+//    | stringId '=' functionReference
+    | stringId '=' functionCall
     ;
 
 deviceExpression
@@ -315,13 +316,13 @@ optForExpression
     : simpleStatement?
     ;
 
-functionReference
-    : funcId LPAREN bindings RPAREN
-    ;
-
-bindings
-    : (simpleStatement COMMA)* simpleStatement
-    ;
+//functionReference
+//    : funcId LPAREN bindings RPAREN
+//    ;
+//
+//bindings
+//    : (simpleStatement COMMA)* simpleStatement
+//    ;
 
 sequenceId
     : id PERIOD id
