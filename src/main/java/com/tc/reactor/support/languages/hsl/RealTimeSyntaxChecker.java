@@ -2,8 +2,6 @@ package com.tc.reactor.support.languages.hsl;
 
 import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.*;
 import org.antlr.v4.runtime.*;
 
