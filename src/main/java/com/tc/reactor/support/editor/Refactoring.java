@@ -31,11 +31,13 @@ public class Refactoring {
 
         if (!identifiers.contains(oldName)) {
             mainView.logsTextArea.appendText("\n> No variable with name '" + oldName + "' found in the file.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
         if (oldName.isEmpty()) {
             mainView.logsTextArea.appendText("\n> No variable selected for renaming.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
@@ -43,6 +45,7 @@ public class Refactoring {
 
         if (newName == null || newName.trim().isEmpty() || oldName.equals(newName)) {
             mainView.logsTextArea.appendText("\n> Rename canceled or new name is invalid.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
@@ -61,6 +64,7 @@ public class Refactoring {
         codeArea.replaceText(updatedText);
 
         mainView.logsTextArea.appendText("\n> Renamed all occurrences of '" + oldName + "' to '" + newName + "'.");
+        mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
     }
 
 

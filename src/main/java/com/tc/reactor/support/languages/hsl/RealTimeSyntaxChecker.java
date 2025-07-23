@@ -34,6 +34,7 @@ public class RealTimeSyntaxChecker {
                         mainView.outputTextArea.appendText(errorMessage);
                     } else {
                         mainView.logsTextArea.appendText("\n> OutputTextArea is not initialized.");
+                        mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
                     }
                 });
             }

@@ -37,9 +37,11 @@ public class LibraryHandler {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(libraryFile))) {
                     writer.write(generateTemplate(libraryName, majorId, libraryVersion, parentNamespace, libraryDescription));
                     mainView.logsTextArea.appendText("> File populated with template contents");
+                    mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
                 }
             } else {
                 mainView.logsTextArea.appendText("> File already exists: " + libraryFile.getAbsolutePath());
+                mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -53,6 +53,7 @@ public class NewFile {
             return majorIdField.getText().trim().toUpperCase();
         } catch (IllegalArgumentException e) {
             mainView.logsTextArea.appendText("\n> Invalid Major ID format: " + e.getMessage() + "\n");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return null;
         }
     }
@@ -62,6 +63,7 @@ public class NewFile {
             return Float.parseFloat(libraryVersionField.getText().trim());
         } catch (NumberFormatException e) {
             mainView.logsTextArea.appendText("\n> Invalid library version format: " + e.getMessage() + "\n");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return null;
         }
     }
