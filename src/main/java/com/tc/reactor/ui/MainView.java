@@ -1,17 +1,13 @@
 package com.tc.reactor.ui;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tc.reactor.support.editor.CodeAutocompletion;
 import com.tc.reactor.support.editor.CodeFormatter;
 import com.tc.reactor.support.editor.ContextMenuSetup;
 import com.tc.reactor.support.editor.SyntaxManager;
-import com.tc.reactor.ui.RunConfig;
 import com.tc.reactor.support.git.GitUtils;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -40,14 +36,14 @@ public class MainView {
     @FXML private MenuBar menuBar;
     @FXML private TreeView<String> projectTree;
     @FXML private TabPane mainTabPane;
-    @FXML private TabPane bottomTabPane;
-    @FXML private TextArea terminalTextArea;
-    @FXML private TextArea outputTextArea;
-    @FXML private TextArea logsTextArea;
+    @FXML
+    public TabPane bottomTabPane;
+    @FXML
+    public TextArea outputTextArea;
+    @FXML public TextArea logsTextArea;
+    @FXML public Tab logTab;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
-    @FXML private Button commitButton;
-    @FXML private Button refreshCommitButton;
     @FXML private SplitMenuButton runConfigSplitMenu;
 
     private final GitUtils gitUtils = new GitUtils();
@@ -70,7 +66,8 @@ public class MainView {
             RunConfig runConfig = new RunConfig();
             runConfig.loadRunConfigsFromFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            logsTextArea.appendText("\n> "+e.getMessage());
+            bottomTabPane.getSelectionModel().select(logTab);
         }
         updateRunConfigMenu();
     }
@@ -102,16 +99,19 @@ public class MainView {
             populateProjectTree(selectedDirectory);
             handleRepositoryInitialization(selectedDirectory);
         } else {
-            System.out.println("No directory selected");
+            logsTextArea.appendText("\n> "+"No directory selected");
+            bottomTabPane.getSelectionModel().select(logTab);
         }
-        System.out.println(gitUtils.getRepository());
+        logsTextArea.appendText("\n> "+gitUtils.getRepository().toString());
+        bottomTabPane.getSelectionModel().select(logTab);
     }
 
 
     private void handleRepositoryInitialization(File selectedDirectory) {
         try {
             gitUtils.setRepository(selectedDirectory.getAbsolutePath());
-            System.out.println("Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Git repository loaded: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (RepositoryNotFoundException e) {
             showGitRepositoryDialog(selectedDirectory);
         } catch (IOException e) {
@@ -134,7 +134,8 @@ public class MainView {
     private void createGitRepository(File selectedDirectory) {
         try {
             gitUtils.createRepository(selectedDirectory.getAbsolutePath());
-            System.out.println("Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Git repository created: " + gitUtils.getRepository().getDirectory().getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (Exception e) {
             showErrorDialog("Error while creating Git repository.", e.getMessage());
         }
@@ -145,7 +146,8 @@ public class MainView {
         String runConfig = runConfigSplitMenu.getText();
 
         if (runConfig == null || runConfig.isBlank() || runConfig.equals("Run Configs")) {
-            System.out.println("No run configuration selected.");
+            logsTextArea.appendText("\n> "+"No run configuration selected.");
+            bottomTabPane.getSelectionModel().select(logTab);
             return;
         }
 
@@ -162,10 +164,12 @@ public class MainView {
         exe = exe.replace("\\", "\\\\");
         exe = "\"" + exe + "\"";
 
-        System.out.println(Arrays.toString(configParts));
+        logsTextArea.appendText("\n> "+Arrays.toString(configParts));
+        bottomTabPane.getSelectionModel().select(logTab);
         String command = String.format("%s %s %s", exe, currentFilePath, args);
 
-        System.out.println(command);
+        logsTextArea.appendText("\n> "+command);
+        bottomTabPane.getSelectionModel().select(logTab);
 
         Runtime rt = Runtime.getRuntime();
         Process proc = rt.exec(command);
@@ -175,7 +179,8 @@ public class MainView {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                logsTextArea.appendText("\n> "+line);
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         }
     }
@@ -269,24 +274,25 @@ public class MainView {
     private void saveCurrentFile() {
         Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
         if (currentTab == null || currentTab.getUserData() == null) {
-            System.out.println("No active file to save.");
+            logsTextArea.appendText("\n> "+"No active file to save.");
+            bottomTabPane.getSelectionModel().select(logTab);
             return; // Skip if no file is loaded
         }
 
         // Retrieve file path from the tab's userData
         String filePath = currentTab.getUserData().toString();
         if (filePath.isBlank()) {
-            System.out.println("Invalid file path.");
-            return; // Skip if file path is invalid
+            logsTextArea.appendText("\n> "+"Invalid file path.");
+            bottomTabPane.getSelectionModel().select(logTab);
+            return;
         }
 
-        // Extract the content of the editor
         CodeArea editor = (CodeArea) currentTab.getContent();
         String fileContent = editor.getText();
 
-        // Call save logic and print status
         saveFile(filePath, fileContent);
-        System.out.println("File saved: " + filePath);
+        logsTextArea.appendText("\n> "+"File saved: " + filePath);
+        bottomTabPane.getSelectionModel().select(logTab);
     }
 
 
@@ -296,17 +302,19 @@ public class MainView {
         if (parentDir != null && !parentDir.exists()) {
             boolean dirsCreated = parentDir.mkdirs();
             if (!dirsCreated) {
-                System.err.println("Failed to create directories for: " + parentDir.getAbsolutePath());
+                logsTextArea.appendText("\n> ERROR: Failed to create directories for: " + parentDir.getAbsolutePath());
+                bottomTabPane.getSelectionModel().select(logTab);
                 return;
             }
         }
 
-        // Write content to the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(fileContent);
-            System.out.println("File saved successfully: " + file.getAbsolutePath());
+            logsTextArea.appendText("\n> "+"File saved successfully: " + file.getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
-            System.err.println("Failed to save file: " + filePath);
+            logsTextArea.appendText("\n> ERROR: Failed to save file: " + filePath);
+            bottomTabPane.getSelectionModel().select(logTab);
             e.printStackTrace();
 
         }
@@ -325,31 +333,28 @@ public class MainView {
         if (file.exists()) {
             if (file.exists()) {
                 try {
-                    // Read JSON file into a list of configurations
                     RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
 
                     for (RunConfig.RunConfigSave config : configs) {
-                        // Format menu item text as "X [Y:Z]"
                         String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
 
-                        // Create a new menu item
                         MenuItem menuItem = new MenuItem(menuText);
 
-                        // Optionally, add an action to the menu item
                         menuItem.setOnAction(event -> {
-                            System.out.println("Selected configuration: " + config.configName);
+                            logsTextArea.appendText("\n> "+"Selected configuration: " + config.configName);
+                            bottomTabPane.getSelectionModel().select(logTab);
                             runConfigSplitMenu.setText(menuText);
-                            // Perform desired actions with the configuration
                         });
 
-                        // Add the menu item to the SplitMenuButton
                         runConfigSplitMenu.getItems().add(menuItem);
                     }
                 } catch (IOException e) {
-                    System.err.println("Failed to load configurations: " + e.getMessage());
+                    logsTextArea.appendText("\n> ERROR: Failed to load configurations: " + e.getMessage());
+                    bottomTabPane.getSelectionModel().select(logTab);
                 }
             } else {
-                System.out.println("Configuration file not found: " + file.getAbsolutePath());
+                logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
+                bottomTabPane.getSelectionModel().select(logTab);
             }
 
         }
@@ -385,7 +390,8 @@ public class MainView {
 
             String exePath = controller.exeComboBox.getValue();
 
-            System.out.println("Exe path: " + exePath);
+            logsTextArea.appendText("\n> "+"Exe path: " + exePath);
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -399,15 +405,18 @@ public class MainView {
 
         String selectedConfig = runConfigSplitMenu.getText();
 
-        System.out.println("Delete config selected");
+        logsTextArea.appendText("\n> "+"Delete config selected");
+        bottomTabPane.getSelectionModel().select(logTab);
 
         if (selectedConfig == null || selectedConfig.isBlank() || selectedConfig.equals("Run Configs")) {
-            System.out.println("No run configuration selected.");
+            logsTextArea.appendText("\n> "+"No run configuration selected.");
+            bottomTabPane.getSelectionModel().select(logTab);
             return;
         }
 
         if(!file.exists()) {
-            System.out.println("Configuration file not found: " + file.getAbsolutePath());
+            logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
             return;
         }
 
@@ -420,7 +429,8 @@ public class MainView {
             });
 
             if (!removed) {
-                System.out.println("No matching configuration found to delete.");
+                logsTextArea.appendText("\n> "+"No matching configuration found to delete.");
+                bottomTabPane.getSelectionModel().select(logTab);
                 return;
             }
 
@@ -432,9 +442,11 @@ public class MainView {
 
             runConfigSplitMenu.setText("Run Configs");
 
-            System.out.println("Configuration deleted successfully.");
+            logsTextArea.appendText("\n> "+"Configuration deleted successfully.");
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
-            System.err.println("Failed to update configurations: " + e.getMessage());
+            logsTextArea.appendText("\n> ERROR: Failed to update configurations: " + e.getMessage());
+            bottomTabPane.getSelectionModel().select(logTab);
         }
 
     }
@@ -448,6 +460,7 @@ public class MainView {
 
             // Get the controller to retrieve user inputs
             NewFile controller = loader.getController();
+            controller.setMainView(this);
 
             // Create and show the modal dialog
             Stage stage = new Stage();
@@ -467,15 +480,18 @@ public class MainView {
             // Validate inputs and create the library
             if (libraryName != null && majorId != null && libraryVersion != null && libraryPath != null) {
                 LibraryHandler libraryHandler = new LibraryHandler();
+                libraryHandler.setMainView(this);
                 libraryHandler.CreateLibrary(
                         libraryName, majorId, libraryVersion, libraryPath, parentNamespace, libraryDescription
                 );
                 openFileInTab(libraryPath.resolve(libraryName + ".hsl").toString());
             } else {
-                System.out.println("Library creation aborted: Missing required fields.");
+                logsTextArea.appendText("\n> "+"Library creation aborted: Missing required fields.");
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         } catch (IOException e) {
-            System.err.println("Error loading NewFile.fxml: " + e.getMessage());
+            logsTextArea.appendText("\n> ERROR: Error loading NewFile.fxml: " + e.getMessage());
+            bottomTabPane.getSelectionModel().select(logTab);
         }
 
     }
@@ -484,7 +500,8 @@ public class MainView {
     public void onCommitButtonClick() {
         try {
             gitUtils.commit(commitMessageTextArea.getText());
-            System.out.println("Commit successful.");
+            logsTextArea.appendText("\n> "+"Commit successful.");
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -527,7 +544,8 @@ public class MainView {
                 // Opens the file
                 openFileInTab(fullPath);
             } else {
-                System.err.println("File path not found for: " + fileName);
+                logsTextArea.appendText("\n> ERROR: File path not found for: " + fileName);
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         }
     }
@@ -590,11 +608,14 @@ public class MainView {
         codeFormatter.setupAutoFormatting(editor, extension);
         ContextMenuSetup contextMenuSetup = new ContextMenuSetup();
         contextMenuSetup.setupContextMenu(editor);
+        contextMenuSetup.setMainView(this);
 
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
-            new RealTimeSyntaxChecker();
+            RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();
+            syntaxChecker.SetMainView(this);
+
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -639,10 +660,15 @@ public class MainView {
         if (result.isPresent()){
             if (result.get() == htmlButtonType){
                 preferredEditor = HtmlEditorType.HTML;
-                System.out.println("HTML Editor selected");
-            } else {
+                logsTextArea.appendText("\n> "+"HTML Editor selected");
+                bottomTabPane.getSelectionModel().select(logTab);
+            } else if (result.get() == textButtonType) {
                 preferredEditor = HtmlEditorType.TEXT;
-                System.out.println("Text Editor selected");
+                logsTextArea.appendText("\n> "+"Text Editor selected");
+                bottomTabPane.getSelectionModel().select(logTab);
+            } else {
+                logsTextArea.appendText("\n> "+"Editor preference not changed");
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         }
     }

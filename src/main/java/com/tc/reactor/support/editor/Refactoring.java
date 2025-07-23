@@ -1,15 +1,21 @@
 package com.tc.reactor.support.editor;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.tc.reactor.ui.MainView;
 import javafx.scene.control.TextInputDialog;
 import org.fxmisc.richtext.CodeArea;
 
 public class Refactoring {
+
+    private MainView mainView;
+
+    public void setMainView(MainView mainView) {
+        this.mainView = mainView;
+    }
 
     private final CodeArea codeArea;
     private final Set<String> identifiers = new HashSet<>();
@@ -24,19 +30,22 @@ public class Refactoring {
         extractVariableDeclarations(codeArea.getText());
 
         if (!identifiers.contains(oldName)) {
-            System.out.println("No variable with name '" + oldName + "' found in the file.");
+            mainView.logsTextArea.appendText("\n> No variable with name '" + oldName + "' found in the file.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
         if (oldName.isEmpty()) {
-            System.out.println("No variable selected for renaming.");
+            mainView.logsTextArea.appendText("\n> No variable selected for renaming.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
         String newName = promptForNewVariableName(oldName);
 
         if (newName == null || newName.trim().isEmpty() || oldName.equals(newName)) {
-            System.out.println("Rename canceled or new name is invalid.");
+            mainView.logsTextArea.appendText("\n> Rename canceled or new name is invalid.");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return;
         }
 
@@ -54,7 +63,8 @@ public class Refactoring {
         // Update the editor with the modified text
         codeArea.replaceText(updatedText);
 
-        System.out.println("Renamed all occurrences of '" + oldName + "' to '" + newName + "'.");
+        mainView.logsTextArea.appendText("\n> Renamed all occurrences of '" + oldName + "' to '" + newName + "'.");
+        mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
     }
 
 
