@@ -1,5 +1,6 @@
 package com.tc.reactor.support.languages.hsl;
 
+import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -8,7 +9,11 @@ import org.antlr.v4.runtime.*;
 
 public class RealTimeSyntaxChecker {
 
-    @FXML private TextArea outputTextArea;
+    private MainView mainView;
+
+    public void SetMainView (MainView mainView) {
+        this.mainView = mainView;
+    }
 
     public void checkSyntax(String sourceCode) {
         CharStream input = CharStreams.fromString(sourceCode);
@@ -25,10 +30,10 @@ public class RealTimeSyntaxChecker {
 
                 // Update the output TextArea in a thread-safe way
                 Platform.runLater(() -> {
-                    if (outputTextArea != null) {
-                        outputTextArea.appendText(errorMessage);
+                    if (mainView.outputTextArea != null) {
+                        mainView.outputTextArea.appendText(errorMessage);
                     } else {
-                        System.err.println("OutputTextArea is not initialized.");
+                        mainView.logsTextArea.appendText("\n> OutputTextArea is not initialized.");
                     }
                 });
             }

@@ -42,13 +42,15 @@ public class MainView {
     @FXML private TabPane mainTabPane;
     @FXML private TabPane bottomTabPane;
     @FXML private TextArea terminalTextArea;
-    @FXML private TextArea outputTextArea;
+    @FXML
+    public TextArea outputTextArea;
     @FXML public TextArea logsTextArea;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
     @FXML private Button commitButton;
     @FXML private Button refreshCommitButton;
     @FXML private SplitMenuButton runConfigSplitMenu;
+    @FXML private Tab logTab;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
@@ -277,16 +279,15 @@ public class MainView {
         String filePath = currentTab.getUserData().toString();
         if (filePath.isBlank()) {
             logsTextArea.appendText("\n> "+"Invalid file path.");
-            return; // Skip if file path is invalid
+            return;
         }
 
-        // Extract the content of the editor
         CodeArea editor = (CodeArea) currentTab.getContent();
         String fileContent = editor.getText();
 
-        // Call save logic and print status
         saveFile(filePath, fileContent);
         logsTextArea.appendText("\n> "+"File saved: " + filePath);
+        bottomTabPane.getSelectionModel().select(logTab);
     }
 
 
@@ -296,17 +297,17 @@ public class MainView {
         if (parentDir != null && !parentDir.exists()) {
             boolean dirsCreated = parentDir.mkdirs();
             if (!dirsCreated) {
-                System.err.println("Failed to create directories for: " + parentDir.getAbsolutePath());
+                logsTextArea.appendText("\n> ERROR: Failed to create directories for: " + parentDir.getAbsolutePath());
                 return;
             }
         }
 
-        // Write content to the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(fileContent);
             logsTextArea.appendText("\n> "+"File saved successfully: " + file.getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
-            System.err.println("Failed to save file: " + filePath);
+            logsTextArea.appendText("\n> ERROR: Failed to save file: " + filePath);
             e.printStackTrace();
 
         }
@@ -325,31 +326,27 @@ public class MainView {
         if (file.exists()) {
             if (file.exists()) {
                 try {
-                    // Read JSON file into a list of configurations
                     RunConfig.RunConfigSave[] configs = objectMapper.readValue(file, RunConfig.RunConfigSave[].class);
 
                     for (RunConfig.RunConfigSave config : configs) {
-                        // Format menu item text as "X [Y:Z]"
                         String menuText = String.format("%s,[%s::%s]", config.configName, config.exeName, config.args);
 
-                        // Create a new menu item
                         MenuItem menuItem = new MenuItem(menuText);
 
-                        // Optionally, add an action to the menu item
                         menuItem.setOnAction(event -> {
                             logsTextArea.appendText("\n> "+"Selected configuration: " + config.configName);
+                            bottomTabPane.getSelectionModel().select(logTab);
                             runConfigSplitMenu.setText(menuText);
-                            // Perform desired actions with the configuration
                         });
 
-                        // Add the menu item to the SplitMenuButton
                         runConfigSplitMenu.getItems().add(menuItem);
                     }
                 } catch (IOException e) {
-                    System.err.println("Failed to load configurations: " + e.getMessage());
+                    logsTextArea.appendText("\n> ERROR: Failed to load configurations: " + e.getMessage());
                 }
             } else {
                 logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
+                bottomTabPane.getSelectionModel().select(logTab);
             }
 
         }
@@ -386,6 +383,7 @@ public class MainView {
             String exePath = controller.exeComboBox.getValue();
 
             logsTextArea.appendText("\n> "+"Exe path: " + exePath);
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -400,14 +398,17 @@ public class MainView {
         String selectedConfig = runConfigSplitMenu.getText();
 
         logsTextArea.appendText("\n> "+"Delete config selected");
+        bottomTabPane.getSelectionModel().select(logTab);
 
         if (selectedConfig == null || selectedConfig.isBlank() || selectedConfig.equals("Run Configs")) {
             logsTextArea.appendText("\n> "+"No run configuration selected.");
+            bottomTabPane.getSelectionModel().select(logTab);
             return;
         }
 
         if(!file.exists()) {
             logsTextArea.appendText("\n> "+"Configuration file not found: " + file.getAbsolutePath());
+            bottomTabPane.getSelectionModel().select(logTab);
             return;
         }
 
@@ -421,6 +422,7 @@ public class MainView {
 
             if (!removed) {
                 logsTextArea.appendText("\n> "+"No matching configuration found to delete.");
+                bottomTabPane.getSelectionModel().select(logTab);
                 return;
             }
 
@@ -433,8 +435,9 @@ public class MainView {
             runConfigSplitMenu.setText("Run Configs");
 
             logsTextArea.appendText("\n> "+"Configuration deleted successfully.");
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (IOException e) {
-            System.err.println("Failed to update configurations: " + e.getMessage());
+            logsTextArea.appendText("\n> ERROR: Failed to update configurations: " + e.getMessage());
         }
 
     }
@@ -475,9 +478,10 @@ public class MainView {
                 openFileInTab(libraryPath.resolve(libraryName + ".hsl").toString());
             } else {
                 logsTextArea.appendText("\n> "+"Library creation aborted: Missing required fields.");
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         } catch (IOException e) {
-            System.err.println("Error loading NewFile.fxml: " + e.getMessage());
+            logsTextArea.appendText("\n> ERROR: Error loading NewFile.fxml: " + e.getMessage());
         }
 
     }
@@ -487,6 +491,7 @@ public class MainView {
         try {
             gitUtils.commit(commitMessageTextArea.getText());
             logsTextArea.appendText("\n> "+"Commit successful.");
+            bottomTabPane.getSelectionModel().select(logTab);
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -529,7 +534,7 @@ public class MainView {
                 // Opens the file
                 openFileInTab(fullPath);
             } else {
-                System.err.println("File path not found for: " + fileName);
+                logsTextArea.appendText("\n> ERROR: File path not found for: " + fileName);
             }
         }
     }
@@ -592,11 +597,14 @@ public class MainView {
         codeFormatter.setupAutoFormatting(editor, extension);
         ContextMenuSetup contextMenuSetup = new ContextMenuSetup();
         contextMenuSetup.setupContextMenu(editor);
+        contextMenuSetup.setMainView(this);
 
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
-            new RealTimeSyntaxChecker();
+            RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();
+            syntaxChecker.SetMainView(this);
+
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -642,9 +650,14 @@ public class MainView {
             if (result.get() == htmlButtonType){
                 preferredEditor = HtmlEditorType.HTML;
                 logsTextArea.appendText("\n> "+"HTML Editor selected");
-            } else {
+                bottomTabPane.getSelectionModel().select(logTab);
+            } else if (result.get() == textButtonType) {
                 preferredEditor = HtmlEditorType.TEXT;
                 logsTextArea.appendText("\n> "+"Text Editor selected");
+                bottomTabPane.getSelectionModel().select(logTab);
+            } else {
+                logsTextArea.appendText("\n> "+"Editor preference not changed");
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         }
     }
