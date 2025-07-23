@@ -1,4 +1,4 @@
-// Generated from C:/Users/tarun/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
+// Generated from C:/Users/TarunChapman/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
 package com.tc.reactor.support.languages.hsl.syntaxchecker;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -54,13 +54,6 @@ public class HslBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Hs
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitCompoundStatement(HslParser.CompoundStatementContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitBlock(HslParser.BlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -3,8 +3,10 @@ grammar Hsl;
 // Lexer rules (Tokens)
 
 NEWLINE             : [\n]+ -> skip;
-WHITE_SPACE         : [ \t\r]{2,} -> skip;
+WHITE_SPACE         : [\t] -> skip;
+SPACE               : [ ]+ -> skip;
 COMMENT             : '//' ~[\r\n]* -> skip;
+STRING_LEX          : '"' ( ~["\\] | '\\' . )* '"';
 COLON               : ':';
 BINARY_OPERATOR     : '+' | '-' | '*' | '/' | '&&' | '||' | '=' | '<>' | '<=' | '>=' | '|' ;
 UNARY_OPERATOR      : '-' | '!';
@@ -20,19 +22,17 @@ COMMA               : ',';
 AMPERSAND           : '&';
 NUMBER_LEX          : '0x' [0-9a-fA-F]+ | [0-9]+ ('.' [0-9]+)?;
 HEX_LEX             : '('?'0x'[0-9]+')'?;
-STRING_LEX          : '"' (~["\\])* '"';
-CSTRING_LEX         : '"' (~["\\] | '\\' .)* '"';
 CRLF                : '\r\n';
 DEBUG               : 'debug';
 ECHO                : 'echo';
-INCLUDE             : '#include';
-DEFINE              : '#define';
-IFDEF               : '#ifdef';
-IFNDEF              : '#ifndef';
+INCLUDE             : '#include ';
+DEFINE              : '#define ';
+IFDEF               : '#ifdef ';
+IFNDEF              : '#ifndef ';
 ENDIF               : '#endif';
 PRAGMA              : 'pragma';
 ONCE                : 'once';
-GLOBAL              : 'global';
+GLOBAL              : 'global ';
 BREAK               : 'break';
 RETURN              : 'return';
 ABORT               : 'abort';
@@ -44,34 +44,34 @@ NEXT                : 'next';
 LOCK                : 'lock';
 UNLOCK              : 'unlock';
 SYNCHRONIZED        : 'synchronized';
-PRIVATE             : 'private';
-STATIC              : 'static';
-CONST               : 'const';
-VARIABLE            : 'variable';
-SEQUENCE            : 'sequence';
-STRING              : 'string';
-DEVICE              : 'device';
-RESOURCE            : 'resource';
-DIALOG              : 'dialog';
-OBJECT              : 'object';
-TIMER               : 'timer';
-EVENT               : 'event';
-FILE                : 'file';
-FUNCTION            : 'function';
+PRIVATE             : 'private ';
+STATIC              : 'static ';
+CONST               : 'const ';
+VARIABLE            : 'variable'[&]?' ';
+SEQUENCE            : 'sequence'[&]?' ';
+STRING              : 'string'[&]?' ';
+DEVICE              : 'device'[&]?' ';
+RESOURCE            : 'resource'[&]?' ';
+DIALOG              : 'dialog'[&]?' ';
+OBJECT              : 'object'[&]?' ';
+TIMER               : 'timer'[&]?' ';
+EVENT               : 'event'[&]?' ';
+FILE                : 'file'[&]?' ';
+FUNCTION            : 'function'[&]?' ';
 METHOD              : 'method';
 STRUCT              : 'struct';
 CHAR                : 'char';
 SHORT               : 'short';
 LONG                : 'long';
 FLOAT               : 'float';
-VOID                : 'void';
+VOID                : 'void ';
 IF                  : 'if';
 ELSE                : 'else';
 WHILE               : 'while';
 FOR                 : 'for';
 LOOP                : 'loop';
-NAMESPACE           : 'namespace';
-ID_LEX              : [a-zA-Z_][a-zA-Z0-9_]*;
+NAMESPACE           : 'namespace ';
+ID_LEX              : [a-zA-Z_][a-zA-Z0-9_]*[ ,]*;
 
 
 // Parser Rules
@@ -87,7 +87,7 @@ statementList
 controlLine
     : DEBUG '='  NUMBER_LEX SEMICOLON
     | ECHO  '='  NUMBER_LEX SEMICOLON
-    | INCLUDE  cString SEMICOLON
+    | INCLUDE  cString
     | DEFINE  id  constant SEMICOLON
     | IFDEF  id SEMICOLON
     | IFNDEF  id SEMICOLON
@@ -117,6 +117,8 @@ simpleStatement
     | fileExpression
     | expression
     | declaration
+    | functionReference
+    | functionCall
     ;
 
 compoundStatement
@@ -124,11 +126,6 @@ compoundStatement
     | iterationStatement
     | namespaceDefinition
     | functionDefinition
-    | block
-    ;
-
-block
-    : LBRACE statementList RBRACE
     ;
 
 flowControlStatement
@@ -151,11 +148,11 @@ controlStatement
     ;
 
 functionDefinition
-    : (STATIC | CONST | GLOBAL | PRIVATE)* FUNCTION id formalList? returnType? block
+    : (STATIC | CONST | GLOBAL | PRIVATE)* FUNCTION id formalList? returnType? LBRACE statementList RBRACE
     ;
 
 formalList
-    : LPAREN (parameter (COMMA parameter)*)? RPAREN
+    : LPAREN (parameter (NEWLINE? COMMA parameter)*)? RPAREN
     ;
 
 declaration
@@ -170,7 +167,7 @@ declSpecifiers
     ;
 
 namespaceDefinition
-    : namespaceId block
+    : namespaceId LBRACE statementList RBRACE
     ;
 
 structure
@@ -209,13 +206,13 @@ returnType
     ;
 
 errorHandler
-    : id COLON block
+    : id COLON LBRACE statementList RBRACE
     ;
 
 assignmentExpression
-    : id '=' STRING_LEX '+'? STRING_LEX?
-    | id '=' NUMBER_LEX
-    | id '=' simpleStatement
+    : id '=' STRING_LEX (('+' STRING_LEX)*)? (('+' simpleStatement)*)? (('+' NUMBER_LEX)*)?
+    | id '=' NUMBER_LEX (('+' STRING_LEX)*)? (('+' simpleStatement)*)? (('+' NUMBER_LEX)*)?
+    | id '=' simpleStatement (('+' STRING_LEX)*)? (('+' simpleStatement)*)? (('+' NUMBER_LEX)*)?
     ;
 
 sequenceExpression
@@ -267,13 +264,13 @@ fileExpression
     ;
 
 functionCall
-    : id LPAREN argumentList? RPAREN
+    : (id '.')? id LPAREN argumentList? RPAREN
     ;
 
 expression
     : leftExpr BINARY_OPERATOR rightExpr
     | UNARY_OPERATOR expression
-    | functionCall
+    | (id '.')? functionCall
     | atom
     ;
 
@@ -388,7 +385,7 @@ constant
     ;
 
 cString
-    : CSTRING_LEX
+    : STRING_LEX
     ;
 
 id
@@ -411,4 +408,5 @@ type
 
 parameter
     : type id
+    | NUMBER_LEX
     ;

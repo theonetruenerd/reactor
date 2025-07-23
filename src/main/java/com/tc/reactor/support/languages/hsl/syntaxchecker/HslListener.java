@@ -1,4 +1,4 @@
-// Generated from C:/Users/tarun/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
+// Generated from C:/Users/TarunChapman/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
 package com.tc.reactor.support.languages.hsl.syntaxchecker;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -67,16 +67,6 @@ public interface HslListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCompoundStatement(HslParser.CompoundStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HslParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock(HslParser.BlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HslParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock(HslParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HslParser#flowControlStatement}.
 	 * @param ctx the parse tree

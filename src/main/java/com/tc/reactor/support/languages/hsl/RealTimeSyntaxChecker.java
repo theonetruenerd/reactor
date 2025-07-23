@@ -4,6 +4,7 @@ import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;
 import com.tc.reactor.support.languages.hsl.syntaxchecker.*;
 import org.antlr.v4.runtime.*;
+import org.fxmisc.richtext.CodeArea;
 
 public class RealTimeSyntaxChecker {
 
@@ -13,7 +14,15 @@ public class RealTimeSyntaxChecker {
         this.mainView = mainView;
     }
 
-    public void checkSyntax(String sourceCode) {
+    public void setupSyntaxChecker(CodeArea codeArea) {
+        codeArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equals(oldValue)) {
+                checkSyntax(newValue);
+            }
+        });
+    }
+
+    private void checkSyntax(String sourceCode) {
         CharStream input = CharStreams.fromString(sourceCode);
         HslLexer lexer = new HslLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

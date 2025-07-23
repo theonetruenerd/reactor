@@ -1,4 +1,4 @@
-// Generated from C:/Users/tarun/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
+// Generated from C:/Users/TarunChapman/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
 package com.tc.reactor.support.languages.hsl.syntaxchecker;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -46,12 +46,6 @@ public interface HslVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCompoundStatement(HslParser.CompoundStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link HslParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(HslParser.BlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HslParser#flowControlStatement}.
 	 * @param ctx the parse tree

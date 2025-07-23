@@ -615,7 +615,7 @@ public class MainView {
             new CodeAutocompletion(editor, extension);
             RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();
             syntaxChecker.SetMainView(this);
-
+            syntaxChecker.setupSyntaxChecker(editor);
         }
 
         StringBuilder stringBuilder = new StringBuilder();

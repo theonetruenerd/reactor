@@ -1,4 +1,4 @@
-// Generated from C:/Users/tarun/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
+// Generated from C:/Users/TarunChapman/IdeaProjects/reactor/src/main/java/com/tc/reactor/support/languages/hsl/syntaxchecker/Hsl.g4 by ANTLR 4.13.2
 package com.tc.reactor.support.languages.hsl.syntaxchecker;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -84,18 +84,6 @@ public class HslBaseListener implements HslListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCompoundStatement(HslParser.CompoundStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBlock(HslParser.BlockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBlock(HslParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
