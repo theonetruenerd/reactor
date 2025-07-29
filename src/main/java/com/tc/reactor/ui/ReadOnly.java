@@ -25,6 +25,7 @@ public class ReadOnly {
         noButton.setDisable(false);
         Stage stage = (Stage) noButton.getScene().getWindow();
         stage.close();
+        // test
     }
 
     public boolean isReadOnly() {
