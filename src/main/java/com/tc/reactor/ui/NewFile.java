@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.HexFormat;
 
 public class NewFile {
     @FXML private TextField libraryNameField;
