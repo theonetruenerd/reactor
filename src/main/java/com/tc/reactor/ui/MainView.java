@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.DirectoryChooser;
@@ -73,7 +74,7 @@ public class MainView {
     }
 
     private void setupKeyboardShortcuts() {
-        menuBar.getScene().addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+        menuBar.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN).match(event))
             {
                 saveCurrentFile();
@@ -571,9 +572,12 @@ public class MainView {
 
         // If no tab exists for the file, create a new one
         File file = new File(filePath);
+        System.out.println("File path: " + filePath);
         Tab tab = new Tab(file.getName());
         tab.setUserData(filePath); // Store a file path for future reference
         String extension = getFileExtension(file.getName());
+
+        System.out.println("File extension: " + extension);
 
         if (extension.equals("html") || extension.equals("htm")) {
             if (preferredEditor == HtmlEditorType.HTML) {
@@ -597,38 +601,54 @@ public class MainView {
         }
 
         CodeArea editor = new CodeArea();
+        System.out.println("Editor: " + editor);
         tab.setContent(editor);
+        System.out.println("Tab content: " + tab.getContent());
         if (readOnly) {
+            System.out.println("Read only");
             editor.setEditable(false);
+            System.out.println("Editor editable: " + editor.isEditable());
         }
 
 
         SyntaxManager syntaxManager = new SyntaxManager();
         syntaxManager.setupSyntaxHighlighting(extension, editor);
+        System.out.println("Syntax manager: " + syntaxManager);
         CodeFormatter codeFormatter = new CodeFormatter();
         codeFormatter.setupAutoFormatting(editor, extension);
+        System.out.println("Code formatter: " + codeFormatter);
         ContextMenuSetup contextMenuSetup = new ContextMenuSetup();
         contextMenuSetup.setupContextMenu(editor);
         contextMenuSetup.setMainView(this);
+        System.out.println("Context menu setup: " + contextMenuSetup);
 
         // Setup code autocompletion for supported languages
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
             RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();
             syntaxChecker.SetMainView(this);
-
+            System.out.println("Syntax checker: " + syntaxChecker);
+        } else {
+            System.out.println("No syntax checker for file type: " + extension);
         }
 
         StringBuilder stringBuilder = new StringBuilder();
+        System.out.println("StringBuilder: " + stringBuilder);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
+            System.out.println("Reading file: " + file.getAbsolutePath());
+            String line = "";
+            System.out.println("Line: " + line);
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line).append("\n");
+                System.out.println("String builder: " + stringBuilder);
             }
             editor.appendText(stringBuilder.toString());
+            System.out.println("Editor text: " + editor.getText());
         } catch (IOException e) {
             editor.appendText("Error reading file: " + e.getMessage());
+            System.out.println("Error reading file: " + e.getMessage());
         }
+        System.out.println("Editor text: " + editor.getText());
         mainTabPane.getTabs().add(tab);
         mainTabPane.getSelectionModel().select(tab);
     }
