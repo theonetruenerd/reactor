@@ -22,6 +22,10 @@ public class SyntaxManager {
         List<String> types = TYPES_KEYWORDS.getOrDefault(language, Collections.emptyList());
         List<String> blocks = BLOCKS_KEYWORDS.getOrDefault(language, Collections.emptyList());
 
+        if (keywords.isEmpty() && scopes.isEmpty() && types.isEmpty() && blocks.isEmpty()) {
+            return;
+        }
+
         // Build the regex pattern dynamically
         String keywordPattern = "\\b(" + String.join("|", keywords) + ")\\b";
         String scopePattern = "\\b(" + String.join("|", scopes) + ")\\b";
