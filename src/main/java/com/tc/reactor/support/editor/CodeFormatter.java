@@ -83,7 +83,7 @@ public class CodeFormatter {
                     System.out.println("Next Line: " + nextLine);
                     if (nextLine.contains("function")) {
 
-                        String scope;
+                        String scope = "";
                         // Scope
                         if (nextLine.contains("private")) {
                             scope += "Private ";
