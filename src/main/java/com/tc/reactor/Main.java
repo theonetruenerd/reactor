@@ -37,8 +37,8 @@ public class Main extends Application {
                 throw new IllegalArgumentException("Font not found: " + fontPath);
             }
         } catch (Exception e) {
-            System.err.println("Error loading font: " + fontPath);
-            e.printStackTrace();
+            System.err.println("Error loading font: " + fontPath + "\n");
+            System.err.println(e.getMessage() + "\n");
         }
     }
 
@@ -50,8 +50,8 @@ public class Main extends Application {
                     .ifPresent(css -> scene.getStylesheets().add(css.toExternalForm()));
             return scene;
         } catch (Exception e) {
-            System.err.println("Error loading FXML: " + fxmlPath);
-            e.printStackTrace();
+            System.err.println("Error loading FXML: " + fxmlPath + "\n");
+            System.err.println(e.getMessage() + "\n");
             return null;
         }
     }
@@ -61,7 +61,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setMaximized(true);
-//        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
     }
 
     public static void main(String[] args) {

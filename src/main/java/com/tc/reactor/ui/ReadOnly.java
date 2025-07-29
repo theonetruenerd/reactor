@@ -1,9 +1,5 @@
 package com.tc.reactor.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 public class ReadOnly {
     @FXML private Button yesButton;
     @FXML private Button noButton;
