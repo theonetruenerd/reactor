@@ -703,8 +703,26 @@ public class MainView {
     private boolean checkReadOnly(String extension) {
         switch (extension) {
             case "med", "stp":
-                // Open read only window and return true or false or cancel based on user input
-                return true;
+                try {
+                    // Load ReadOnly.fxml for the input form
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tc/reactor/fxml/ReadOnly.fxml"));
+                    Parent root = loader.load();
+
+                    // Get the controller to retrieve user inputs
+                    ReadOnly controller = loader.getController();
+
+                    // Create and show the modal dialog
+                    Stage stage = new Stage();
+                    stage.setTitle("Check for read only");
+                    stage.setScene(new Scene(root));
+                    stage.initModality(Modality.APPLICATION_MODAL); // Block other UI interaction
+                    stage.showAndWait(); // Wait for the user to close the dialog
+
+                    return controller.isReadOnly();
+                } catch (IOException e) {
+                    System.err.println("Error loading ReadOnly.fxml: " + e.getMessage());
+                    return false;
+                }
             default:
                 return false;
         }
