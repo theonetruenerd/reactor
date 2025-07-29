@@ -567,6 +567,7 @@ public class MainView {
         }
 
         boolean readOnly = checkReadOnly(getFileExtension(filePath));
+        System.out.println("File is read only: " + readOnly);
 
         // If no tab exists for the file, create a new one
         File file = new File(filePath);
