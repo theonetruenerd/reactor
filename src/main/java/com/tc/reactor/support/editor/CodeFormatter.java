@@ -2,6 +2,7 @@ package com.tc.reactor.support.editor;
 
 import org.fxmisc.richtext.CodeArea;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +68,7 @@ public class CodeFormatter {
         });
     }
 
-    // TODO Grab variables etc dynamically
+    // TODO currently cant handle multi-line functions
     private void autoAddDocustrings(CodeArea codeArea, String language) {
         int caretPosition = codeArea.getCaretPosition();
         String indentation = getLineIndentation(codeArea.getParagraph(codeArea.getCurrentParagraph()).getText());
@@ -84,18 +85,18 @@ public class CodeFormatter {
 
                         String scope;
                         // Scope
-                        if (nextLine.startsWith("private")) {
-                            scope = "private";
-                        } else if (nextLine.startsWith("global")) {
-                            scope = "global";
-                        } else if (nextLine.startsWith("static")) {
-                            scope = "static";
+                        if (nextLine.contains("private")) {
+                            scope += "Private ";
+                        } else if (nextLine.contains("global")) {
+                            scope += "Global ";
+                        } else if (nextLine.contains("static")) {
+                            scope += "Static ";
                         } else {
-                            scope = "public";
+                            scope = "Public";
                         }
 
                         // Function name
-                        String functionName = nextLine.substring(nextLine.indexOf("function") + 8, nextLine.indexOf("("));
+                        String functionName = nextLine.substring(nextLine.indexOf("function") + 8, nextLine.indexOf("(")).trim();
 
                         // Description
                         String description = "";
@@ -112,7 +113,7 @@ public class CodeFormatter {
                         String indent = getLineIndentation(nextLine);
                         StringBuilder docstring = createDocstring(functionName, scope, description, parameters, returnType, indent);
 
-                        codeArea.insertText(caretPosition, docstring.toString());
+                        codeArea.replaceText(codeArea.getAbsolutePosition(currentParagraphIndex,0), caretPosition, docstring.toString());
 
                         return;
                     }
@@ -124,19 +125,20 @@ public class CodeFormatter {
 
     private StringBuilder createDocstring(String function, String scope, String description, String[] parameters, String returns, String indent) {
         StringBuilder docstring = new StringBuilder();
-        docstring.append("--------------------------\n");
+        docstring.append(indent).append("//--------------------------\n");
         docstring.append(indent).append("// Function: ").append(function).append("\n");
         docstring.append(indent).append("// Scope: ").append(scope).append("\n");
         docstring.append(indent).append("// Description: ").append(description).append("\n");
         docstring.append(indent).append("// Parameters: \n");
         for (String parameter : parameters) {
-            docstring.append(indent).append("//    ");
-            if (parameter.startsWith("i")) {
-                docstring.append(indent).append("[i] ");
-            } else if (parameter.startsWith("o")) {
-                docstring.append(indent).append("[o] ");
+            parameter = parameter.trim().split(" ")[1];
+            docstring.append(indent).append("// - ");
+            if (parameter.startsWith("i_")) {
+                docstring.append("[i] ");
+            } else if (parameter.startsWith("o_")) {
+                docstring.append("[o] ");
             }
-            docstring.append(indent).append(parameter).append("\n");
+            docstring.append(parameter).append(": \n");
         }
         docstring.append(indent).append("// Returns: ").append(returns).append("\n");
         docstring.append(indent).append("//--------------------------");
