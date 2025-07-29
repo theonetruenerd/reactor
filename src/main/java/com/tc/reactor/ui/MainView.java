@@ -573,7 +573,11 @@ public class MainView {
         // If no tab exists for the file, create a new one
         File file = new File(filePath);
         System.out.println("File path: " + filePath);
-        Tab tab = new Tab(file.getName());
+        String tabName = file.getName();
+        if (readOnly) {
+            tabName += " (Read Only)";
+        }
+        Tab tab = new Tab(tabName);
         tab.setUserData(filePath); // Store a file path for future reference
         String extension = getFileExtension(file.getName());
 
