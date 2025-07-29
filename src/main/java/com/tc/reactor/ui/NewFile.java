@@ -18,6 +18,12 @@ public class NewFile {
     @FXML private TextArea libraryDescriptionField;
     @FXML private TextField libraryPathField;
 
+    private MainView mainView;
+
+    public void setMainView(MainView mainView) {
+        this.mainView = mainView;
+    }
+
     @FXML
     private void onBrowseButtonClick() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -46,7 +52,8 @@ public class NewFile {
         try {
             return majorIdField.getText().trim().toUpperCase();
         } catch (IllegalArgumentException e) {
-            System.err.println("Invalid Major ID format: " + e.getMessage());
+            mainView.logsTextArea.appendText("\n> Invalid Major ID format: " + e.getMessage() + "\n");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return null;
         }
     }
@@ -55,7 +62,8 @@ public class NewFile {
         try {
             return Float.parseFloat(libraryVersionField.getText().trim());
         } catch (NumberFormatException e) {
-            System.err.println("Invalid library version: " + e.getMessage());
+            mainView.logsTextArea.appendText("\n> Invalid library version format: " + e.getMessage() + "\n");
+            mainView.bottomTabPane.getSelectionModel().select(mainView.logTab);
             return null;
         }
     }
