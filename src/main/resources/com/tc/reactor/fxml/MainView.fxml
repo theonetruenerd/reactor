@@ -29,7 +29,7 @@
                     <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" styleClass="root" text="Open Project" />
                     <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" onAction="#onCloseProjectClick" styleClass="root" text="Close Project" />
                     <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" styleClass="root" text="Save" />
-                      <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#onSettingsMenuClick" styleClass="root" text="Settings" />
+                      <MenuItem fx:id="saveMenuItem1" mnemonicParsing="false" styleClass="root" text="Settings" />
                     <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" text="Exit" />
                 </items>
               </Menu>
@@ -64,7 +64,7 @@
                 <items>
                   <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="root" text="About Reactor" />
                       <SeparatorMenuItem mnemonicParsing="false" />
-                      <Menu mnemonicParsing="false" text="Documentation">
+                      <Menu mnemonicParsing="false" text="Hamilton">
                         <items>
                             <Menu mnemonicParsing="false" text="Venus">
                               <items>
@@ -79,10 +79,50 @@
                           <MenuItem mnemonicParsing="false" text="TADM Programmer's Guide" />
                         </items>
                       </Menu>
+                      <Menu mnemonicParsing="false" text="Tecan">
+                         <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                         </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Beckman-Coulter">
+                         <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                         </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Opentrons">
+                         <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                         </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Waters">
+                         <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                         </items>
+                      </Menu>
                 </items>
               </Menu>
             </menus>
           </MenuBar>
+         <SplitMenuButton fx:id="runConfigSplitMenu" mnemonicParsing="false" text="Run Config">
+           <items>
+               <SeparatorMenuItem mnemonicParsing="false" />
+             <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" text="Add Config" />
+               <MenuItem mnemonicParsing="false" text="Delete Config" />
+
+           </items>
+         </SplitMenuButton>
+         <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
+           <buttons>
+               <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRunButtonClick" text="▶" />
+               <Button fx:id="debugButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
+               <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
+               <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
+                  <font>
+                     <Font name="JetBrains Mono Regular" size="12.0" />
+                  </font></Button>
+             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" stylesheets="@../css/styles.css" text="✕" />
+           </buttons>
+         </ButtonBar>
        </HBox>
    </top>
    <left>
