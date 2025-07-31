@@ -36,6 +36,8 @@ public class KeyboardShortcuts {
                 shortcutFunctions.CommentLine();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CloseFileTab();
+            } else if (new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.DeleteLine();
             }
         });
     }
@@ -83,7 +85,9 @@ public class KeyboardShortcuts {
 
         public void CutLine() {}
 
-        public void DeleteLine() {}
+        public void DeleteLine() {
+            codeArea.deleteText(codeArea.getCurrentParagraph(), codeArea.getCurrentParagraph() + 1);
+        }
 
         public void DuplicateLine() {}
 
