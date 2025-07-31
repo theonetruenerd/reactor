@@ -1,6 +1,7 @@
 package com.tc.reactor.support.editor;
 
 import com.tc.reactor.ui.MainView;
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -56,7 +57,11 @@ public class KeyboardShortcuts {
             mainView.mainTabPane.getSelectionModel().getSelectedItem().getTabPane().getTabs().remove(mainView.mainTabPane.getSelectionModel().getSelectedItem());
         }
 
-        public void CloseWindow() {}
+        public void CloseProject() {}
+
+        public void CloseWindow() {
+            Platform.exit();
+        }
 
         public void CollapseAllRegions() {}
 
@@ -65,31 +70,42 @@ public class KeyboardShortcuts {
         public void CollapseRegion() {}
 
         public void CommentLine() {
-            // Currently assumes tab name doesn't have a dot in it other than for file extension; perhaps easier/more
+            // Currently assumes tab name doesn't have a dot in it other than for file extension; perhaps an easier / more
             // reliable way to grab extension exists
             String extension = mainView.mainTabPane.getSelectionModel().getSelectedItem().getText().split("\\.")[1];
             switch (extension) {  // Other cases need adding when language support gets added
                 case "hsl":
                     codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0),"//");
                     break;
-                default:  // Doesn't do anything if language isn't coded in here to avoid accidentally messing up files
+                default:  // Doesn't do anything if the language isn't coded in here to avoid accidentally messing up files
                     break;
             }
         }
 
-        public void Copy() {}
+        public void Copy() {
+            codeArea.copy();
+        }
 
         public void CreateNewFile() {}
 
-        public void Cut() {}
+        public void Cut() {
+            codeArea.cut();
+        }
 
-        public void CutLine() {}
+        public void CutLine() {
+            codeArea.selectLine();
+            codeArea.cut();
+            codeArea.deselect();
+        }
 
         public void DeleteLine() {
             codeArea.deleteText(codeArea.getCurrentParagraph(), codeArea.getCurrentParagraph() + 1);
         }
 
-        public void DuplicateLine() {}
+        public void DuplicateLine() {
+            String line = codeArea.getText(codeArea.getCurrentParagraph());
+            codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0), line + "\n");
+        }
 
         public void Find() {}
 
@@ -145,19 +161,23 @@ public class KeyboardShortcuts {
 
         public void OpenSettings() {}
 
-        public void Paste() {}
+        public void Paste() {
+            codeArea.paste();
+        }
 
         public void PreviousFileTab() {
             mainView.mainTabPane.getSelectionModel().selectPrevious();
         }
 
-        public void Redo() {}
+        public void Redo() {
+            codeArea.redo();
+        }
 
         public void RenameFile() {}
 
         public void Replace() {}
 
-        public void Save() { }
+        public void Save() {}
 
         public void ScrollDown() {}
 
@@ -165,13 +185,17 @@ public class KeyboardShortcuts {
 
         public void SearchInProject() {}
 
-        public void SelectAll() {}
+        public void SelectAll() {
+            codeArea.selectAll();
+        }
 
         public void SelectionToLowercase() {}
 
         public void SelectionToUppercase() {}
 
-        public void SelectWord() {}
+        public void SelectWord() {
+            codeArea.selectWord();
+        }
 
         public void ShowAllSymbols() {}
 
@@ -191,7 +215,9 @@ public class KeyboardShortcuts {
 
         public void UncollapseRegion() {}
 
-        public void Undo() {}
+        public void Undo() {
+            codeArea.undo();
+        }
 
         public void UnindentSelection() {}
 
