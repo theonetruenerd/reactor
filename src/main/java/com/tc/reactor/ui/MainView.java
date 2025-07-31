@@ -1,10 +1,7 @@
 package com.tc.reactor.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tc.reactor.support.editor.CodeAutocompletion;
-import com.tc.reactor.support.editor.CodeFormatter;
-import com.tc.reactor.support.editor.ContextMenuSetup;
-import com.tc.reactor.support.editor.SyntaxManager;
+import com.tc.reactor.support.editor.*;
 import com.tc.reactor.support.git.GitUtils;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
@@ -62,7 +59,6 @@ public class MainView {
     @FXML
     private void initialize() throws IOException {
         setupInitialTabs();
-        Platform.runLater(this::setupKeyboardShortcuts);
         try {
             RunConfig runConfig = new RunConfig();
             runConfig.loadRunConfigsFromFile();
@@ -71,16 +67,6 @@ public class MainView {
             bottomTabPane.getSelectionModel().select(logTab);
         }
         updateRunConfigMenu();
-    }
-
-    private void setupKeyboardShortcuts() {
-        menuBar.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN).match(event))
-            {
-                saveCurrentFile();
-                event.consume();
-            }
-        });
     }
 
     /**
@@ -605,6 +591,9 @@ public class MainView {
         }
 
         CodeArea editor = new CodeArea();
+
+        KeyboardShortcuts keyboardShortcuts = new KeyboardShortcuts();
+        keyboardShortcuts.SetupShortcuts(editor);
         System.out.println("Editor: " + editor);
         tab.setContent(editor);
         System.out.println("Tab content: " + tab.getContent());
