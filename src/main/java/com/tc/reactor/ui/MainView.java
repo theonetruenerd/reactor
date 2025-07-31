@@ -591,9 +591,6 @@ public class MainView {
         }
 
         CodeArea editor = new CodeArea();
-
-        KeyboardShortcuts keyboardShortcuts = new KeyboardShortcuts();
-        keyboardShortcuts.SetupShortcuts(editor);
         System.out.println("Editor: " + editor);
         tab.setContent(editor);
         System.out.println("Tab content: " + tab.getContent());
@@ -644,6 +641,9 @@ public class MainView {
         System.out.println("Editor text: " + editor.getText());
         mainTabPane.getTabs().add(tab);
         mainTabPane.getSelectionModel().select(tab);
+
+        KeyboardShortcuts keyboardShortcuts = new KeyboardShortcuts();
+        keyboardShortcuts.SetupShortcuts(editor);
     }
 
     /**
