@@ -32,6 +32,8 @@ public class KeyboardShortcuts {
                 shortcutFunctions.NextFileTab();
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.PreviousFileTab();
+            } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CommentLine();
             }
         });
     }
@@ -56,7 +58,18 @@ public class KeyboardShortcuts {
 
         public void CollapseRegion() {}
 
-        public void CommentLine() {}
+        public void CommentLine() {
+            // Currently assumes tab name doesn't have a dot in it other than for file extension; perhaps easier/more
+            // reliable way to grab extension exists
+            String extension = mainView.mainTabPane.getSelectionModel().getSelectedItem().getText().split("\\.")[1];
+            switch (extension) {  // Other cases need adding when language support gets added
+                case "hsl":
+                    codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0),"//");
+                    break;
+                default:  // Doesn't do anything if language isn't coded in here to avoid accidentally messing up files
+                    break;
+            }
+        }
 
         public void Copy() {}
 
