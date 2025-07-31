@@ -89,7 +89,7 @@ public class Settings {
         themeComboBox.getSelectionModel().selectFirst();
 
         // Populating colour scheme combo box
-        editorColourSchemeComboBox.getItems().addAll("Default", "Solarized Dark", "Solarized Light");
+        editorColourSchemeComboBox.getItems().addAll("Default", "High Contrast");
         editorColourSchemeComboBox.getSelectionModel().selectFirst();
 
         // Setting Constraints
