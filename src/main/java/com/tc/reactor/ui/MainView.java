@@ -11,9 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.DirectoryChooser;
@@ -610,7 +607,7 @@ public class MainView {
         contextMenuSetup.setMainView(this);
         System.out.println("Context menu setup: " + contextMenuSetup);
 
-        // Setup code autocompletion for supported languages
+        // Setup code autocompletion for supported languages - change to switch/case when more languages supported
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
             RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();

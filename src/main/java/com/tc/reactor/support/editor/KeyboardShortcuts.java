@@ -34,6 +34,8 @@ public class KeyboardShortcuts {
                 shortcutFunctions.PreviousFileTab();
             } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CommentLine();
+            } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CloseFileTab();
             }
         });
     }
@@ -48,7 +50,9 @@ public class KeyboardShortcuts {
 
         public void ClearSelection() {}
 
-        public void CloseFileTab() {}
+        public void CloseFileTab() {
+            mainView.mainTabPane.getSelectionModel().getSelectedItem().getTabPane().getTabs().remove(mainView.mainTabPane.getSelectionModel().getSelectedItem());
+        }
 
         public void CloseWindow() {}
 
