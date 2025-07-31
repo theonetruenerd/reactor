@@ -22,143 +22,143 @@ public class KeyboardShortcuts {
 
     private static class ShortcutFunctions {
 
-        public void Save() { }
-
-        public void ToggleViewWhitespace() { }
-
-        public void SelectAll() {}
-
-        public void Copy() {}
-
-        public void Paste() {}
-
-        public void Cut() {}
-
-        public void DeleteLine() {}
-
-        public void CommentLine() {}
-
-        public void Find() {}
-
-        public void Replace() {}
-
         public void ChangeTabs() {}
-
-        public void SearchInProject() {}
-
-        public void CutLine() {}
-
-        public void SelectionToUppercase() {}
-
-        public void SelectionToLowercase() {}
-
-        public void Undo() {}
-
-        public void Redo() {}
-
-        public void ScrollDown() {}
-
-        public void ScrollUp() {}
-
-        public void MoveToLineEnd() {}
-
-        public void MoveToBlockEnd() {}
-
-        public void MoveToMethodEnd() {}
-
-        public void MoveToLineStart() {}
-
-        public void MoveToBlockStart() {}
-
-        public void MoveToMethodStart() {}
-
-        public void ClearSelection() {}
-
-        public void ToggleBookmark() {}
-
-        public void MoveToPreviousBookmark() {}
-
-        public void MoveToNextBookmark() {}
-
-        public void ClearAllBookmarks() {}
-
-        public void FindNext() {}
-
-        public void FindPrevious() {}
-
-        public void ToggleInsert() {}
-
-        public void MoveToWordStart() {}
-
-        public void MoveToWordEnd() {}
-
-        public void IndentSelection() {}
-
-        public void UnindentSelection() {}
-
-        public void SelectWord() {}
 
         public void CharBackTab() {}
 
         public void CharTab() {}
 
-        public void FindScope() {}
+        public void ClearAllBookmarks() {}
 
-        public void MoveLineDown() {}
-
-        public void MoveLineUp() {}
-
-        public void CreateNewFile() {}
-
-        public void OpenRefactoringMenu() {}
-
-        public void ImportDependencies() {}
-
-        public void DuplicateLine() {}
-
-        public void NextFileTab() {}
-
-        public void PreviousFileTab() {}
-
-        public void OpenSettings() {}
+        public void ClearSelection() {}
 
         public void CloseFileTab() {}
 
         public void CloseWindow() {}
 
-        public void OpenDocumentation() {}
-
-        public void CollapseRegion() {}
-
-        public void UncollapseRegion() {}
-
         public void CollapseAllRegions() {}
-
-        public void UncollapseAllRegions() {}
 
         public void CollapseAllSubregions() {}
 
-        public void UncollapseAllSubregions() {}
+        public void CollapseRegion() {}
 
-        public void ShowAllSymbols() {}
+        public void CommentLine() {}
+
+        public void Copy() {}
+
+        public void CreateNewFile() {}
+
+        public void Cut() {}
+
+        public void CutLine() {}
+
+        public void DeleteLine() {}
+
+        public void DuplicateLine() {}
+
+        public void Find() {}
+
+        public void FindNext() {}
+
+        public void FindPrevious() {}
+
+        public void FindScope() {}
 
         public void GoToLine() {}
 
         public void GoToSymbolDeclaration() {}
 
-        public void ToggleFindRegex() {}
+        public void ImportDependencies() {}
 
-        public void RenameFile() {}
+        public void IndentSelection() {}
+
+        public void MoveLineDown() {}
+
+        public void MoveLineUp() {}
+
+        public void MoveToBlockEnd() {}
+
+        public void MoveToBlockStart() {}
+
+        public void MoveToLineEnd() {}
+
+        public void MoveToLineStart() {}
+
+        public void MoveToMethodEnd() {}
+
+        public void MoveToMethodStart() {}
+
+        public void MoveToNextBookmark() {}
+
+        public void MoveToPreviousBookmark() {}
+
+        public void MoveToWordEnd() {}
+
+        public void MoveToWordStart() {}
 
         public void NavigateToSpecificEditorTab() {}
 
+        public void NextFileTab() {}
+
+        public void OpenDocumentation() {}
+
+        public void OpenRefactoringMenu() {}
+
+        public void OpenScratchFile() {}
+
+        public void OpenSettings() {}
+
+        public void Paste() {}
+
+        public void PreviousFileTab() {}
+
+        public void Redo() {}
+
+        public void RenameFile() {}
+
+        public void Replace() {}
+
+        public void Save() { }
+
+        public void ScrollDown() {}
+
+        public void ScrollUp() {}
+
+        public void SearchInProject() {}
+
+        public void SelectAll() {}
+
+        public void SelectionToLowercase() {}
+
+        public void SelectionToUppercase() {}
+
+        public void SelectWord() {}
+
+        public void ShowAllSymbols() {}
+
+        public void ToggleBookmark() {}
+
+        public void ToggleFindRegex() {}
+
         public void ToggleFullscreen() {}
+
+        public void ToggleInsert() {}
+
+        public void ToggleViewWhitespace() { }
+
+        public void UncollapseAllRegions() {}
+
+        public void UncollapseAllSubregions() {}
+
+        public void UncollapseRegion() {}
+
+        public void Undo() {}
+
+        public void UnindentSelection() {}
 
         public void ZoomIn() {}
 
         public void ZoomOut() {}
-
-        public void OpenScratchFile() {}
 
     }
 
