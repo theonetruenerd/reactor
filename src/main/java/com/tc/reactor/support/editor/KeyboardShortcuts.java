@@ -1,5 +1,6 @@
 package com.tc.reactor.support.editor;
 
+import com.tc.reactor.ui.MainView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -8,21 +9,34 @@ import org.fxmisc.richtext.CodeArea;
 
 public class KeyboardShortcuts {
 
+    private MainView mainView;
+    private CodeArea codeArea;
+
+    public void setMainView(MainView mainView) {
+        this.mainView = mainView;
+    }
+
+    public void setCodeArea(CodeArea codeArea) {
+        this.codeArea = codeArea;
+    }
+
     ShortcutFunctions shortcutFunctions = new ShortcutFunctions();
 
-    public void SetupShortcuts (CodeArea codeArea){
+    public void SetupShortcuts (){
         codeArea.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 
             if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.Save();
                 event.consume();
+            } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.NextFileTab();
+            } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.PreviousFileTab();
             }
         });
     }
 
-    private static class ShortcutFunctions {
-
-        public void ChangeTabs() {}
+    private class ShortcutFunctions {
 
         public void CharBackTab() {}
 
@@ -98,7 +112,9 @@ public class KeyboardShortcuts {
 
         public void NavigateToSpecificEditorTab() {}
 
-        public void NextFileTab() {}
+        public void NextFileTab() {
+            mainView.mainTabPane.getSelectionModel().selectNext();
+        }
 
         public void OpenDocumentation() {}
 
@@ -110,7 +126,9 @@ public class KeyboardShortcuts {
 
         public void Paste() {}
 
-        public void PreviousFileTab() {}
+        public void PreviousFileTab() {
+            mainView.mainTabPane.getSelectionModel().selectPrevious();
+        }
 
         public void Redo() {}
 

@@ -33,11 +33,9 @@ public class MainView {
     // Defining the FXML classes:
     @FXML private MenuBar menuBar;
     @FXML private TreeView<String> projectTree;
-    @FXML private TabPane mainTabPane;
-    @FXML
-    public TabPane bottomTabPane;
-    @FXML
-    public TextArea outputTextArea;
+    @FXML public TabPane mainTabPane;
+    @FXML public TabPane bottomTabPane;
+    @FXML public TextArea outputTextArea;
     @FXML public TextArea logsTextArea;
     @FXML public Tab logTab;
     @FXML private TreeView<String> gitCommitTreeView;
@@ -643,7 +641,9 @@ public class MainView {
         mainTabPane.getSelectionModel().select(tab);
 
         KeyboardShortcuts keyboardShortcuts = new KeyboardShortcuts();
-        keyboardShortcuts.SetupShortcuts(editor);
+        keyboardShortcuts.setMainView(this);
+        keyboardShortcuts.setCodeArea(editor);
+        keyboardShortcuts.SetupShortcuts();
     }
 
     /**
