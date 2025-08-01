@@ -17,6 +17,7 @@ public class RealTimeSyntaxChecker {
     public void setupSyntaxChecker(CodeArea codeArea) {
         codeArea.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(oldValue)) {
+                mainView.outputTextArea.clear();
                 checkSyntax(newValue);
             }
         });
