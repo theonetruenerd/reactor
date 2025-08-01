@@ -48,6 +48,7 @@
     dark-color-surface-container: #211f24;
     dark-color-surface-container-high: #2c292f;
     dark-color-surface-container-highest: #36343a;
+    -fx-font: 14px "JetBrains Mono";
 }
 
 .main-ui-window {
