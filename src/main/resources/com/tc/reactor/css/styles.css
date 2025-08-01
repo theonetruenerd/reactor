@@ -1,25 +1,58 @@
-/* TODO Add proper style and then colour schemes, light and dark mode, etc*/
-
 .root {
-    -fx-font: 14px "JetBrains Mono";
+    dark-color-primary: #d3bcfd;
+    dark-color-surface-tint: #d3bcfd;
+    dark-color-on-primary: #38265c;
+    dark-color-primary-container: #4f3d74;
+    dark-color-on-primary-container: #ebddff;
+    dark-color-secondary: #cdc2db;
+    dark-color-on-secondary: #342d40;
+    dark-color-secondary-container: #4b4358;
+    dark-color-on-secondary-container: #e9def8;
+    dark-color-tertiary: #f0b7c5;
+    dark-color-on-tertiary: #4a2530;
+    dark-color-tertiary-container: #643b46;
+    dark-color-on-tertiary-container: #ffd9e1;
+    dark-color-error: #ffb4ab;
+    dark-color-on-error: #690005;
+    dark-color-error-container: #93000a;
+    dark-color-on-error-container: #ffdada;
+    dark-color-background: #151218;
+    dark-color-on-background: #e7e0e8;
+    dark-color-surface: #151218;
+    dark-color-on-surface: #e7e0e8;
+    dark-color-surface-variant: #49454e;
+    dark-color-on-surface-variant: #cbc4cf;
+    dark-color-outline: #948f99;
+    dark-color-outline-variant: #49454e;
+    dark-color-shadow: #000000;
+    dark-color-scrim: #000000;
+    dark-color-inverse-surface: #e7e0e8;
+    dark-color-inverse-on-surface: #322f35;
+    dark-color-inverse-primary: #68548e;
+    dark-color-primary-fixed: #ebddff;
+    dark-color-on-primary-fixed: #230f46;
+    dark-color-primary-fixed-dim: #d3bcfd;
+    dark-color-on-primary-fixed-variant: #4f3d74;
+    dark-color-secondary-fixed: #e9def8;
+    dark-color-on-secondary-fixed: #1f182b;
+    dark-color-secondary-fixed-dim: #cdc2db;
+    dark-color-on-secondary-fixed-variant: #4b4358;
+    dark-color-tertiary-fixed: #ffd9e1;
+    dark-color-on-tertiary-fixed: #31101b;
+    dark-color-tertiary-fixed-dim: #f0b7c5;
+    dark-color-on-tertiary-fixed-variant: #643b46;
+    dark-color-surface-dim: #151218;
+    dark-color-surface-bright: #3b383e;
+    dark-color-surface-container-lowest: #0f0d13;
+    dark-color-surface-container-low: #1d1b20;
+    dark-color-surface-container: #211f24;
+    dark-color-surface-container-high: #2c292f;
+    dark-color-surface-container-highest: #36343a;
 }
 
-.tab-pane .tab-header-area .tab-header-background .tab {
-    -fx-font: 14px "JetBrains Mono";
-    -fx-border-radius: 0 0 18 18;
-    -fx-background-radius: 0 0 18 18;
-}
-
-.text-area {
-    -fx-font: 14px "JetBrains Mono";
-}
-
-.styled-text-area .text {
-    -fx-font: 14px "JetBrains Mono";
-}
-
-.text-field {
-    -fx-font: 14px "JetBrains Mono";
+.tab .text-area {
+    -fx-background-color: dark-color-surface-container-highest;
+    -fx-text-fill: dark-color-on-surface-container;
 }
 
 .keyword {
@@ -61,52 +94,3 @@
     -fx-font: 14px "JetBrains Mono";
     -fx-fill: #1750EB;
 }
-
-/*--background: #131318;*/
-/*--on-background: #E5E1E9;*/
-/*--primary: #C3C0FF;*/
-/*--on-primary: #2B2A60;*/
-/*--primary-container: #424178;*/
-/*--on-primary-container: #E2DFFF;*/
-/*--secondary: #C7C4DD;*/
-/*--on-secondary: #2F2F42;*/
-/*--secondary-container: #464559;*/
-/*--on-secondary-container: #E3E0F9;*/
-/*--tertiary: #EAB9D2;*/
-/*--on-tertiary: #472639;*/
-/*--tertiary-container: #603C50;*/
-/*--on-tertiary-container: #FFD8EA;*/
-/*--error: #FFB4AB;*/
-/*--on-error: #690005;*/
-/*--error-container: #93000A;*/
-/*--on-error-container: #FFDAD6;*/
-/*--background-alt: #1C1B21;*/
-/*--on-background-alt: #E5E1E9;*/
-/*--surface: #131318;*/
-/*--on-surface: #E5E1E9;*/
-/*--surface-variant: #47464F;*/
-/*--on-surface-variant: #C8C5D0;*/
-/*--outline: #928F9A;*/
-/*--shadow: #000000;*/
-/*--inverse-surface: #E5E1E9;*/
-/*--inverse-on-surface: #303036;*/
-/*--inverse-primary: #595892;*/
-/*--primary-fixed: #E2DFFF;*/
-/*--on-primary-fixed: #15134A;*/
-/*--primary-fixed-dim: #C3C0FF;*/
-/*--on-primary-fixed-variant: #424178;*/
-/*--secondary-fixed: #E3E0F9;*/
-/*--on-secondary-fixed: #1A1A2C;*/
-/*--secondary-fixed-dim: #C7C4DD;*/
-/*--on-secondary-fixed-variant: #464559;*/
-/*--tertiary-fixed: #FFD8EA;*/
-/*--on-tertiary-fixed: #2F1124;*/
-/*--tertiary-fixed-dim: #EAB9D2;*/
-/*--on-tertiary-fixed-variant: #603C50;*/
-/*--surface-dim: #131318;*/
-/*--surface-bright: #39383F;*/
-/*--surface-container-lowest: #0E0E13;*/
-/*--surface-container-low: #1B1B21;*/
-/*--surface-container: #201F25;*/
-/*--surface-container-high: #2A292F;*/
-/*--surface-container-highest: #35343A;*/
