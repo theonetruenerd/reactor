@@ -50,9 +50,83 @@
     dark-color-surface-container-highest: #36343a;
 }
 
-.tab .text-area {
+.main-ui-window {
+    -fx-background-color: dark-color-surface;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+    -fx-font-stretch: normal;
+    -fx-fill: dark-color-on-surface;
+}
+
+.main-ui-menu-bar .main-ui-button-bar {
+    -fx-background-color: dark-color-surface-container-high;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+}
+
+.main-ui-menu .main-ui-menu-item .main-ui-split-menu-button .main-ui-button .main-ui-separator-menu-item {
+    -fx-background-color: dark-color-surface-container-high;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+.main-ui-project-vbox .main-ui-git-vbox {
+    -fx-background-color: dark-color-surface-container;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+}
+
+.main-ui-project-treeview .main-ui-git-treeview {
+    -fx-background-color: dark-color-surface-container;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-fill: dark-color-on-surface;
+}
+
+.main-ui-editor-tab-pane {
+    -fx-background-color: dark-color-surface-container-high;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-fill: dark-color-on-surface;
+}
+
+.main-ui-editor-tab {
+    -fx-background-color: dark-color-surface-container-high;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-fill: dark-color-on-surface;
+}
+
+.main-ui-editor-text-area .styled-text-area .collapse .code-area {
+    -fx-background-color: dark-color-surface-container-high;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-fill: dark-color-on-surface;
+    visibility: collapse;
+}
+
+.main-ui-git-toolbar {}
+
+.main-ui-git-text-area {}
+
+.main-ui-git-button {}
+
+.main-ui-bottom-text-area .main-ui-bottom-tab .main-ui-bottom-tab-pane{
     -fx-background-color: dark-color-surface-container-highest;
-    -fx-text-fill: dark-color-on-surface-container;
+    -fx-font-weight: normal;
+    -fx-fill: dark-color-on-surface;
+    -fx-font: 14px "JetBrains Mono";
 }
 
 .keyword {

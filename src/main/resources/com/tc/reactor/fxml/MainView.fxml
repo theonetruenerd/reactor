@@ -1,162 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
+<BorderPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="main-ui-window" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.MainView">
    <top>
        <HBox styleClass="root" stylesheets="@../css/styles.css">
-          <MenuBar fx:id="menuBar" prefHeight="30.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
+          <MenuBar fx:id="menuBar" prefHeight="30.0" styleClass="main-ui-menu-bar" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
             <menus>
-              <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="root" text="File">
+              <Menu fx:id="fileMenu" mnemonicParsing="false" styleClass="main-ui-menu" text="File">
                 <items>
-                      <Menu mnemonicParsing="false" text="New">
+                      <Menu mnemonicParsing="false" styleClass="main-ui-menu" text="New">
                         <items>
-                          <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" styleClass="root" text="Project" />
-                            <MenuItem mnemonicParsing="false" text="Project from Version Control" />
-                            <MenuItem mnemonicParsing="false" text="File" />
-                            <MenuItem mnemonicParsing="false" text="Directory" />
-                            <SeparatorMenuItem mnemonicParsing="false" />
-                            <MenuItem mnemonicParsing="false" onAction="#onCreateHslLibraryClick" text="HSL Library" />
-                            <MenuItem mnemonicParsing="false" text="XAML File" />
-                            <MenuItem mnemonicParsing="false" text="Python File" />
-                            <MenuItem mnemonicParsing="false" text="XML File" />
-                            <MenuItem mnemonicParsing="false" text="HTM file" />
+                          <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Project" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Project from Version Control" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="File" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Directory" />
+                            <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+                            <MenuItem mnemonicParsing="false" onAction="#onCreateHslLibraryClick" styleClass="main-ui-menu-item" text="HSL Library" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="XAML File" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Python File" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="XML File" />
+                            <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="HTM file" />
                         </items>
                       </Menu>
-                    <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" styleClass="root" text="Open Project" />
-                    <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" onAction="#onCloseProjectClick" styleClass="root" text="Close Project" />
-                    <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" styleClass="root" text="Save" />
-                      <MenuItem fx:id="saveMenuItem1" mnemonicParsing="false" styleClass="root" text="Settings" />
-                    <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" text="Exit" />
+                    <MenuItem fx:id="openProjectMenuItem" mnemonicParsing="false" onAction="#onOpenProjectClick" styleClass="main-ui-menu-item" text="Open Project" />
+                    <MenuItem fx:id="closeProjectMenuItem" mnemonicParsing="false" onAction="#onCloseProjectClick" styleClass="main-ui-menu-item" text="Close Project" />
+                    <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Save" />
+                      <MenuItem fx:id="saveMenuItem1" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Settings" />
+                    <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="main-ui-menu-item" text="Exit" />
                 </items>
               </Menu>
-              <Menu fx:id="editMenu" mnemonicParsing="false" styleClass="root" text="Edit">
+              <Menu fx:id="editMenu" mnemonicParsing="false" styleClass="main-ui-menu" text="Edit">
                 <items>
-                      <MenuItem mnemonicParsing="false" text="Undo" />
-                      <MenuItem mnemonicParsing="false" text="Redo" />
-                      <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem mnemonicParsing="false" text="Cut" />
-                      <MenuItem mnemonicParsing="false" text="Copy" />
-                      <MenuItem mnemonicParsing="false" text="Copy as Plain Text" />
-                      <MenuItem mnemonicParsing="false" text="Copy Path/Reference" />
-                      <MenuItem mnemonicParsing="false" text="Paste" />
-                      <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" styleClass="root" text="Delete" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Undo" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Redo" />
+                      <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Cut" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Copy" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Copy as Plain Text" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Copy Path/Reference" />
+                      <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Paste" />
+                      <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+                  <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Delete" />
                 </items>
               </Menu>
-                <Menu fx:id="gitMenu" mnemonicParsing="false" styleClass="root" text="Git">
+                <Menu fx:id="gitMenu" mnemonicParsing="false" styleClass="main-ui-menu" text="Git">
                     <items>
-                        <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" styleClass="root" text="Pull" />
-                        <MenuItem fx:id="addMenuItem" mnemonicParsing="false" styleClass="root" text="Add" />
-                        <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" onAction="#onCommitButtonClick" styleClass="root" text="Commit" />
-                        <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" styleClass="root" text="Push" />
-                        <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" styleClass="root" text="Fetch" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" styleClass="root" text="Checkout" />
-                        <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" styleClass="root" text="Merge" />
-                        <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" styleClass="root" text="Rebase" />
+                        <MenuItem fx:id="pullMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Pull" />
+                        <MenuItem fx:id="addMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Add" />
+                        <MenuItem fx:id="commitMenuItem" mnemonicParsing="false" onAction="#onCommitButtonClick" styleClass="main-ui-menu-item" text="Commit" />
+                        <MenuItem fx:id="pushMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Push" />
+                        <MenuItem fx:id="fetchMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Fetch" />
+                        <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+                        <MenuItem fx:id="checkoutMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Checkout" />
+                        <MenuItem fx:id="mergeMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Merge" />
+                        <MenuItem fx:id="rebaseMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="Rebase" />
                     </items>
                 </Menu>
-              <Menu fx:id="helpMenu" mnemonicParsing="false" styleClass="root" text="Help">
+              <Menu fx:id="helpMenu" mnemonicParsing="false" styleClass="main-ui-menu" text="Help">
                 <items>
-                  <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="root" text="About Reactor" />
-                      <SeparatorMenuItem mnemonicParsing="false" />
-                      <Menu mnemonicParsing="false" text="Hamilton">
+                  <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="main-ui-menu-item" text="About Reactor" />
+                      <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+                      <Menu mnemonicParsing="false" styleClass="main-ui-menu" text="Hamilton">
                         <items>
-                            <Menu mnemonicParsing="false" text="Venus">
+                            <Menu mnemonicParsing="false" styleClass="main-ui-menu" text="Venus">
                               <items>
-                                <MenuItem mnemonicParsing="false" text="Venus 4 Operators Manual" />
+                                <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Venus 4 Operators Manual" />
                               </items>
                             </Menu>
-                            <Menu mnemonicParsing="false" text="HSL">
+                            <Menu mnemonicParsing="false" styleClass="main-ui-menu" text="HSL">
                               <items>
-                                <MenuItem mnemonicParsing="false" text="HSL Documentation" />
+                                <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="HSL Documentation" />
                               </items>
                             </Menu>
-                          <MenuItem mnemonicParsing="false" text="TADM Programmer's Guide" />
+                          <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="TADM Programmer's Guide" />
                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Tecan">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Beckman-Coulter">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Opentrons">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Waters">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                         </items>
                       </Menu>
                 </items>
               </Menu>
             </menus>
           </MenuBar>
-         <SplitMenuButton fx:id="runConfigSplitMenu" mnemonicParsing="false" text="Run Config">
+         <SplitMenuButton fx:id="runConfigSplitMenu" mnemonicParsing="false" styleClass="main-ui-split-menu-button" stylesheets="@../css/styles.css" text="Run Config">
            <items>
-               <SeparatorMenuItem mnemonicParsing="false" />
-             <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" text="Add Config" />
-               <MenuItem mnemonicParsing="false" text="Delete Config" />
+               <SeparatorMenuItem mnemonicParsing="false" styleClass="main-ui-separator-menu-item" />
+             <MenuItem fx:id="addConfigMenuItem" mnemonicParsing="false" onAction="#onAddConfigClick" styleClass="main-ui-menu-item" text="Add Config" />
+               <MenuItem mnemonicParsing="false" styleClass="main-ui-menu-item" text="Delete Config" />
 
            </items>
          </SplitMenuButton>
-         <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
+         <ButtonBar buttonMinWidth="10.0" prefHeight="30.0" prefWidth="200.0" styleClass="main-ui-button-bar" stylesheets="@../css/styles.css">
            <buttons>
-               <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRunButtonClick" text="▶" />
-               <Button fx:id="debugButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" text="🐞" />
-               <Button fx:id="settingsButton" mnemonicParsing="false" text="⚙" />
-               <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="root" stylesheets="@../css/styles.css" text="🗕">
+               <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRunButtonClick" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="▶" />
+               <Button fx:id="debugButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="36.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="🐞" />
+               <Button fx:id="settingsButton" mnemonicParsing="false" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="⚙" />
+               <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="🗕">
                   <font>
                      <Font name="JetBrains Mono Regular" size="12.0" />
                   </font></Button>
-             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="root" stylesheets="@../css/styles.css" text="✕" />
+             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseMenuItemClick" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="✕" />
            </buttons>
          </ButtonBar>
        </HBox>
    </top>
    <left>
-      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="main-ui-project-vbox" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <TreeView fx:id="projectTree" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TreeView fx:id="projectTree" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="200.0" styleClass="main-ui-project-treeview" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
    <center>
-      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="363.0" prefWidth="560.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="mainTabPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="363.0" prefWidth="560.0" styleClass="main-ui-editor-tab-pane" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="bottomTabPane" blendMode="MULTIPLY" maxHeight="Infinity" maxWidth="Infinity" prefHeight="200.0" prefWidth="600.0" styleClass="main-ui-bottom-tab-pane" stylesheets="@../css/styles.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="outputTab" closable="false" styleClass="root" text="Output">
+          <Tab fx:id="outputTab" closable="false" styleClass="main-ui-bottom-tab" text="Output">
             <content>
               <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="outputTextArea" layoutX="1.0" prefWidth="1000.0" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <styleClass>
-                              <String fx:value="root" />
-                              <String fx:value="tab" />
-                           </styleClass>
-                        </TextArea>
+                        <TextArea fx:id="outputTextArea" layoutX="1.0" prefWidth="1000.0" styleClass="main-ui-bottom-text-area" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                      </children>
               </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="terminalTab" closable="false" styleClass="root" text="Terminal">
+          <Tab fx:id="terminalTab" closable="false" styleClass="main-ui-bottom-tab" text="Terminal">
             <content>
               <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefWidth="1000.0" styleClass="root" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TextArea fx:id="terminalTextArea" layoutX="1.0" prefWidth="1000.0" styleClass="main-ui-bottom-text-area" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font name="JetBrains Mono Regular" size="12.0" />
                            </font>
@@ -164,62 +138,43 @@
                      </children>
               </AnchorPane>
             </content>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="tab" />
-               </styleClass>
           </Tab>
-            <Tab fx:id="logsTab" closable="false" text="Logs">
+            <Tab fx:id="logsTab" closable="false" styleClass="main-ui-bottom-tab" text="Logs">
               <content>
                 <AnchorPane blendMode="MULTIPLY" minHeight="0.0" minWidth="0.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
                      <children>
-                        <TextArea fx:id="logsTextArea" editable="false" layoutX="1.0" prefWidth="1000.0" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <styleClass>
-                              <String fx:value="root" />
-                              <String fx:value="tab" />
-                           </styleClass>
-                        </TextArea>
+                        <TextArea fx:id="logsTextArea" editable="false" layoutX="1.0" prefWidth="1000.0" styleClass="main-ui-bottom-text-area" stylesheets="@../css/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                      </children>
                 </AnchorPane>
               </content>
-               <styleClass>
-                  <String fx:value="root" />
-                  <String fx:value="tab" />
-               </styleClass>
             </Tab>
         </tabs>
-         <styleClass>
-            <String fx:value="tab" />
-            <String fx:value="tab-header-area" />
-            <String fx:value="tab-header-background" />
-            <String fx:value="root" />
-         </styleClass>
       </TabPane>
    </bottom>
    <right>
-      <VBox fx:id="gitVBox" prefHeight="200.0" prefWidth="240.0" styleClass="root" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="gitVBox" prefHeight="200.0" prefWidth="240.0" styleClass="main-ui-git-vbox" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="root" stylesheets="@../css/styles.css">
+            <ToolBar fx:id="gitCommitTreeToolbar" prefHeight="40.0" prefWidth="200.0" styleClass="main-ui-git-toolbar" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" onAction="#onRefreshCommitButtonClick" styleClass="root" stylesheets="@../css/styles.css" text="⟳" />
-                  <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="↩" />
-                <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="⭳" />
-                  <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
+                  <Button fx:id="refreshCommitButton" mnemonicParsing="false" onAction="#onRefreshCommitButtonClick" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="⟳" />
+                  <Button fx:id="rollbackCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="↩" />
+                <Button fx:id="shelveCommitButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="⭳" />
+                  <Button fx:id="expandCommitButton" layoutX="77.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="˄˅" wrapText="true">
                      <font>
                         <Font name="JetBrains Mono Regular" size="12.0" />
                      </font></Button>
-                  <Button fx:id="collapseCommitButton" layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="root" stylesheets="@../css/styles.css" text="˅˄" wrapText="true">
+                  <Button fx:id="collapseCommitButton" layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="˅˄" wrapText="true">
                      <font>
                         <Font name="JetBrains Mono Regular" size="12.0" />
                      </font></Button>
               </items>
             </ToolBar>
-            <TreeView fx:id="gitCommitTreeView" styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <TextArea fx:id="commitMessageTextArea" promptText="Enter commit message here..." styleClass="root" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
-            <ToolBar fx:id="gitCommitAndPushToolBar" styleClass="root" stylesheets="@../css/styles.css">
+            <TreeView fx:id="gitCommitTreeView" styleClass="main-ui-git-treeview" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="commitMessageTextArea" promptText="Enter commit message here..." styleClass="main-ui-git-text-area" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS" />
+            <ToolBar fx:id="gitCommitAndPushToolBar" styleClass="main-ui-git-toolbar" stylesheets="@../css/styles.css">
               <items>
-                  <Button fx:id="gitCommitButton" mnemonicParsing="false" onAction="#onCommitButtonClick" prefHeight="30.0" prefWidth="72.0" styleClass="root" stylesheets="@../css/styles.css" text="Commit" />
-                <Button fx:id="gitCommitAndPushButton" mnemonicParsing="false" stylesheets="@../css/styles.css" text="Commit and Push" />
+                  <Button fx:id="gitCommitButton" mnemonicParsing="false" onAction="#onCommitButtonClick" prefHeight="30.0" prefWidth="72.0" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="Commit" />
+                <Button fx:id="gitCommitAndPushButton" mnemonicParsing="false" styleClass="main-ui-button" stylesheets="@../css/styles.css" text="Commit and Push" />
               </items>
             </ToolBar>
          </children>
