@@ -26,6 +26,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.fxmisc.richtext.CodeArea;
 import com.tc.reactor.support.languages.hsl.LibraryHandler;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -614,6 +615,7 @@ public class MainView {
             System.out.println("Editor editable: " + editor.isEditable());
         }
 
+        editor.setParagraphGraphicFactory(LineNumberFactory.get(editor));
 
         SyntaxManager syntaxManager = new SyntaxManager();
         syntaxManager.setupSyntaxHighlighting(extension, editor);
