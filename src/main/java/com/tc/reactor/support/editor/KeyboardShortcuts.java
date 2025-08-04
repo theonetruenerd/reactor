@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.NavigationActions;
 
 public class KeyboardShortcuts {
 
@@ -33,18 +34,23 @@ public class KeyboardShortcuts {
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN).match(event)) {
                 mainView.logsTextArea.appendText("\n> Next file tab keybind pressed");
                 shortcutFunctions.NextFileTab();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 mainView.logsTextArea.appendText("\n> Previous file tab keybind pressed");
                 shortcutFunctions.PreviousFileTab();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
                 mainView.logsTextArea.appendText("\n> Comment line keybind pressed");
                 shortcutFunctions.CommentLine();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
                 mainView.logsTextArea.appendText("\n> Close tab keybind pressed");
                 shortcutFunctions.CloseFileTab();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 mainView.logsTextArea.appendText("\n> Delete line keybind pressed");
                 shortcutFunctions.DeleteLine();
+                event.consume();
             }
         });
     }
@@ -57,13 +63,13 @@ public class KeyboardShortcuts {
 
         public void ClearAllBookmarks() {}
 
-        public void ClearSelection() {}
+        public void ClearSelection() { codeArea.deselect(); }
 
         public void CloseFileTab() {
             mainView.mainTabPane.getSelectionModel().getSelectedItem().getTabPane().getTabs().remove(mainView.mainTabPane.getSelectionModel().getSelectedItem());
         }
 
-        public void CloseProject() {}
+        public void CloseProject() { mainView.onCloseProjectClick(); }
 
         public void CloseWindow() {
             Platform.exit();
@@ -92,7 +98,7 @@ public class KeyboardShortcuts {
             codeArea.copy();
         }
 
-        public void CreateNewFile() {}
+        public void CreateNewFile() { }
 
         public void Cut() {
             codeArea.cut();
@@ -137,13 +143,13 @@ public class KeyboardShortcuts {
 
         public void MoveToBlockStart() {}
 
-        public void MoveToLineEnd() {}
+        public void MoveToLineEnd() { codeArea.lineEnd(NavigationActions.SelectionPolicy.CLEAR); }
 
-        public void MoveToLineStart() {}
+        public void MoveToLineStart() { codeArea.lineStart(NavigationActions.SelectionPolicy.CLEAR); }
 
-        public void MoveToMethodEnd() {}
+        public void MoveToMethodEnd() { codeArea.end(NavigationActions.SelectionPolicy.CLEAR); }
 
-        public void MoveToMethodStart() {}
+        public void MoveToMethodStart() { codeArea.start(NavigationActions.SelectionPolicy.CLEAR); }
 
         public void MoveToNextBookmark() {}
 
@@ -185,9 +191,9 @@ public class KeyboardShortcuts {
 
         public void Save() {}
 
-        public void ScrollDown() {}
+        public void ScrollDown() { codeArea.scrollYBy(codeArea.getLayoutBounds().getHeight() / 2);}
 
-        public void ScrollUp() {}
+        public void ScrollUp() { codeArea.scrollYBy(-codeArea.getLayoutBounds().getHeight() / 2);}
 
         public void SearchInProject() {}
 
@@ -195,9 +201,9 @@ public class KeyboardShortcuts {
             codeArea.selectAll();
         }
 
-        public void SelectionToLowercase() {}
+        public void SelectionToLowercase() { codeArea.replaceSelection(codeArea.getSelectedText().toLowerCase()); }
 
-        public void SelectionToUppercase() {}
+        public void SelectionToUppercase() { codeArea.replaceSelection(codeArea.getSelectedText().toUpperCase()); }
 
         public void SelectWord() {
             codeArea.selectWord();
