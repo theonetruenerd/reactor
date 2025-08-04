@@ -77,16 +77,29 @@ public class Settings {
         Label appearanceAndBehaviourLabel = new Label("Appearance and Behaviour");
         Label appearanceLabel = new Label("Appearance");
         Label themeLabel = new Label("Theme");
-        Label colourSchemeLabel = new Label("Colour Scheme");
-        CheckBox syncWithOSCheckBox = new CheckBox("Sync with OS");
-        Label menusAndToolbarsLabel = new Label("Menus and Toolbars");
-        Label systemSettingsLabel = new Label("System Settings");
         ComboBox<String> themeComboBox = new ComboBox<>();
+        CheckBox syncWithOSCheckBox = new CheckBox("Sync with OS");
+        Label colourSchemeLabel = new Label("Colour Scheme");
         ComboBox<String> editorColourSchemeComboBox = new ComboBox<>();
+        Label systemSettingsLabel = new Label("System Settings");
+        CheckBox confirmExitCheckBox = new CheckBox("Confirm before closing:");
+        CheckBox reopenOnStartupCheckBox = new CheckBox("Reopen projects on startup:");
+        Label openProjectInLabel = new Label("Open project in");
+        RadioButton openProjectInCurrentWindowRadioButton = new RadioButton("Current Window");
+        RadioButton openProjectInNewWindowRadioButton = new RadioButton("New Window");
+        RadioButton openProjectAskRadioButton = new RadioButton("Ask");
+        ToggleGroup openProjectInToggleGroup = new ToggleGroup();
+        Label defaultProjectDirectoryLabel = new Label("Default project directory");
+        TextField defaultProjectDirectoryTextField = new TextField();
 
         //  Populating theme combo box
         themeComboBox.getItems().addAll("Light", "Dark");
         themeComboBox.getSelectionModel().selectFirst();
+
+        // Radio Button Group
+        openProjectInCurrentWindowRadioButton.setToggleGroup(openProjectInToggleGroup);
+        openProjectInNewWindowRadioButton.setToggleGroup(openProjectInToggleGroup);
+        openProjectAskRadioButton.setToggleGroup(openProjectInToggleGroup);
 
         // Populating colour scheme combo box
         editorColourSchemeComboBox.getItems().addAll("Default", "High Contrast");
@@ -96,24 +109,38 @@ public class Settings {
         GridPane.setConstraints(appearanceAndBehaviourLabel, 0, 0, 3, 1);
         GridPane.setConstraints(appearanceLabel, 0, 1);
         GridPane.setConstraints(themeLabel, 0, 2);
-        GridPane.setConstraints(colourSchemeLabel, 0, 3);
-        GridPane.setConstraints(syncWithOSCheckBox, 2, 2);
-        GridPane.setConstraints(menusAndToolbarsLabel, 0, 4);
-        GridPane.setConstraints(systemSettingsLabel, 0, 5);
         GridPane.setConstraints(themeComboBox, 1, 2);
-        GridPane.setConstraints(editorColourSchemeComboBox, 2, 3);
+        GridPane.setConstraints(syncWithOSCheckBox, 0, 3);
+        GridPane.setConstraints(colourSchemeLabel, 0, 4);
+        GridPane.setConstraints(editorColourSchemeComboBox, 1, 4);
+        GridPane.setConstraints(systemSettingsLabel, 0, 5);
+        GridPane.setConstraints(confirmExitCheckBox, 0, 6);
+        GridPane.setConstraints(reopenOnStartupCheckBox, 0, 7);
+        GridPane.setConstraints(openProjectInLabel, 0, 8);
+        GridPane.setConstraints(openProjectInCurrentWindowRadioButton, 1, 8);
+        GridPane.setConstraints(openProjectInNewWindowRadioButton, 2, 8);
+        GridPane.setConstraints(openProjectAskRadioButton, 3, 8);
+        GridPane.setConstraints(defaultProjectDirectoryLabel, 0, 9);
+        GridPane.setConstraints(defaultProjectDirectoryTextField, 1, 9);
 
         // Filling pane
         appearanceAndBehaviourSettings.getChildren().addAll(
                 appearanceAndBehaviourLabel,
                 appearanceLabel,
                 themeLabel,
-                colourSchemeLabel,
-                syncWithOSCheckBox,
-                menusAndToolbarsLabel,
-                systemSettingsLabel,
                 themeComboBox,
-                editorColourSchemeComboBox
+                syncWithOSCheckBox,
+                colourSchemeLabel,
+                editorColourSchemeComboBox,
+                systemSettingsLabel,
+                confirmExitCheckBox,
+                reopenOnStartupCheckBox,
+                openProjectInLabel,
+                openProjectInCurrentWindowRadioButton,
+                openProjectInNewWindowRadioButton,
+                openProjectAskRadioButton,
+                defaultProjectDirectoryLabel,
+                defaultProjectDirectoryTextField
         );
         return appearanceAndBehaviourSettings;
     }

@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="455.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.Settings">
+<AnchorPane prefHeight="600.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.reactor.ui.Settings">
    <children>
-      <BorderPane prefHeight="455.0" prefWidth="560.0">
+      <BorderPane prefHeight="455.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <ButtonBar fx:id="settingsButtonBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ButtonBar fx:id="settingsButtonBar" prefHeight="40.0" prefWidth="666.0" BorderPane.alignment="CENTER">
               <buttons>
                 <Button fx:id="settingsCancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onSettingsCancelButtonClick" text="Cancel" />
                   <Button fx:id="settingsApplyButton" defaultButton="true" layoutX="495.0" layoutY="18.0" mnemonicParsing="false" onAction="#onSettingsApplyButtonClick" text="Apply" />
               </buttons>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
             </ButtonBar>
          </bottom>
          <left>
             <VBox BorderPane.alignment="CENTER">
                <children>
                   <TextField promptText="Search 🔍" />
-                  <ListView fx:id="settingsGroupsList" prefHeight="408.0" prefWidth="200.0" />
+                  <ListView fx:id="settingsGroupsList" prefHeight="420.0" prefWidth="197.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </left>
