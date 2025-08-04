@@ -1,5 +1,7 @@
 package com.tc.reactor.support.editor;
 
+// TODO DECIDE ON KEYBINDS
+
 import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
