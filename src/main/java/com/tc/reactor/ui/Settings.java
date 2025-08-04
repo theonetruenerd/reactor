@@ -5,8 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -82,8 +84,8 @@ public class Settings {
         Label colourSchemeLabel = new Label("Colour Scheme");
         ComboBox<String> editorColourSchemeComboBox = new ComboBox<>();
         Label systemSettingsLabel = new Label("System Settings");
-        CheckBox confirmExitCheckBox = new CheckBox("Confirm before closing:");
-        CheckBox reopenOnStartupCheckBox = new CheckBox("Reopen projects on startup:");
+        CheckBox confirmExitCheckBox = new CheckBox("Confirm before closing");
+        CheckBox reopenOnStartupCheckBox = new CheckBox("Reopen projects on startup");
         Label openProjectInLabel = new Label("Open project in");
         RadioButton openProjectInCurrentWindowRadioButton = new RadioButton("Current Window");
         RadioButton openProjectInNewWindowRadioButton = new RadioButton("New Window");
@@ -105,6 +107,13 @@ public class Settings {
         editorColourSchemeComboBox.getItems().addAll("Default", "High Contrast");
         editorColourSchemeComboBox.getSelectionModel().selectFirst();
 
+        appearanceAndBehaviourLabel.setFont(Font.font(20));
+        appearanceLabel.setFont(Font.font(16));
+        systemSettingsLabel.setFont(Font.font(16));
+
+        appearanceAndBehaviourSettings.setHgap(10);
+        appearanceAndBehaviourSettings.setVgap(10);
+
         // Setting Constraints
         GridPane.setConstraints(appearanceAndBehaviourLabel, 0, 0, 3, 1);
         GridPane.setConstraints(appearanceLabel, 0, 1);
@@ -121,7 +130,7 @@ public class Settings {
         GridPane.setConstraints(openProjectInNewWindowRadioButton, 2, 8);
         GridPane.setConstraints(openProjectAskRadioButton, 3, 8);
         GridPane.setConstraints(defaultProjectDirectoryLabel, 0, 9);
-        GridPane.setConstraints(defaultProjectDirectoryTextField, 1, 9);
+        GridPane.setConstraints(defaultProjectDirectoryTextField, 1, 9, 4,1);
 
         // Filling pane
         appearanceAndBehaviourSettings.getChildren().addAll(
