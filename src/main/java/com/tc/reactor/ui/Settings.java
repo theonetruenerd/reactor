@@ -119,7 +119,7 @@ public class Settings {
         GridPane.setConstraints(appearanceLabel, 0, 1);
         GridPane.setConstraints(themeLabel, 0, 2);
         GridPane.setConstraints(themeComboBox, 1, 2);
-        GridPane.setConstraints(syncWithOSCheckBox, 0, 3);
+        GridPane.setConstraints(syncWithOSCheckBox, 2, 2);
         GridPane.setConstraints(colourSchemeLabel, 0, 4);
         GridPane.setConstraints(editorColourSchemeComboBox, 1, 4);
         GridPane.setConstraints(systemSettingsLabel, 0, 5);
