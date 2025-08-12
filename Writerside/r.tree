@@ -4,7 +4,8 @@
 
 <instance-profile id="r"
                  name="reactor-ide"
-                 start-page="starter-topic.md">
+                 start-page="About-Reactor.md">
 
-    <toc-element topic="starter-topic.md"/>
+    <toc-element topic="About-Reactor.md"/>
+    <toc-element topic="Installation-Guide.md"/>
 </instance-profile>
