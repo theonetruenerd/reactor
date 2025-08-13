@@ -2,7 +2,7 @@ name: Build documentation
 
 on:
   push:
-    branches: ["main","feature/docs"]
+    branches: ["master","main","feature/docs"]
   workflow_dispatch:
 
 env:
