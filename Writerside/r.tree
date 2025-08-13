@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="r"
+                 name="Reactor"
+                 start-page="About-Reactor.md">
+
+    <toc-element toc-title="Getting Started">
+        <toc-element topic="About-Reactor.md"/>
+        <toc-element topic="Installation-Guide.md"/>
+        <toc-element topic="Quick-Start-Tutorial.md"/>
+        <toc-element topic="System-Requirements.md"/>
+        <toc-element topic="Changelog.md"/>
+    </toc-element>
+    <toc-element toc-title="User Guide">
+        <toc-element topic="User-Interface-Overview.md"/>
+        <toc-element topic="Project-Management.md">
+            <toc-element topic="Creating-Projects.md"/>
+            <toc-element topic="Project-Templates.md"/>
+            <toc-element topic="Importing-Existing-Projects.md"/>
+            <toc-element topic="Project-Settings.md"/>
+        </toc-element>
+        <toc-element topic="Code-Editor.md">
+            <toc-element topic="Syntax-Highlighting.md"/>
+            <toc-element topic="Code-Completion.md"/>
+            <toc-element topic="Error-Detection.md"/>
+        </toc-element>
+        <toc-element topic="Version-Control.md">
+            <toc-element topic="Git-Integration.md"/>
+            <toc-element topic="Committing-Changes.md"/>
+            <toc-element topic="Branching-Merging.md"/>
+            <toc-element topic="Collaboration-Workflows.md"/>
+        </toc-element>
+    </toc-element>
+    <toc-element toc-title="Developer Resources">
+        <toc-element topic="API-Reference.md"/>
+        <toc-element topic="Plugin-Development.md"/>
+        <toc-element topic="Scripting-Reference.md"/>
+        <toc-element topic="Architecture-Guide.md"/>
+    </toc-element>
+    <toc-element toc-title="Reference &amp; Support"/>
+</instance-profile>
