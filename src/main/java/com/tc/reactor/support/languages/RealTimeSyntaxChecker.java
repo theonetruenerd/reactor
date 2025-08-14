@@ -1,4 +1,4 @@
-package com.tc.reactor.support.languages.hsl;
+package com.tc.reactor.support.languages;
 
 import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.tc.reactor.support.languages.hsl.HslKeywords.*;
+import static com.tc.reactor.support.languages.prism.PrismKeywords.*;
 
 public class SyntaxManager {
     /**
@@ -21,8 +22,16 @@ public class SyntaxManager {
         List<String> scopes = SCOPE_KEYWORDS.getOrDefault(language, Collections.emptyList());
         List<String> types = TYPES_KEYWORDS.getOrDefault(language, Collections.emptyList());
         List<String> blocks = BLOCKS_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> control_flow = CONTROL_FLOW_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> file_operations = FILE_OPERATIONS_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> data_manipulation = DATA_MANIPULATION_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> export = EXPORT_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> display = DISPLAY_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> table = TABLE_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> variable = VARIABLE_KEYWORDS.getOrDefault(language, Collections.emptyList());
+        List<String> special = SPECIAL_KEYWORDS.getOrDefault(language, Collections.emptyList());
 
-        if (keywords.isEmpty() && scopes.isEmpty() && types.isEmpty() && blocks.isEmpty()) {
+        if (keywords.isEmpty() && scopes.isEmpty() && types.isEmpty() && blocks.isEmpty() && control_flow.isEmpty() && file_operations.isEmpty() && data_manipulation.isEmpty() && export.isEmpty() && display.isEmpty() && table.isEmpty() && variable.isEmpty() && special.isEmpty()) {
             return;
         }
 
@@ -31,8 +40,18 @@ public class SyntaxManager {
         String scopePattern = "\\b(" + String.join("|", scopes) + ")\\b";
         String typePattern = "\\b(" + String.join("|", types) + ")\\b";
         String blocksPattern = "\\b(" + String.join("|", blocks) + ")\\b";
+        String controlFlowPattern = "\\b(" + String.join("|", control_flow) + ")\\b";
+        String fileOperationsPattern = "\\b(" + String.join("|", file_operations) + ")\\b";
+        String dataManipulationPattern = "\\b(" + String.join("|", data_manipulation) + ")\\b";
+        String exportPattern = "\\b(" + String.join("|", export) + ")\\b";
+        String displayPattern = "\\b(" + String.join("|", display) + ")\\b";
+        String tablePattern = "\\b(" + String.join("|", table) + ")\\b";
+        String variablePattern = "\\b(" + String.join("|", variable) + ")\\b";
+        String specialPattern = "\\b(" + String.join("|", special) + ")\\b";
         String fullPattern = String.join("|", COMMENT_PATTERN, STRING_PATTERN, NUMBER_PATTERN, keywordPattern,
-                scopePattern, typePattern, blocksPattern, HEX_PATTERN);
+                scopePattern, typePattern, blocksPattern, controlFlowPattern, fileOperationsPattern,
+                dataManipulationPattern, exportPattern, displayPattern, tablePattern, variablePattern, specialPattern,
+                HEX_PATTERN);
         Pattern pattern = Pattern.compile(fullPattern);
 
         // Listen for text changes and apply syntax highlighting
