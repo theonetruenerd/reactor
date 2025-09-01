@@ -77,7 +77,7 @@
                                 <MenuItem fx:id="hslDocs" mnemonicParsing="false" text="HSL Documentation" onAction="#onHslDocsClicked" />
                               </items>
                             </Menu>
-                          <MenuItem mnemonicParsing="false" text="TADM Programmer's Guide" />
+                          <MenuItem fx:id="tadmMan" mnemonicParsing="false" text="TADM Programmer's Guide" onAction="#onTadmManClicked"/>
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Tecan">

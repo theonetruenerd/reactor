@@ -116,6 +116,11 @@ public class MainView {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HamiltonStandardLanguage_HSL_Overview.ppt"));
     }
 
+    @FXML
+    public void onTadmManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/624031_03_TADM_Programmers_Guide.pdf"));
+    }
+
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
      * populates the project tree tab with files from the selected directory.
