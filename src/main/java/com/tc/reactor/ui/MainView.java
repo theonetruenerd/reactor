@@ -14,6 +14,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -28,9 +31,11 @@ import org.fxmisc.richtext.CodeArea;
 import com.tc.reactor.support.languages.hsl.LibraryHandler;
 import org.fxmisc.richtext.LineNumberFactory;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.List;
 
 public class MainView {
 
@@ -38,15 +43,16 @@ public class MainView {
     @FXML private MenuBar menuBar;
     @FXML private TreeView<String> projectTree;
     @FXML private TabPane mainTabPane;
-    @FXML
-    public TabPane bottomTabPane;
-    @FXML
-    public TextArea outputTextArea;
+    @FXML public TabPane bottomTabPane;
+    @FXML public TextArea outputTextArea;
     @FXML public TextArea logsTextArea;
     @FXML public Tab logTab;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
     @FXML private SplitMenuButton runConfigSplitMenu;
+    @FXML private MenuItem venusFourOpMan;
+    @FXML private MenuItem venusFourProgMan;
+    @FXML private MenuItem hslDocs;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
@@ -82,6 +88,32 @@ public class MainView {
                 event.consume();
             }
         });
+    }
+
+    private void openDocument(Path path) throws IOException {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File document = new File(path.toFile().getAbsolutePath());
+                Desktop.getDesktop().open(document);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }
+
+    @FXML
+    public void onV4ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS four Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onV4OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS four Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onHslDocsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HamiltonStandardLanguage_HSL_Overview.ppt"));
     }
 
     /**

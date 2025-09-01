@@ -68,12 +68,13 @@
                         <items>
                             <Menu mnemonicParsing="false" text="Venus">
                               <items>
-                                <MenuItem mnemonicParsing="false" text="Venus 4 Operators Manual" />
+                                <MenuItem fx:id="venusFourOpMan" mnemonicParsing="false" text="Venus 4 Operators Manual" onAction="#onV4OpManClicked" />
+                                  <MenuItem fx:id="venusFourProgMan" mnemonicParsing="false" text="Venus 4 Programmer's Manual" onAction="#onV4ProgManClicked" />
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="HSL">
                               <items>
-                                <MenuItem mnemonicParsing="false" text="HSL Documentation" />
+                                <MenuItem fx:id="hslDocs" mnemonicParsing="false" text="HSL Documentation" onAction="#onHslDocsClicked" />
                               </items>
                             </Menu>
                           <MenuItem mnemonicParsing="false" text="TADM Programmer's Guide" />
