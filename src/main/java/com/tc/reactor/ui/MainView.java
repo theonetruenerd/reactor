@@ -90,6 +90,9 @@ public class MainView {
         });
     }
 
+    /**
+     * Function to handle opening of help documents
+     */
     private void openDocument(Path path) throws IOException {
         if (Desktop.isDesktopSupported()) {
             try {
