@@ -4,7 +4,7 @@ Reactor is a Java-based IDE for lab automation software and equipment.
 
 ## Installation
 
-Clone the repository and run the reactor.jar file.
+Clone the repository and run the command `javafx:run`.
 
 ## License
 
