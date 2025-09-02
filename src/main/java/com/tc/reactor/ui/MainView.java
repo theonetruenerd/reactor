@@ -96,7 +96,8 @@ public class MainView {
                 File document = new File(path.toFile().getAbsolutePath());
                 Desktop.getDesktop().open(document);
             } catch (IOException ex) {
-                // no application registered for PDFs
+                logsTextArea.appendText("\n> "+ex.getMessage());
+                bottomTabPane.getSelectionModel().select(logTab);
             }
         }
     }
@@ -112,13 +113,183 @@ public class MainView {
     }
 
     @FXML
-    public void onHslDocsClicked() throws IOException {
+    public void onHslOverviewClicked() throws IOException {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HamiltonStandardLanguage_HSL_Overview.ppt"));
     }
 
     @FXML
     public void onTadmManClicked() throws IOException {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/624031_03_TADM_Programmers_Guide.pdf"));
+    }
+
+    @FXML
+    public void onV2OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS two Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onV2ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS two Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onV3OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS three Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onV3ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS three Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onOrbitGuideClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Honeywell Orbit Scanner Documents/7120 Orbit User's Guide - English.pdf"));
+    }
+
+    @FXML
+    public void onMetroSelectConfigClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Honeywell Orbit Scanner Documents/MetroSelect Configuration Guide.pdf"));
+    }
+
+    @FXML
+    public void onHslAndDllsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HSL_and_DLLs_Overview.pptx"));
+    }
+
+    @FXML
+    public void onVectorHslLibIntClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/Vector_HSL_LibraryIntegration.pdf"));
+    }
+
+    @FXML
+    public void onMicrosideSQEffClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Microcide SQ/Microside SQ Efficacy.pdf"));
+    }
+
+    @FXML
+    public void onMicrocideSQMSDSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Microcide SQ/Microcide SQ MSDS_.doc"));
+    }
+
+    @FXML
+    public void onQGExpImportClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_ExportImport_Instructions_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGFixSyntASWClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_FixingSyntaxErrorsASWLibraries_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGPrepVectorDBClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_PrepareVectorDatabase_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGRabbitMQCLicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_RabbitMQ and VENUS_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGRunTwoStarsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_RunTwoSTARsFromOnePCandOneMethod_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGiSWAPTeachingClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_TeachingOffDeckWithiSWAP_v1.pdf"));
+    }
+
+    @FXML
+    public void onUsersCfgCorruptClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_Userscfg_CorruptionSolution_v1.pdf"));
+    }
+
+    @FXML
+    public void onVenusReinstallUpgradeClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_VENUS_ReinstallationAndUpgrades.pdf"));
+    }
+
+    @FXML
+    public void onVidRecordClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_VideoRecorderLibrary_v1.pdf"));
+    }
+
+    @FXML
+    public void onDbIntClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/Database_Integration.pptx"));
+    }
+
+    @FXML
+    public void onSqlRelDbClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/SQL_Statements&RelationalDatabases_v1.pdf"));
+    }
+
+    @FXML
+    public void onVectorDbClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database.ppt"));
+    }
+
+    @FXML
+    public void onVectorDbModelClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database Model.pdf"));
+    }
+
+    @FXML
+    public void onVectorDbPlusClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database Plus.ppt"));
+    }
+
+    @FXML
+    public void onVenusDynSchedClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/624030_01_VENUS_Dynamic_Scheduler_Manual.pdf"));
+    }
+
+    @FXML
+    public void onVen62SoftManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/10175292_00 VENUS 6-2 Software Programmer's Manual.pdf"));
+    }
+
+    @FXML
+    public void onLiqHandRefGuideClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/eBook_Liquid Handling Reference Guide_Revision2_Final.pdf"));
+    }
+
+    @FXML
+    public void onLVKClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Liquid Verification Kit User's Manual Rev A.pdf"));
+    }
+
+    @FXML
+    public void onSqlDbManInstallClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/SQL Server Database Manual Installation v1.pdf"));
+    }
+
+    @FXML
+    public void onUvLightClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/STAR UV Light Installation and User's Manual Rev E.pdf"));
+    }
+
+    @FXML
+    public void onLimsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/TN_NMBI-STRI-VTGI_HowToInterfaceLaboratoryInfoManagementSystems-TN052.pdf"));
+    }
+
+    @FXML
+    public void onProgPracticesClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS Programming Practices v5.pdf"));
+    }
+
+    @FXML
+    public void onV6SoftProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS 6 Software Programmer's Manual.pdf"));
+    }
+
+    @FXML
+    public void onVenusCFRClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS 21 CFR Part 11 Guide Rev B.pdf"));
     }
 
     /**

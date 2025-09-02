@@ -68,16 +68,90 @@
                         <items>
                             <Menu mnemonicParsing="false" text="Venus">
                               <items>
-                                <MenuItem fx:id="venusFourOpMan" mnemonicParsing="false" text="Venus 4 Operators Manual" onAction="#onV4OpManClicked" />
-                                  <MenuItem fx:id="venusFourProgMan" mnemonicParsing="false" text="Venus 4 Programmer's Manual" onAction="#onV4ProgManClicked" />
+                                 <Menu mnemonicParsing="false" text="Venus 2">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Venus 2 Operator's Manual" onAction="#onV2OpManClicked"/>
+                                       <MenuItem mnemonicParsing="false" text="Venus 2 Programmer's Manual" onAction="#onV2ProgManClicked"/>
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Venus 3">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Venus 3 Operator's Manual" onAction="#onV3OpManClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Venus 3 Programmer's Manual" onAction="#onV3ProgManClicked"/>
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Venus 4">
+                                   <items>
+                                      <MenuItem fx:id="venusFourOpMan" mnemonicParsing="false" onAction="#onV4OpManClicked" text="Venus 4 Operator's Manual" />
+                                        <MenuItem fx:id="venusFourProgMan" mnemonicParsing="false" onAction="#onV4ProgManClicked" text="Venus 4 Programmer's Manual" />
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Venus 6">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Venus 6 Software Programmer's Manual" onAction="#onV6SoftProgManClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Venus 6.2 Software Programmer's Manual" onAction="#onVen62SoftManClicked"/>
+                                   </items>
+                                 </Menu>
                               </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="HSL">
                               <items>
-                                <MenuItem fx:id="hslDocs" mnemonicParsing="false" text="HSL Documentation" onAction="#onHslDocsClicked" />
+                                <MenuItem fx:id="hslDocs" mnemonicParsing="false" onAction="#onHslOverviewClicked" text="HSL Overview" />
+                                 <MenuItem mnemonicParsing="false" text="HSL and DLLs Overview" onAction="#onHslAndDllsClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Vector HSL Library Integration" onAction="#onVectorHslLibIntClicked" />
                               </items>
                             </Menu>
-                          <MenuItem fx:id="tadmMan" mnemonicParsing="false" text="TADM Programmer's Guide" onAction="#onTadmManClicked"/>
+                           <Menu mnemonicParsing="false" text="Other Hamilton Docs">
+                             <items>
+                                 <Menu mnemonicParsing="false" text="Honeywell Orbital Scanner">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Orbit User's Guide" onAction="#onOrbitGuideClicked" />
+                                     <MenuItem mnemonicParsing="false" text="MetroSelect Configuration Guide" onAction="#onMetroSelectConfigClicked" />
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Microcide SQ">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Microcide SQ Efficacy" onAction="#onMicrosideSQEffClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Microcide SQ MSDS" onAction="#onMicrocideSQMSDSClicked" />
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Quick Guides">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Export-Import Instructions" onAction="#onQGExpImportClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Fixing Syntax Errors with ASW Libraries" onAction="#onQGFixSyntASWClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Prepare Vector Database" onAction="#onQGPrepVectorDBClicked" />
+                                       <MenuItem mnemonicParsing="false" text="RabbitMQ And Venus" onAction="#onQGRabbitMQCLicked" />
+                                       <MenuItem mnemonicParsing="false" text="Run 2 STARs From One PC and One Method" onAction="#onQGRunTwoStarsClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Teaching Off-Deck with iSWAP" onAction="#onQGiSWAPTeachingClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Users.cfg Corruption Solution" onAction="#onUsersCfgCorruptClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Venus Reinstallation and Upgrades" onAction="#onVenusReinstallUpgradeClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Video Recorder Library" onAction="#onVidRecordClicked" />
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="SQL Materials">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Database Integration" onAction="#onDbIntClicked" />
+                                       <MenuItem mnemonicParsing="false" text="SQL Statements and Relational Databases" onAction="#onSqlRelDbClicked" />
+                                       <MenuItem mnemonicParsing="false" text="SQL Server Database Manual Installation" onAction="#onSqlDbManInstallClicked" />
+                                   </items>
+                                 </Menu>
+                                 <Menu mnemonicParsing="false" text="Vector Database Materials">
+                                   <items>
+                                     <MenuItem mnemonicParsing="false" text="Vector Database" onAction="#onVectorDbClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Vector Database Model" onAction="#onVectorDbModelClicked" />
+                                       <MenuItem mnemonicParsing="false" text="Vector Database Plus" onAction="#onVectorDbPlusClicked" />
+                                   </items>
+                                 </Menu>
+                               <MenuItem mnemonicParsing="false" text="Venus Dynamic Scheduler Manual" />
+                                <MenuItem fx:id="tadmMan" mnemonicParsing="false" onAction="#onTadmManClicked" text="TADM Programmer's Guide" />
+                                 <MenuItem mnemonicParsing="false" text="Liquid Handling Reference Guide" onAction="#onLiqHandRefGuideClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Liquid Verification Kit User's Manual" onAction="#onLVKClicked" />
+                                 <MenuItem mnemonicParsing="false" text="STAR UV Light Installation and User's Manual" onAction="#onUvLightClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Interfacing LIMS with Hamilton Systems" onAction="#onLimsClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Venus Programming Practices" onAction="#onProgPracticesClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Venus 21 CFR" onAction="#onVenusCFRClicked" />
+                             </items>
+                           </Menu>
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Tecan">
