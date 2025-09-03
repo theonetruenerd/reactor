@@ -525,6 +525,11 @@ public class MainView {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-i-series/B56358AC.pdf"));
     }
 
+    @FXML
+    public void onFlexQSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/opentrons/flex/Opentrons Flex Quickstart Guide.pdf"));
+    }
+
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
      * populates the project tree tab with files from the selected directory.

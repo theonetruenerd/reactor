@@ -277,20 +277,24 @@
                          <items>
                            <Menu mnemonicParsing="false" text="Biomek 4000">
                              <items>
-                               <MenuItem mnemonicParsing="false" text="Software Manual" onAction="#onBio4000SoftManClicked" />
+                               <MenuItem mnemonicParsing="false" onAction="#onBio4000SoftManClicked" text="Software Manual" />
                              </items>
                            </Menu>
                            <Menu mnemonicParsing="false" text="Biomek i-Series">
                              <items>
-                               <MenuItem mnemonicParsing="false" text="i5 and i7 Instructions for Use" onAction="#onBioI57IFUClicked" />
-                                  <MenuItem mnemonicParsing="false" text="Reference Manual" onAction="#onBioIRefManClicked" />
+                               <MenuItem mnemonicParsing="false" onAction="#onBioI57IFUClicked" text="i5 and i7 Instructions for Use" />
+                                  <MenuItem mnemonicParsing="false" onAction="#onBioIRefManClicked" text="Reference Manual" />
                              </items>
                            </Menu>
                          </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Opentrons">
                          <items>
-                            <MenuItem mnemonicParsing="false" text="Coming soon" />
+                           <Menu mnemonicParsing="false" text="Flex">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Quickstart Guide" onAction="#onFlexQSClicked"/>
+                             </items>
+                           </Menu>
                          </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Waters">
