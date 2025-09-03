@@ -510,6 +510,21 @@ public class MainView {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/403062_en DX.pdf"));
     }
 
+    @FXML
+    public void onBio4000SoftManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-4000/B08852AA.pdf"));
+    }
+
+    @FXML
+    public void onBioI57IFUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-i-series/B54473AD.pdf"));
+    }
+
+    @FXML
+    public void onBioIRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-i-series/B56358AC.pdf"));
+    }
+
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
      * populates the project tree tab with files from the selected directory.
