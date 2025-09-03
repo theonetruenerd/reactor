@@ -64,6 +64,21 @@
                 <items>
                   <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" styleClass="root" text="About Reactor" />
                       <SeparatorMenuItem mnemonicParsing="false" />
+                      <Menu mnemonicParsing="false" text="Beckman-Coulter">
+                         <items>
+                           <Menu mnemonicParsing="false" text="Biomek 4000">
+                             <items>
+                               <MenuItem mnemonicParsing="false" onAction="#onBio4000SoftManClicked" text="Software Manual" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Biomek i-Series">
+                             <items>
+                               <MenuItem mnemonicParsing="false" onAction="#onBioI57IFUClicked" text="i5 and i7 Instructions for Use" />
+                                  <MenuItem mnemonicParsing="false" onAction="#onBioIRefManClicked" text="Reference Manual" />
+                             </items>
+                           </Menu>
+                         </items>
+                      </Menu>
                       <Menu mnemonicParsing="false" text="Hamilton">
                         <items>
                             <Menu mnemonicParsing="false" text="Venus">
@@ -153,6 +168,15 @@
                              </items>
                            </Menu>
                         </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Opentrons">
+                         <items>
+                           <Menu mnemonicParsing="false" text="Flex">
+                             <items>
+                               <MenuItem mnemonicParsing="false" onAction="#onFlexQSClicked" text="Quickstart Guide" />
+                             </items>
+                           </Menu>
+                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Tecan">
                          <items>
@@ -271,35 +295,6 @@
                                  <MenuItem mnemonicParsing="false" onAction="#onVeyaDxManClicked" text="Veya DX Operating Manual" />
                              </items>
                            </Menu>
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Beckman-Coulter">
-                         <items>
-                           <Menu mnemonicParsing="false" text="Biomek 4000">
-                             <items>
-                               <MenuItem mnemonicParsing="false" onAction="#onBio4000SoftManClicked" text="Software Manual" />
-                             </items>
-                           </Menu>
-                           <Menu mnemonicParsing="false" text="Biomek i-Series">
-                             <items>
-                               <MenuItem mnemonicParsing="false" onAction="#onBioI57IFUClicked" text="i5 and i7 Instructions for Use" />
-                                  <MenuItem mnemonicParsing="false" onAction="#onBioIRefManClicked" text="Reference Manual" />
-                             </items>
-                           </Menu>
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Opentrons">
-                         <items>
-                           <Menu mnemonicParsing="false" text="Flex">
-                             <items>
-                               <MenuItem mnemonicParsing="false" text="Quickstart Guide" onAction="#onFlexQSClicked"/>
-                             </items>
-                           </Menu>
-                         </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Waters">
-                         <items>
-                            <MenuItem mnemonicParsing="false" text="Coming soon" />
                          </items>
                       </Menu>
                 </items>
