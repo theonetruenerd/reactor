@@ -156,31 +156,136 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Tecan">
                          <items>
+                           <Menu mnemonicParsing="false" text="d300e">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Operating Manual" onAction="#onD300OpManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="EVO">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Operating Manual v10.1" onAction="#onEvoOpManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Evo75 Operating Manual v3.3" onAction="#onEvo75OpManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="EVOlution Software Manual v2.3" onAction="#onEvoAppManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="EVOlyzer">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Instrument Software Manual v6.5" onAction="#onEvolInstManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="EVOlyzer 2 Operator's Manual v2.10" onAction="#onEvol2OpManClicked"/>
+                                 <MenuItem mnemonicParsing="false" text="EVOlution Runtime Controller Manual v2.3" onAction="#onEvolRunManClicked"/>
+                                 <MenuItem mnemonicParsing="false" text="EVOlyzer 3 Operator's Manual v1.1" onAction="#onEvol3OpManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="EVOware">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="EVOware 2.8 Getting Started Guide" onAction="#onEvoWaGSClicked" />
+                                 <MenuItem mnemonicParsing="false" text="EVOware 2.8 General Purpose" onAction="#onEvoWaGPClicked" />
+                                 <MenuItem mnemonicParsing="false" text="EVOware 2.8 Research Use Only" onAction="#onEvoWaRUClicked"/>
+                                 <MenuItem mnemonicParsing="false" text="EVOware 2.8 ReadMe" onAction="#onEvoWaRMClicked"/>
+                             </items>
+                           </Menu>
                            <Menu mnemonicParsing="false" text="Fluent Control">
                              <items>
-                               <MenuItem mnemonicParsing="false" text="Software Manual 3.7 SP1" />
-                                  <MenuItem mnemonicParsing="false" text="Software Manual 3.7" />
-                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.6" />
-                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.5" />
-                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.4" />
-                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.3" />
+                               <MenuItem mnemonicParsing="false" text="Software Manual 3.7 SP1" onAction="#onFC37Clicked"/>
+                                  <MenuItem mnemonicParsing="false" text="Software Manual 3.7" onAction="#onFC371Clicked" />
+                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.6" onAction="#onFC36Clicked"/>
+                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.5" onAction="#onFC35Clicked"/>
+                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.4" onAction="#onFC34Clicked"/>
+                                 <MenuItem mnemonicParsing="false" text="Software Manual 3.3" onAction="#onFC33Clicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Fluent Dx">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Operating Manual" onAction="#onFDXOpManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Secure Operating Manual v1.1" onAction="#onFDXSecManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Reference Manual v1.0" onAction="#onFDXRefManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Fluent Gx">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Operating Manual v2.7" onAction="#onFGXOpManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Secure Operating Manual v1.1" onAction="#onFGXSecManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Reference Manual v1.8" onAction="#onFGXRefManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="HydroFlex">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="HydroFlex General Purpose v1.3" onAction="#onHydroManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="HydroFlex Plus v1.3" onAction="#onHydroPlusManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="HydroSpeed">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="HydroSpeed General Purpose v2.0" onAction="#onHydroSpeedManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="HydroWasher">
+                             <items>
+                                 <MenuItem mnemonicParsing="false" text="HydroControl v2.5" onAction="#onHydroCtrlClicked" />
+                               <MenuItem mnemonicParsing="false" text="HydroWasher Driver v1.4" onAction="#onHydroWashDrivClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Infinite 200 Pro">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Instructions for Use v1.5" onAction="#onInfProManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Infinite f50 Plus">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Instructions for Use v1.2" onAction="#onInfPlusManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Magellan">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Magellan Instructions for Use v1.5" onAction="#onMagManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Magellan Pro Instructions for Use v1.1" onAction="#onMagProManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Resolvex">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Operator's Manual" onAction="#onResManClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Sample Tracking">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Software Manual" onAction="#onSamTrackClicked"/>
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Spark">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="SparkControl Instructions for Use v2.4" onAction="#onSparCtrlClicked"/>
+                                 <MenuItem mnemonicParsing="false" text="Reference v2.5" onAction="#onSparRefClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Basic Guide v2.4" onAction="#onSparBGClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Sunrise">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Instructions for Use v1.1" onAction="#onSunriseIFUClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Instructions for Use v2.9" onAction="#onSunriseManClicked" />
+                             </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Veya">
+                             <items>
+                               <MenuItem mnemonicParsing="false" text="Veya Operating Manual" onAction="#onVeyaOpManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Veya Secure Operating Manual" onAction="#onVeyaSecManClicked" />
+                                 <MenuItem mnemonicParsing="false" text="Veya DX Operating Manual" onAction="#onVeyaDxManClicked" />
                              </items>
                            </Menu>
                          </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Beckman-Coulter">
                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Coming soon" />
                          </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Opentrons">
                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Coming soon" />
                          </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Waters">
                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Coming soon" />
                          </items>
                       </Menu>
                 </items>

@@ -295,6 +295,221 @@ public class MainView {
         openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS 21 CFR Part 11 Guide Rev B.pdf"));
     }
 
+    @FXML
+    public void onD300OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/d300e/D300e Digital Dispenser Operating Manual.pdf"));
+    }
+
+    @FXML
+    public void onEvoOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/392886_EVO OpM_V10_1.pdf"));
+    }
+
+    @FXML
+    public void onEvo75OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/393248_EVO75 OpM_V3_3.pdf"));
+    }
+
+    @FXML
+    public void onEvoAppManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/394802_en_V2_3 Application Software Manual Fdm EVOlution-1.pdf"));
+    }
+
+    @FXML
+    public void onEvolInstManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/392888_en_V6_5 Instrument Software Manual.pdf"));
+    }
+
+    @FXML
+    public void onEvol2OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/393035_EVOlyzer2 OpM_en_V2_10.pdf"));
+    }
+
+    @FXML
+    public void onEvolRunManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/394803_en_v2_3 Runtime Controller Manual Fdm EVOlution-1.pdf"));
+    }
+
+    @FXML
+    public void onEvol3OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/402249 EVOlyzer3 OpM V1.1.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaGSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Getting Started Guide Freedom EVOware 2.8 SP7.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaGPClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Manual Freedom EVOware 2.8 SP7 General Purpose.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaRUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Manual Freedom EVOware 2.8 SP7 Research Use Only.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaRMClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Readme Freedom EVOware 2.8 SP7.pdf"));
+    }
+
+    @FXML
+    public void onFC37Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl Application Software Manual 3.7 SP1.pdf"));
+    }
+
+    @FXML
+    public void onFC33Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.3 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC34Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.4 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC35Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.5 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC36Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactpr/documentation/tecan/fluent-control/FluentControl 3.6 pdf"));
+    }
+
+    @FXML
+    public void onFC371Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.7 Manual 1.pdf"));
+    }
+
+    @FXML
+    public void onFDXOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403096_en.pdf"));
+    }
+
+    @FXML
+    public void onFDXSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403097_OM_Secure_Fluent_V1.1.pdf"));
+    }
+
+    @FXML
+    public void onFDXRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403190_Reference Manual Fluent Dx V1.0.pdf"));
+    }
+
+    @FXML
+    public void onFGXOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/399706_en V2_7.pdf"));
+    }
+
+    @FXML
+    public void onFGXSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/403097_OM_Secure_Fluent_v1.1.pdf"));
+    }
+
+    @FXML
+    public void onFGXRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/399937_Fluent Reference Manual V1.8.pdf"));
+    }
+
+    @FXML
+    public void onHydroManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydroflex/30115019_IFU_HYDROFLEX_ENGLISH_GP_V1_3-1.pdf"));
+    }
+
+    @FXML
+    public void onHydroPlusManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydroflex/30199906_IFU_HYDROFLEX_PLUS_ENGLISH_V1_3.pdf"));
+    }
+
+    @FXML
+    public void onHydroSpeedManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrospeed/30086672_IFU_HYDROSPEED_ENGLISH_GP_V2_0.pdf"));
+    }
+
+    @FXML
+    public void onHydroCtrlClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrowasher/30064355_IFU_HydroControl_V2_5_English.pdf"));
+    }
+
+    @FXML
+    public void onHydroWashDrivClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrowasher/30064372_IFU_HydroWasher_Driver_V1_4_English.pdf"));
+    }
+
+    @FXML
+    public void onInfProManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/infinite-200-pro/30125943_IFU_Infinite200-PRO_V1_5_English.pdf"));
+    }
+
+    @FXML
+    public void onInfPlusManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/infinite-f50-plus/30186912_IFU_INFINITE_F50_PLUS_V1_2_English.pdf"));
+    }
+
+    @FXML
+    public void onMagManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/magellan/30143531_IFU_MAGELLAN_ENGLISH_V1_5.pdf"));
+    }
+
+    @FXML
+    public void onMagProManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/magellan/30169003_IFU_Magellan_Pro_7-4_English_V1_1.pdf"));
+    }
+
+    @FXML
+    public void onResManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/resolvex/253-5286-REV-L DOC RESOLVEX A200 OP MANUAL ENGLISH 1.pdf"));
+    }
+
+    @FXML
+    public void onSamTrackClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sample-tracking/393933.pdf"));
+    }
+
+    @FXML
+    public void onSparCtrlClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30145640_IFU_SparkControl_V2_4.pdf"));
+    }
+
+    @FXML
+    public void onSparRefClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30246429_IFU_SPARK_REF_ENGLISH_V2_5.pdf"));
+    }
+
+    @FXML
+    public void onSparBGClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30246431_IFU_SPARK_BASIC_GUIDE_V2_4_ENGLISH.pdf"));
+    }
+
+    @FXML
+    public void onSunriseManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sunrise/30086638_IFU_SUNRISE_GP_V2_9_ENGLISH-1.pdf"));
+    }
+
+    @FXML
+    public void onSunriseIFUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sunrise/30213635_IFU_SUNRISE_GP_ENGLISH_V1_0.pdf"));
+    }
+
+    @FXML
+    public void onVeyaOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/402664_en.pdf"));
+    }
+
+    @FXML
+    public void onVeyaSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/403037 sec.pdf"));
+    }
+
+    @FXML
+    public void onVeyaDxManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/403062_en DX.pdf"));
+    }
+
     /**
      * Handles the click event for the open project menu item. Opens a folder browser and
      * populates the project tree tab with files from the selected directory.
