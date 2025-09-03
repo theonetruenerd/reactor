@@ -14,6 +14,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -28,9 +31,11 @@ import org.fxmisc.richtext.CodeArea;
 import com.tc.reactor.support.languages.hsl.LibraryHandler;
 import org.fxmisc.richtext.LineNumberFactory;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.List;
 
 public class MainView {
 
@@ -38,15 +43,16 @@ public class MainView {
     @FXML private MenuBar menuBar;
     @FXML private TreeView<String> projectTree;
     @FXML private TabPane mainTabPane;
-    @FXML
-    public TabPane bottomTabPane;
-    @FXML
-    public TextArea outputTextArea;
+    @FXML public TabPane bottomTabPane;
+    @FXML public TextArea outputTextArea;
     @FXML public TextArea logsTextArea;
     @FXML public Tab logTab;
     @FXML private TreeView<String> gitCommitTreeView;
     @FXML private TextArea commitMessageTextArea;
     @FXML private SplitMenuButton runConfigSplitMenu;
+    @FXML private MenuItem venusFourOpMan;
+    @FXML private MenuItem venusFourProgMan;
+    @FXML private MenuItem hslDocs;
 
     private final GitUtils gitUtils = new GitUtils();
     private final Map<String, String> fileMap = new HashMap<>();
@@ -82,6 +88,446 @@ public class MainView {
                 event.consume();
             }
         });
+    }
+
+    /**
+     * Function to handle opening of help documents
+     */
+    private void openDocument(Path path) throws IOException {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File document = new File(path.toFile().getAbsolutePath());
+                Desktop.getDesktop().open(document);
+            } catch (IOException ex) {
+                logsTextArea.appendText("\n> "+ex.getMessage());
+                bottomTabPane.getSelectionModel().select(logTab);
+            }
+        }
+    }
+
+    @FXML
+    public void onV4ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS four Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onV4OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS four Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onHslOverviewClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HamiltonStandardLanguage_HSL_Overview.ppt"));
+    }
+
+    @FXML
+    public void onTadmManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/624031_03_TADM_Programmers_Guide.pdf"));
+    }
+
+    @FXML
+    public void onV2OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS two Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onV2ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS two Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onV3OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS three Operators Manual.pdf"));
+    }
+
+    @FXML
+    public void onV3ProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Manuals prior to VENUS four/VENUS three Programmers Manual.pdf"));
+    }
+
+    @FXML
+    public void onOrbitGuideClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Honeywell Orbit Scanner Documents/7120 Orbit User's Guide - English.pdf"));
+    }
+
+    @FXML
+    public void onMetroSelectConfigClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Honeywell Orbit Scanner Documents/MetroSelect Configuration Guide.pdf"));
+    }
+
+    @FXML
+    public void onHslAndDllsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/HSL_and_DLLs_Overview.pptx"));
+    }
+
+    @FXML
+    public void onVectorHslLibIntClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/HSL Materials/Vector_HSL_LibraryIntegration.pdf"));
+    }
+
+    @FXML
+    public void onMicrosideSQEffClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Microcide SQ/Microside SQ Efficacy.pdf"));
+    }
+
+    @FXML
+    public void onMicrocideSQMSDSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Microcide SQ/Microcide SQ MSDS_.doc"));
+    }
+
+    @FXML
+    public void onQGExpImportClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_ExportImport_Instructions_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGFixSyntASWClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_FixingSyntaxErrorsASWLibraries_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGPrepVectorDBClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_PrepareVectorDatabase_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGRabbitMQCLicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_RabbitMQ and VENUS_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGRunTwoStarsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_RunTwoSTARsFromOnePCandOneMethod_v1.pdf"));
+    }
+
+    @FXML
+    public void onQGiSWAPTeachingClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_TeachingOffDeckWithiSWAP_v1.pdf"));
+    }
+
+    @FXML
+    public void onUsersCfgCorruptClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_Userscfg_CorruptionSolution_v1.pdf"));
+    }
+
+    @FXML
+    public void onVenusReinstallUpgradeClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_VENUS_ReinstallationAndUpgrades.pdf"));
+    }
+
+    @FXML
+    public void onVidRecordClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Quick Guides/QuickGuide_VideoRecorderLibrary_v1.pdf"));
+    }
+
+    @FXML
+    public void onDbIntClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/Database_Integration.pptx"));
+    }
+
+    @FXML
+    public void onSqlRelDbClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/SQL_Statements&RelationalDatabases_v1.pdf"));
+    }
+
+    @FXML
+    public void onVectorDbClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database.ppt"));
+    }
+
+    @FXML
+    public void onVectorDbModelClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database Model.pdf"));
+    }
+
+    @FXML
+    public void onVectorDbPlusClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Vector Database Materials/Vector Database Plus.ppt"));
+    }
+
+    @FXML
+    public void onVenusDynSchedClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/624030_01_VENUS_Dynamic_Scheduler_Manual.pdf"));
+    }
+
+    @FXML
+    public void onVen62SoftManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/10175292_00 VENUS 6-2 Software Programmer's Manual.pdf"));
+    }
+
+    @FXML
+    public void onLiqHandRefGuideClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/eBook_Liquid Handling Reference Guide_Revision2_Final.pdf"));
+    }
+
+    @FXML
+    public void onLVKClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/Liquid Verification Kit User's Manual Rev A.pdf"));
+    }
+
+    @FXML
+    public void onSqlDbManInstallClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/SQL Materials/SQL Server Database Manual Installation v1.pdf"));
+    }
+
+    @FXML
+    public void onUvLightClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/STAR UV Light Installation and User's Manual Rev E.pdf"));
+    }
+
+    @FXML
+    public void onLimsClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/TN_NMBI-STRI-VTGI_HowToInterfaceLaboratoryInfoManagementSystems-TN052.pdf"));
+    }
+
+    @FXML
+    public void onProgPracticesClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS Programming Practices v5.pdf"));
+    }
+
+    @FXML
+    public void onV6SoftProgManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS 6 Software Programmer's Manual.pdf"));
+    }
+
+    @FXML
+    public void onVenusCFRClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/hamilton/VENUS 21 CFR Part 11 Guide Rev B.pdf"));
+    }
+
+    @FXML
+    public void onD300OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/d300e/D300e Digital Dispenser Operating Manual.pdf"));
+    }
+
+    @FXML
+    public void onEvoOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/392886_EVO OpM_V10_1.pdf"));
+    }
+
+    @FXML
+    public void onEvo75OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/393248_EVO75 OpM_V3_3.pdf"));
+    }
+
+    @FXML
+    public void onEvoAppManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evo/394802_en_V2_3 Application Software Manual Fdm EVOlution-1.pdf"));
+    }
+
+    @FXML
+    public void onEvolInstManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/392888_en_V6_5 Instrument Software Manual.pdf"));
+    }
+
+    @FXML
+    public void onEvol2OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/393035_EVOlyzer2 OpM_en_V2_10.pdf"));
+    }
+
+    @FXML
+    public void onEvolRunManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/394803_en_v2_3 Runtime Controller Manual Fdm EVOlution-1.pdf"));
+    }
+
+    @FXML
+    public void onEvol3OpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evolyzer/402249 EVOlyzer3 OpM V1.1.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaGSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Getting Started Guide Freedom EVOware 2.8 SP7.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaGPClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Manual Freedom EVOware 2.8 SP7 General Purpose.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaRUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Manual Freedom EVOware 2.8 SP7 Research Use Only.pdf"));
+    }
+
+    @FXML
+    public void onEvoWaRMClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/evoware/Readme Freedom EVOware 2.8 SP7.pdf"));
+    }
+
+    @FXML
+    public void onFC37Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl Application Software Manual 3.7 SP1.pdf"));
+    }
+
+    @FXML
+    public void onFC33Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.3 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC34Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.4 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC35Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.5 Manual.pdf"));
+    }
+
+    @FXML
+    public void onFC36Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactpr/documentation/tecan/fluent-control/FluentControl 3.6 pdf"));
+    }
+
+    @FXML
+    public void onFC371Clicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-control/FluentControl 3.7 Manual 1.pdf"));
+    }
+
+    @FXML
+    public void onFDXOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403096_en.pdf"));
+    }
+
+    @FXML
+    public void onFDXSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403097_OM_Secure_Fluent_V1.1.pdf"));
+    }
+
+    @FXML
+    public void onFDXRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-dx/403190_Reference Manual Fluent Dx V1.0.pdf"));
+    }
+
+    @FXML
+    public void onFGXOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/399706_en V2_7.pdf"));
+    }
+
+    @FXML
+    public void onFGXSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/403097_OM_Secure_Fluent_v1.1.pdf"));
+    }
+
+    @FXML
+    public void onFGXRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/fluent-gx/399937_Fluent Reference Manual V1.8.pdf"));
+    }
+
+    @FXML
+    public void onHydroManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydroflex/30115019_IFU_HYDROFLEX_ENGLISH_GP_V1_3-1.pdf"));
+    }
+
+    @FXML
+    public void onHydroPlusManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydroflex/30199906_IFU_HYDROFLEX_PLUS_ENGLISH_V1_3.pdf"));
+    }
+
+    @FXML
+    public void onHydroSpeedManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrospeed/30086672_IFU_HYDROSPEED_ENGLISH_GP_V2_0.pdf"));
+    }
+
+    @FXML
+    public void onHydroCtrlClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrowasher/30064355_IFU_HydroControl_V2_5_English.pdf"));
+    }
+
+    @FXML
+    public void onHydroWashDrivClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/hydrowasher/30064372_IFU_HydroWasher_Driver_V1_4_English.pdf"));
+    }
+
+    @FXML
+    public void onInfProManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/infinite-200-pro/30125943_IFU_Infinite200-PRO_V1_5_English.pdf"));
+    }
+
+    @FXML
+    public void onInfPlusManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/infinite-f50-plus/30186912_IFU_INFINITE_F50_PLUS_V1_2_English.pdf"));
+    }
+
+    @FXML
+    public void onMagManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/magellan/30143531_IFU_MAGELLAN_ENGLISH_V1_5.pdf"));
+    }
+
+    @FXML
+    public void onMagProManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/magellan/30169003_IFU_Magellan_Pro_7-4_English_V1_1.pdf"));
+    }
+
+    @FXML
+    public void onResManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/resolvex/253-5286-REV-L DOC RESOLVEX A200 OP MANUAL ENGLISH 1.pdf"));
+    }
+
+    @FXML
+    public void onSamTrackClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sample-tracking/393933.pdf"));
+    }
+
+    @FXML
+    public void onSparCtrlClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30145640_IFU_SparkControl_V2_4.pdf"));
+    }
+
+    @FXML
+    public void onSparRefClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30246429_IFU_SPARK_REF_ENGLISH_V2_5.pdf"));
+    }
+
+    @FXML
+    public void onSparBGClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/spark/30246431_IFU_SPARK_BASIC_GUIDE_V2_4_ENGLISH.pdf"));
+    }
+
+    @FXML
+    public void onSunriseManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sunrise/30086638_IFU_SUNRISE_GP_V2_9_ENGLISH-1.pdf"));
+    }
+
+    @FXML
+    public void onSunriseIFUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/sunrise/30213635_IFU_SUNRISE_GP_ENGLISH_V1_0.pdf"));
+    }
+
+    @FXML
+    public void onVeyaOpManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/402664_en.pdf"));
+    }
+
+    @FXML
+    public void onVeyaSecManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/403037 sec.pdf"));
+    }
+
+    @FXML
+    public void onVeyaDxManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/tecan/veya/403062_en DX.pdf"));
+    }
+
+    @FXML
+    public void onBio4000SoftManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-4000/B08852AA.pdf"));
+    }
+
+    @FXML
+    public void onBioI57IFUClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-i-series/B54473AD.pdf"));
+    }
+
+    @FXML
+    public void onBioIRefManClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/beckman-coulter/biomek-i-series/B56358AC.pdf"));
+    }
+
+    @FXML
+    public void onFlexQSClicked() throws IOException {
+        openDocument(Path.of("src/main/resources/com/tc/reactor/documentation/opentrons/flex/Opentrons Flex Quickstart Guide.pdf"));
     }
 
     /**
