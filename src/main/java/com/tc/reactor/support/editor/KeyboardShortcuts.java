@@ -43,9 +43,6 @@ public class KeyboardShortcuts {
             } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CommentLine();
                 event.consume();
-            } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
-                shortcutFunctions.CloseFileTab();
-                event.consume();
             } else if (new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.DeleteLine();
                 event.consume();
@@ -84,6 +81,156 @@ public class KeyboardShortcuts {
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.CloseWindow();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.CharBackTab();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CharTab();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F11, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.ClearAllBookmarks();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.ESCAPE, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ClearSelection();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CollapseRegion();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.CollapseAllRegions();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PLUS, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.UncollapseRegion();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PLUS, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.UncollapseAllRegions();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.CollapseAllSubregions();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PLUS, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.UncollapseAllSubregions();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CreateNewFile();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F3).match(event)) {
+                shortcutFunctions.FindNext();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F3, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.FindPrevious();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.FindScope();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.GoToLine();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ToggleBookmark();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.OpenRefactoringMenu();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.OpenDocumentation();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ImportDependencies();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.UP, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.MoveLineUp();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.DOWN, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.MoveLineDown();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToBlockStart();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToBlockEnd();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.LEFT, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.MoveToLineStart();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.MoveToLineEnd();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.END, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.MoveToMethodEnd();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.END, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToMethodStart();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.MoveToNextBookmark();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToPreviousBookmark();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToWordEnd();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.LEFT, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.MoveToWordStart();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.NavigateToSpecificEditorTab();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.OpenSettings();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.SearchInProject();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.OpenScratchFile();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.RenameFile();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Replace();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PAGE_UP, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ScrollUp();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PAGE_DOWN, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ScrollDown();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.SelectionToUppercase();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.SelectionToLowercase();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.SelectWord();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.ShowAllSymbols();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.GoToSymbolDeclaration();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F12).match(event)) {
+                shortcutFunctions.ToggleFullscreen();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.ToggleViewWhitespace();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.INSERT).match(event)) {
+                shortcutFunctions.ToggleInsert();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.ToggleFindRegex();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.PLUS, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.ZoomIn();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.MINUS, KeyCombination.ALT_DOWN).match(event)) {
+                shortcutFunctions.ZoomOut();
                 event.consume();
             }
         });
@@ -166,8 +313,6 @@ public class KeyboardShortcuts {
         public void GoToSymbolDeclaration() {}
 
         public void ImportDependencies() {}
-
-        public void IndentSelection() {}
 
         public void MoveLineDown() {}
 
@@ -264,8 +409,6 @@ public class KeyboardShortcuts {
         public void Undo() {
             codeArea.undo();
         }
-
-        public void UnindentSelection() {}
 
         public void ZoomIn() {}
 
