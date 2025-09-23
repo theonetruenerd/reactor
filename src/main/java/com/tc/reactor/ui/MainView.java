@@ -1,10 +1,7 @@
 package com.tc.reactor.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tc.reactor.support.editor.CodeAutocompletion;
-import com.tc.reactor.support.editor.CodeFormatter;
-import com.tc.reactor.support.editor.ContextMenuSetup;
-import com.tc.reactor.support.editor.SyntaxManager;
+import com.tc.reactor.support.editor.*;
 import com.tc.reactor.support.git.GitUtils;
 import com.tc.reactor.support.languages.hsl.RealTimeSyntaxChecker;
 import javafx.application.Platform;
@@ -42,7 +39,7 @@ public class MainView {
     // Defining the FXML classes:
     @FXML private MenuBar menuBar;
     @FXML private TreeView<String> projectTree;
-    @FXML private TabPane mainTabPane;
+    @FXML public TabPane mainTabPane;
     @FXML public TabPane bottomTabPane;
     @FXML public TextArea outputTextArea;
     @FXML public TextArea logsTextArea;
@@ -69,7 +66,6 @@ public class MainView {
     @FXML
     private void initialize() throws IOException {
         setupInitialTabs();
-        Platform.runLater(this::setupKeyboardShortcuts);
         try {
             RunConfig runConfig = new RunConfig();
             runConfig.loadRunConfigsFromFile();
@@ -78,16 +74,6 @@ public class MainView {
             bottomTabPane.getSelectionModel().select(logTab);
         }
         updateRunConfigMenu();
-    }
-
-    private void setupKeyboardShortcuts() {
-        menuBar.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN).match(event))
-            {
-                saveCurrentFile();
-                event.consume();
-            }
-        });
     }
 
     /**
@@ -1074,7 +1060,7 @@ public class MainView {
         contextMenuSetup.setMainView(this);
         System.out.println("Context menu setup: " + contextMenuSetup);
 
-        // Setup code autocompletion for supported languages
+        // Setup code autocompletion for supported languages - change to switch/case when more languages supported
         if ("hsl".equals(extension)) {
             new CodeAutocompletion(editor, extension);
             RealTimeSyntaxChecker syntaxChecker = new RealTimeSyntaxChecker();
@@ -1103,6 +1089,11 @@ public class MainView {
         System.out.println("Editor text: " + editor.getText());
         mainTabPane.getTabs().add(tab);
         mainTabPane.getSelectionModel().select(tab);
+
+        KeyboardShortcuts keyboardShortcuts = new KeyboardShortcuts();
+        keyboardShortcuts.setMainView(this);
+        keyboardShortcuts.setCodeArea(editor);
+        keyboardShortcuts.SetupShortcuts();
     }
 
     /**
