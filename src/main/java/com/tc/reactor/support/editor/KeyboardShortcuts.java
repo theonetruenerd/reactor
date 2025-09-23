@@ -1,7 +1,5 @@
 package com.tc.reactor.support.editor;
 
-// TODO DECIDE ON KEYBINDS
-
 import com.tc.reactor.ui.MainView;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -10,8 +8,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.NavigationActions;
-
-import java.util.Map;
 
 public class KeyboardShortcuts {
 
@@ -31,10 +27,7 @@ public class KeyboardShortcuts {
     public void SetupShortcuts (){
         codeArea.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 
-            if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
-                shortcutFunctions.Save();
-                event.consume();
-            } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN).match(event)) {
+            if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.NextFileTab();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
@@ -220,9 +213,6 @@ public class KeyboardShortcuts {
             } else if (new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.ToggleViewWhitespace();
                 event.consume();
-            } else if (new KeyCodeCombination(KeyCode.INSERT).match(event)) {
-                shortcutFunctions.ToggleInsert();
-                event.consume();
             } else if (new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCombination.ALT_DOWN).match(event)) {
                 shortcutFunctions.ToggleFindRegex();
                 event.consume();
@@ -238,9 +228,13 @@ public class KeyboardShortcuts {
 
     private class ShortcutFunctions {
 
-        public void CharBackTab() {}
+        public void CharBackTab() {
 
-        public void CharTab() {}
+        }
+
+        public void CharTab() {
+            codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0), "\t");
+        }
 
         public void ClearAllBookmarks() {}
 
@@ -314,9 +308,19 @@ public class KeyboardShortcuts {
 
         public void ImportDependencies() {}
 
-        public void MoveLineDown() {}
+        public void MoveLineDown() {
+            codeArea.selectLine();
+            codeArea.cut();
+            codeArea.moveTo(codeArea.getCurrentParagraph() + 1, 0);
+            codeArea.paste();
+        }
 
-        public void MoveLineUp() {}
+        public void MoveLineUp() {
+            codeArea.selectLine();
+            codeArea.cut();
+            codeArea.moveTo(codeArea.getCurrentParagraph() - 1, 0);
+            codeArea.paste();
+        }
 
         public void MoveToBlockEnd() {}
 
@@ -368,8 +372,6 @@ public class KeyboardShortcuts {
 
         public void Replace() {}
 
-        public void Save() {}
-
         public void ScrollDown() { codeArea.scrollYBy(codeArea.getLayoutBounds().getHeight() / 2);}
 
         public void ScrollUp() { codeArea.scrollYBy(-codeArea.getLayoutBounds().getHeight() / 2);}
@@ -395,8 +397,6 @@ public class KeyboardShortcuts {
         public void ToggleFindRegex() {}
 
         public void ToggleFullscreen() {}
-
-        public void ToggleInsert() {}
 
         public void ToggleViewWhitespace() { }
 
