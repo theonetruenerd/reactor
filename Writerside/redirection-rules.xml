@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="53326472">
+        <description><![CDATA[Created after removal of "Safety & Compliance" from Reactor]]></description>
+        <accepts>Safety-Compliance.html</accepts>
+    </rule>
+    <rule id="7abe5b8b">
+        <description>Created after removal of "Equipment Integration" from Reactor</description>
+        <accepts>Equipment-Integration.html</accepts>
+    </rule>
+    <rule id="3d3f61c1">
+        <description>Created after removal of "Supported Devices" from Reactor</description>
+        <accepts>Supported-Devices.html</accepts>
+    </rule>
+    <rule id="6bff2829">
+        <description>Created after removal of "Device Configuration" from Reactor</description>
+        <accepts>Device-Configuration.html</accepts>
+    </rule>
+    <rule id="5fee81dd">
+        <description>Created after removal of "Liquid Handling" from Reactor</description>
+        <accepts>Liquid-Handling.html</accepts>
+    </rule>
+    <rule id="4cbdbc89">
+        <description>Created after removal of "Automation Workflows" from Reactor</description>
+        <accepts>Automation-Workflows.html</accepts>
+    </rule>
+</rules>
