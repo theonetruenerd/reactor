@@ -32,27 +32,21 @@ public class KeyboardShortcuts {
         codeArea.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 
             if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> File save keybind pressed");
                 shortcutFunctions.Save();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> Next file tab keybind pressed");
                 shortcutFunctions.NextFileTab();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> Previous file tab keybind pressed");
                 shortcutFunctions.PreviousFileTab();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> Comment line keybind pressed");
                 shortcutFunctions.CommentLine();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> Close tab keybind pressed");
                 shortcutFunctions.CloseFileTab();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
-                mainView.logsTextArea.appendText("\n> Delete line keybind pressed");
                 shortcutFunctions.DeleteLine();
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN).match(event)) {
