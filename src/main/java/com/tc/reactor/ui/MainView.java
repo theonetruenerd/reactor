@@ -705,7 +705,7 @@ public class MainView {
     	projectTree.setRoot(new TreeItem<>(""));
     }
 
-    private void saveCurrentFile() {
+    public void saveCurrentFile() {
         Tab currentTab = mainTabPane.getSelectionModel().getSelectedItem();
         if (currentTab == null || currentTab.getUserData() == null) {
             logsTextArea.appendText("\n> "+"No active file to save.");

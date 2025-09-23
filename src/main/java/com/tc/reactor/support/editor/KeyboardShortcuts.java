@@ -33,6 +33,9 @@ public class KeyboardShortcuts {
             } else if (new KeyCodeCombination(KeyCode.TAB, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.PreviousFileTab();
                 event.consume();
+            } else if (new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Save();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.BACK_SLASH, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CommentLine();
                 event.consume();
@@ -396,6 +399,10 @@ public class KeyboardShortcuts {
 
         public void Replace() {
             mainView.logsTextArea.appendText("\n> Replace shortcut pressed, but not implemented yet.");}
+
+        public void Save() {
+            mainView.saveCurrentFile();
+        }
 
         public void ScrollDown() { codeArea.scrollYBy(codeArea.getLayoutBounds().getHeight() / 2);}
 
