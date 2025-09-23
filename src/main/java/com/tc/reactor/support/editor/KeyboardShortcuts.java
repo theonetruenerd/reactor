@@ -75,16 +75,22 @@ public class KeyboardShortcuts {
                 event.consume();
             } else if (new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.SelectAll();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.DuplicateLine();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.CutLine();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CloseProject();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN).match(event)) {
                 shortcutFunctions.CloseFileTab();
+                event.consume();
             } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
                 shortcutFunctions.CloseWindow();
+                event.consume();
             }
         });
     }
