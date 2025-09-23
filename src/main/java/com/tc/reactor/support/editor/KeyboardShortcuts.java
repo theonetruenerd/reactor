@@ -229,14 +229,15 @@ public class KeyboardShortcuts {
     private class ShortcutFunctions {
 
         public void CharBackTab() {
-
+            mainView.logsTextArea.appendText("\n> CharBackTab shortcut pressed, but not implemented yet.");
         }
 
         public void CharTab() {
             codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0), "\t");
         }
 
-        public void ClearAllBookmarks() {}
+        public void ClearAllBookmarks() {
+            mainView.logsTextArea.appendText("\n> ClearAlLBookmarks shortcut pressed, but not implemented yet.");}
 
         public void ClearSelection() { codeArea.deselect(); }
 
@@ -250,11 +251,14 @@ public class KeyboardShortcuts {
             Platform.exit();
         }
 
-        public void CollapseAllRegions() {}
+        public void CollapseAllRegions() {
+            mainView.logsTextArea.appendText("\n> CollapseAllRegions shortcut pressed, but not implemented yet.");}
 
-        public void CollapseAllSubregions() {}
+        public void CollapseAllSubregions() {
+            mainView.logsTextArea.appendText("\n> CollapseAllSubregions shortcut pressed, but not implemented yet.");}
 
-        public void CollapseRegion() {}
+        public void CollapseRegion() {
+            mainView.logsTextArea.appendText("\n> CollapseRegion shortcut pressed, but not implemented yet.");}
 
         public void CommentLine() {
             // Currently assumes tab name doesn't have a dot in it other than for file extension; perhaps an easier / more
@@ -273,7 +277,8 @@ public class KeyboardShortcuts {
             codeArea.copy();
         }
 
-        public void CreateNewFile() { }
+        public void CreateNewFile() {
+            mainView.logsTextArea.appendText("\n> CreateNewFile shortcut pressed, but not implemented yet.");}
 
         public void Cut() {
             codeArea.cut();
@@ -294,19 +299,26 @@ public class KeyboardShortcuts {
             codeArea.insertText(codeArea.getAbsolutePosition(codeArea.getCurrentParagraph(), 0), line + "\n");
         }
 
-        public void Find() {}
+        public void Find() {
+            mainView.logsTextArea.appendText("\n> Find shortcut pressed, but not implemented yet.");}
 
-        public void FindNext() {}
+        public void FindNext() {
+            mainView.logsTextArea.appendText("\n> FindNext shortcut pressed, but not implemented yet.");}
 
-        public void FindPrevious() {}
+        public void FindPrevious() {
+            mainView.logsTextArea.appendText("\n> FindPrevious shortcut pressed, but not implemented yet.");}
 
-        public void FindScope() {}
+        public void FindScope() {
+            mainView.logsTextArea.appendText("\n> FindScope shortcut pressed, but not implemented yet.");}
 
-        public void GoToLine() {}
+        public void GoToLine() {
+            mainView.logsTextArea.appendText("\n> GoToLine shortcut pressed, but not implemented yet.");}
 
-        public void GoToSymbolDeclaration() {}
+        public void GoToSymbolDeclaration() {
+            mainView.logsTextArea.appendText("\n> GoToSymbolDeclaration shortcut pressed, but not implemented yet.");}
 
-        public void ImportDependencies() {}
+        public void ImportDependencies() {
+            mainView.logsTextArea.appendText("\n> ImportDependencies shortcut pressed, but not implemented yet.");}
 
         public void MoveLineDown() {
             codeArea.selectLine();
@@ -322,9 +334,11 @@ public class KeyboardShortcuts {
             codeArea.paste();
         }
 
-        public void MoveToBlockEnd() {}
+        public void MoveToBlockEnd() {
+            mainView.logsTextArea.appendText("\n> MoveToBlockEnd shortcut pressed, but not implemented yet.");}
 
-        public void MoveToBlockStart() {}
+        public void MoveToBlockStart() {
+            mainView.logsTextArea.appendText("\n> MoveToBlockStart shortcut pressed, but not implemented yet.");}
 
         public void MoveToLineEnd() { codeArea.lineEnd(NavigationActions.SelectionPolicy.CLEAR); }
 
@@ -334,27 +348,36 @@ public class KeyboardShortcuts {
 
         public void MoveToMethodStart() { codeArea.start(NavigationActions.SelectionPolicy.CLEAR); }
 
-        public void MoveToNextBookmark() {}
+        public void MoveToNextBookmark() {
+            mainView.logsTextArea.appendText("\n> MoveToNextBookmark shortcut pressed, but not implemented yet.");}
 
-        public void MoveToPreviousBookmark() {}
+        public void MoveToPreviousBookmark() {
+            mainView.logsTextArea.appendText("\n> MoveToPreviousBookmark shortcut pressed, but not implemented yet.");}
 
-        public void MoveToWordEnd() {}
+        public void MoveToWordEnd() {
+            mainView.logsTextArea.appendText("\n> MoveToWordEnd shortcut pressed, but not implemented yet.");}
 
-        public void MoveToWordStart() {}
+        public void MoveToWordStart() {
+            mainView.logsTextArea.appendText("\n> MoveToWordStart shortcut pressed, but not implemented yet.");}
 
-        public void NavigateToSpecificEditorTab() {}
+        public void NavigateToSpecificEditorTab() {
+            mainView.logsTextArea.appendText("\n> NavigateToSpecificEditorTab shortcut pressed, but not implemented yet.");}
 
         public void NextFileTab() {
             mainView.mainTabPane.getSelectionModel().selectNext();
         }
 
-        public void OpenDocumentation() {}
+        public void OpenDocumentation() {
+            mainView.logsTextArea.appendText("\n> OpenDocumentation shortcut pressed, but not implemented yet.");}
 
-        public void OpenRefactoringMenu() {}
+        public void OpenRefactoringMenu() {
+            mainView.logsTextArea.appendText("\n> OpenRefactoringMenu shortcut pressed, but not implemented yet.");}
 
-        public void OpenScratchFile() {}
+        public void OpenScratchFile() {
+            mainView.logsTextArea.appendText("\n> OpenScratchFile shortcut pressed, but not implemented yet.");}
 
-        public void OpenSettings() {}
+        public void OpenSettings() {
+            mainView.logsTextArea.appendText("\n> OpenSettings shortcut pressed, but not implemented yet.");}
 
         public void Paste() {
             codeArea.paste();
@@ -368,15 +391,18 @@ public class KeyboardShortcuts {
             codeArea.redo();
         }
 
-        public void RenameFile() {}
+        public void RenameFile() {
+            mainView.logsTextArea.appendText("\n> RenameFile shortcut pressed, but not implemented yet.");}
 
-        public void Replace() {}
+        public void Replace() {
+            mainView.logsTextArea.appendText("\n> Replace shortcut pressed, but not implemented yet.");}
 
         public void ScrollDown() { codeArea.scrollYBy(codeArea.getLayoutBounds().getHeight() / 2);}
 
         public void ScrollUp() { codeArea.scrollYBy(-codeArea.getLayoutBounds().getHeight() / 2);}
 
-        public void SearchInProject() {}
+        public void SearchInProject() {
+            mainView.logsTextArea.appendText("\n> SearchInProject shortcut pressed, but not implemented yet.");}
 
         public void SelectAll() {
             codeArea.selectAll();
@@ -390,29 +416,39 @@ public class KeyboardShortcuts {
             codeArea.selectWord();
         }
 
-        public void ShowAllSymbols() {}
+        public void ShowAllSymbols() {
+            mainView.logsTextArea.appendText("\n> ShowAllSymbols shortcut pressed, but not implemented yet.");}
 
-        public void ToggleBookmark() {}
+        public void ToggleBookmark() {
+            mainView.logsTextArea.appendText("\n> ToggleBookmark shortcut pressed, but not implemented yet.");}
 
-        public void ToggleFindRegex() {}
+        public void ToggleFindRegex() {
+            mainView.logsTextArea.appendText("\n> ToggleFindRegex shortcut pressed, but not implemented yet.");}
 
-        public void ToggleFullscreen() {}
+        public void ToggleFullscreen() {
+            mainView.logsTextArea.appendText("\n> ToggleFullscreen shortcut pressed, but not implemented yet.");}
 
-        public void ToggleViewWhitespace() { }
+        public void ToggleViewWhitespace() {
+            mainView.logsTextArea.appendText("\n> ToggleViewWhitespace shortcut pressed, but not implemented yet.");}
 
-        public void UncollapseAllRegions() {}
+        public void UncollapseAllRegions() {
+            mainView.logsTextArea.appendText("\n> UncollapseAllRegions shortcut pressed, but not implemented yet.");}
 
-        public void UncollapseAllSubregions() {}
+        public void UncollapseAllSubregions() {
+            mainView.logsTextArea.appendText("\n> UncollapseAllSubregions shortcut pressed, but not implemented yet.");}
 
-        public void UncollapseRegion() {}
+        public void UncollapseRegion() {
+            mainView.logsTextArea.appendText("\n> UncollapseRegion shortcut pressed, but not implemented yet.");}
 
         public void Undo() {
             codeArea.undo();
         }
 
-        public void ZoomIn() {}
+        public void ZoomIn() {
+            mainView.logsTextArea.appendText("\n> ZoomIn shortcut pressed, but not implemented yet.");}
 
-        public void ZoomOut() {}
+        public void ZoomOut() {
+            mainView.logsTextArea.appendText("\n> ZoomOut shortcut pressed, but not implemented yet.");}
 
     }
 
