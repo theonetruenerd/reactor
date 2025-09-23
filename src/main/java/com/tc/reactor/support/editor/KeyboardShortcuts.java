@@ -11,6 +11,8 @@ import javafx.scene.input.KeyEvent;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.NavigationActions;
 
+import java.util.Map;
+
 public class KeyboardShortcuts {
 
     private MainView mainView;
@@ -53,6 +55,36 @@ public class KeyboardShortcuts {
                 mainView.logsTextArea.appendText("\n> Delete line keybind pressed");
                 shortcutFunctions.DeleteLine();
                 event.consume();
+            } else if (new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Find();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Copy();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Paste();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Cut();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Undo();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.Redo();
+                event.consume();
+            } else if (new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.SelectAll();
+            } else if (new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.DuplicateLine();
+            } else if (new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.CutLine();
+            } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CloseProject();
+            } else if (new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN).match(event)) {
+                shortcutFunctions.CloseFileTab();
+            } else if (new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN).match(event)) {
+                shortcutFunctions.CloseWindow();
             }
         });
     }
